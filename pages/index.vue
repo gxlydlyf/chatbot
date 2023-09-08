@@ -2,7 +2,7 @@
 	const messages = ref([
 		{
 			role: 'AI',
-			message: '您好有什么可以帮助你的吗？'
+			message: '您好，有什么可以帮助你的吗？'
 		}
 	]);
 	const loading = ref(false);
