@@ -3,6 +3,7 @@ export default defineEventHandler(async (event) => {
 	let messages = [];
 	const previosMessages = await readBody(event);
 	messages = messages.concat(previosMessages);
+	console.log(messages);
 	let prompt =
 		messages.map((message) => `${message.role}: ${message.message}`).join('\n') + `\nAI:`;
 	const req = await fetch('https://lpi.glf.one/v1/completions', {
