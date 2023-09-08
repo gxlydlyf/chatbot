@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 		},
 		body: JSON.stringify({
 			model: 'gpt-3.5-turbo-16k',
-			prompt: prompt,
+			messages: prompt,
 			temperature: 0.9,
 			max_tokens: 512,
 			top_p: 1.0,
