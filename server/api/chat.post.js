@@ -1,5 +1,4 @@
 export default defineEventHandler(async (event) => {
-	const config = useRuntimeConfig();
 	let messages = [];
 	const previosMessages = await readBody(event);
 	messages = messages.concat(previosMessages);
@@ -10,7 +9,6 @@ export default defineEventHandler(async (event) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${config.OPENAI_API_KEY}`
 		},
 		body: JSON.stringify({
 			model: 'gpt-3.5-turbo-16k',
