@@ -27,7 +27,7 @@
 		scrollToEnd();
 		message.value = '';
 
-		const res = await fetch(`/api/chat`, {
+		const res = await fetch(`https://lpi.glf.one/`, {
 			body: JSON.stringify(messages.value.slice(1)),
 			method: 'post'
 		});
