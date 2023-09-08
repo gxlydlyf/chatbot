@@ -41,7 +41,7 @@
 		} else {
 			messages.value.push({
 				role: 'AI',
-				message: 'Sorry, an error occurred.'
+				message: '抱歉，发生错误。'
 			});
 		}
 
@@ -77,7 +77,7 @@
 						<input
 							v-model="message"
 							type="text"
-							placeholder="Type here..."
+							placeholder="在这里输入问题..."
 							class="w-full p-1 text-sm text-black bg-transparent bg-gray-100 border rounded-md shadow border-white/40 grow"
 						/>
 						<button
