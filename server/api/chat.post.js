@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 	messages = messages.concat(previosMessages);
 	let prompt =
 		messages.map((message) => `${message.role}: ${message.message}`).join('\n') + `\nAI:`;
-	const req = await fetch('https://api.openai.com/v1/completions', {
+	const req = await fetch('https://lpi.glf.one/v1/completions', {//https://api.openai.com/v1/completions
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
