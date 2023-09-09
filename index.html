@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +42,7 @@
 
         #chat_input textarea {
             resize: none;
-            height: 100%;
+            height: 50px;
             width: 60%;
             border: 1px solid #e5e7eb;
             box-sizing: border-box;
@@ -51,7 +51,7 @@
             -moz-border-radius: 5px; /* 兼容Firefox */
             -webkit-border-radius: 5px; /* 兼容Chrome和Safari */
             position: relative;
-            /*behavior: url(ie-css3.htc);*/
+            behavior: url(ie-css3.htc);
         }
 
         #chat_input textarea:focus {
@@ -60,7 +60,7 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        #chat_input svg {
+        #chat_input img {
             border-radius: 100%;
             background-color: #22c55e;
             height: 50px;
@@ -87,16 +87,7 @@
             <textarea></textarea>
         </label>
 
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="1792" height="1792">
-            <title>send-svg</title>
-            <style>
-                .s0 {
-                    fill: #ffffff
-                }
-            </style>
-            <path id="Layer" class="s0"
-                  d="m1289.7 385.1q17.8 13 14.6 34.6l-138.2 829.4q-2.7 15.7-17.3 24.3-7.6 4.3-16.8 4.3-5.9 0-12.9-2.7l-244.6-99.9-130.7 159.3q-9.7 12.4-26.5 12.4-7 0-11.9-2.1-10.2-3.8-16.4-12.7-6.2-8.9-6.2-19.7v-188.5l466.5-571.8-577.2 499.5-213.3-87.5q-20-7.6-21.6-29.7-1.1-21.6 17.2-31.9l898.6-518.4q8.1-4.8 17.3-4.8 10.8 0 19.4 5.9z"/>
-        </svg>
+        <img src="svg/send-btn.svg" alt="">
     </div>
 </div>
 
