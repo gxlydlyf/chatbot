@@ -54,13 +54,14 @@
             -moz-border-radius: 5px; /* 兼容Firefox */
             -webkit-border-radius: 5px; /* 兼容Chrome和Safari */
             position: relative;
-            behavior: url(./ie-css3.htc);
+            behavior: url(./js/border-radius.htc);
         }
 
         #chat_input textarea:focus {
             border: 1px solid #d5d7da;
             filter: progid:DXImageTransform.Microsoft.Shadow(color=#888888, direction=135, strength=2);
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            behavior: url(./js/ie-css3.htc);
         }
 
         #chat_input img {
@@ -98,10 +99,7 @@
 <h3 style="
 text-align: center;
 line-height: 100%;
-"><img src="img/github.png"
-                                                                                                   alt=""
-                                                                                                   style="
-                                                                                                   outline:none;border:none;vertical-align: middle;width: 24px;height: 24px">
+">
     <a target="_blank" href="https://github.com/gxlydlyf/chatbot"
        style="text-decoration-line: none;color: black;cursor: pointer" class="jump_to_source"><img src="img/github.png"
                                                                                                    alt=""
