@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/css.css" type="text/css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <title>ChatGPT</title>
     <style>
@@ -42,23 +43,25 @@
             margin-bottom: 0;
         }
 
+
         #chat_input textarea {
             resize: none;
-            height: 50px;
-            width: 60%;
-            border: 1px solid #e5e7eb;
-            box-sizing: border-box;
             outline: none;
-            border-radius: 5px;
-            background-color: #fcfcfc;
-            -moz-border-radius: 5px; /* 兼容Firefox */
-            -webkit-border-radius: 5px; /* 兼容Chrome和Safari */
-            position: relative;
-            /*behavior: url(./js/border-radius.htc);*/
+            position: absolute;
+            vertical-align: center;
+            top: 0;
+            left: 0;
+            background: none;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            -moz-border-radius: 10px; /* 兼容Firefox */
+            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+            border: none;
         }
 
         #chat_input textarea:focus {
-            border: 1px solid #d5d7da;
             filter: progid:DXImageTransform.Microsoft.Shadow(color=#888888, direction=135, strength=2);
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             /*behavior: url(./js/ie-css3.htc);*/
@@ -88,9 +91,11 @@
 
     </div>
     <div id="chat_input">
-        <label>
-            <textarea></textarea>
-        </label>
+        <div id="textarea_parent">
+            <label>
+                <textarea></textarea>
+            </label>
+        </div>
 
         <img src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt="">
     </div>
