@@ -4,84 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/css.css" type="text/css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <title>ChatGPT</title>
-    <style>
-        body {
-            background-color: #f6f6f6;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body h3 a.jump_to_source span:hover {
-            color: #666666;
-        }
-
-        body h3 a.jump_to_source span:active {
-            color: #777777;
-        }
-
-        body #chat_content {
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            min-height: 200px;
-            border: 1px solid #e5e7eb;
-            box-sizing: border-box;
-            border-radius: 10px;
-            background-color: #ffffff;
-            height: 80vh;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        #chat_input {
-            height: 50px;
-            line-height: 100%;
-            margin-bottom: 0;
-        }
-
-
-        #chat_input textarea {
-            resize: none;
-            outline: none;
-            position: absolute;
-            vertical-align: center;
-            top: 0;
-            left: 0;
-            background: none;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            border-radius: 10px;
-            -moz-border-radius: 10px; /* 兼容Firefox */
-            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
-            border: none;
-        }
-
-        #chat_input textarea:focus {
-            filter: progid:DXImageTransform.Microsoft.Shadow(color=#888888, direction=135, strength=2);
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            /*behavior: url(./js/ie-css3.htc);*/
-        }
-
-        #chat_input img {
+    <style type="text/css">
+        #send-btn {
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
             border-radius: 100%;
             background-color: #22c55e;
             box-sizing: border-box;
             height: 50px;
             display: inline-block;
             width: 50px;
-            vertical-align: center;
+            behavior: url(ie-css3.htc);
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            padding: 0;
         }
 
-
-        #chat_messages {
-            height: 85%;
+        #textarea_parent {
+            display: inline-block;
+            height: 50px;
+            width: 60%;
+            box-sizing: border-box;
+            background-color: #fcfcfc;
+            border-radius: 10px;
+            -moz-border-radius: 10px; /* 兼容Firefox */
+            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+            position: relative;
+            overflow: hidden;
+            behavior: url(ie-css3.htc);
+            outline: 2px solid #e5e7eb;
+            border: none;
         }
     </style>
+    <script src="js/jquery.min.js"></script>
+    <script>
+    </script>
+    <title>ChatGPT Free</title>
+    <!--[if lte IE 8]>
+    <style>
+        /* 在IE8及以下版本中应用的样式 */
+        #textarea_parent {
+            border: 2px inset #e5e7eb;
+        }
+    </style>
+    <![endif]-->
+
 </head>
 <body>
 <h1 style="text-align: center">AI ChatBot</h1>
@@ -97,7 +65,8 @@
             </label>
         </div>
 
-        <img src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt="">
+        <img id="send-btn" src="svg/send-btn.svg" onerror="this.src=''" alt="">
+
     </div>
 </div>
 
@@ -120,5 +89,6 @@ text-underline-offset: 4px;
     </span></a>
 
 </h3>
+<a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 </body>
 </html>
