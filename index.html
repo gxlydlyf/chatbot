@@ -36,12 +36,37 @@
             outline: 2px solid #e5e7eb;
             border: none;
         }
+
+        .robotBox,.UserBox{
+            width: auto;
+            max-width: 80%;
+            min-height: 30px;
+            line-height: 5px;
+            padding: 10px;
+            text-align: left;
+            behavior: url(ie-css3.htc);
+            border-radius: 10px;
+            -moz-border-radius: 10px; /* 兼容Firefox */
+            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+
+        }
+        .robotBox {
+            background-color: #e1e1e1;
+            margin: 20px auto auto 20px;
+
+        }
+        .UserBox {
+            background-color: #6399ff;
+            margin: 20px 20px auto auto;
+
+        }
     </style>
     <script src="js/jquery.min.js"></script>
+    <script src="js/save-messages.js"></script>
     <script>
     </script>
     <title>ChatGPT Free</title>
-    <!--[if lte IE 8]>
+    <!--[if lte IE 7]>
     <style>
         /* 在IE8及以下版本中应用的样式 */
         #textarea_parent {
@@ -53,10 +78,15 @@
 </head>
 <body>
 <h1 style="text-align: center">AI ChatBot</h1>
-
+<!--[if lte IE 7]>
+<p style="text-align: center">建议使用更高版本的浏览器！</p>
+<![endif]-->
 <div id="chat_content">
     <div id="chat_messages">
-
+        <div class="robotBox">
+        </div>
+        <div class="UserBox">
+        </div>
     </div>
     <div id="chat_input">
         <div id="textarea_parent">
@@ -89,6 +119,7 @@ text-underline-offset: 4px;
     </span></a>
 
 </h3>
-<a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a> icon by <a target="_blank"
+                                                                                              href="https://icons8.com">Icons8</a>
 </body>
 </html>

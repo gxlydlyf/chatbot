@@ -64,4 +64,5 @@ body #chat_content {
 
 #chat_messages {
     height: 85%;
+    overflow: auto;
 }
