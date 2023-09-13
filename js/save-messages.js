@@ -155,16 +155,30 @@ class SaveMessages {
 }
 
 var SaveMsgObj = new SaveMessages();
-$('#send-btn').click(function () {
-    console.log('s')
-    var NewMessages;
+
+$(document).on('click', '#send-btn', function () {
+    var UserInput = $('#userInput');
+    SaveMsgObj.newUserMessage(UserInput.val());
+    UserInput.val('');
+    var NewMessages = [];
     for (let i = 0; i < SaveMsgObj.messages.length; i++) {
         NewMessages.push({'role': SaveMsgObj.messages[i]['role'], 'content': SaveMsgObj.messages[i]['content']})
     }
+    var incomingParameters = {
+
+        model: 'gpt-3.5-turbo-16k',
+        messages: NewMessages,
+        temperature: 0.9,
+        max_tokens: 4096,
+        top_p: 1.0,
+        frequency_penalty: 0,
+        presence_penalty: 0.6,
+        stream: true
+    };
     SaveMsgObj.log(NewMessages);
     var returnMessageAjax = $.ajax({
-        url: "https://lpi.glf.one",
-        data: JSON.stringify(NewMessages),
+        url: "//lpi.glf.one",
+        data: JSON.stringify(incomingParameters),
         type: "Post",
         dataType: "text",
         xhrFields: {
