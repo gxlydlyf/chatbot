@@ -37,29 +37,21 @@
             border: none;
         }
 
-        .robotBox,.UserBox{
+        .robotBox, .userBox {
             width: auto;
             max-width: 80%;
-            min-height: 30px;
-            line-height: 5px;
-            padding: 10px;
+            min-height: 20px;
+            line-height: 20px;
+            padding: 15px;
             text-align: left;
             behavior: url(ie-css3.htc);
             border-radius: 10px;
             -moz-border-radius: 10px; /* 兼容Firefox */
             -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+            display: inline-block;
 
         }
-        .robotBox {
-            background-color: #e1e1e1;
-            margin: 20px auto auto 20px;
 
-        }
-        .UserBox {
-            background-color: #6399ff;
-            margin: 20px 20px auto auto;
-
-        }
     </style>
     <script src="js/jquery.min.js"></script>
     <script src="js/save-messages.js"></script>
@@ -78,15 +70,21 @@
 </head>
 <body>
 <h1 style="text-align: center">AI ChatBot</h1>
+<!--[if IE]>
+<p style="text-align: center">不建议使用IE！</p>
+<![endif]-->
 <!--[if lte IE 7]>
 <p style="text-align: center">建议使用更高版本的浏览器！</p>
 <![endif]-->
 <div id="chat_content">
     <div id="chat_messages">
-        <div class="robotBox">
+        <div>
+            <div class="robotBox robotBoxContainer"></div>
         </div>
-        <div class="UserBox">
+        <div>
+            <div class="userBox userBoxContainer"></div>
         </div>
+
     </div>
     <div id="chat_input">
         <div id="textarea_parent">
@@ -99,7 +97,7 @@
 
     </div>
 </div>
-
+<button onclick="SaveMsgObj.clearMessages();SaveMsgObj = new SaveMessages();">清空消息</button>
 
 <h3 style="
 text-align: center;

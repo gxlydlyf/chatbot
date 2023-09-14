@@ -8,15 +8,39 @@ class SaveMessages {
             // 在DOM加载完成后执行的命令
             // 可以在这里操作DOM元素、绑定事件等
             SaveMessagesObj.loadMessagesElement();
-            const ChatMessagesParentElement = $('#chat_messages');
-            var scrollToBottom = ChatMessagesParentElement.prop('scrollHeight') - ChatMessagesParentElement.height();
-            ChatMessagesParentElement.scrollTop(scrollToBottom);
+            SaveMessagesObj.scrollTopBottom()
         });
 
 
         // var messages = localStorage.getItem("messages")
         // if ()
     }
+
+    scrollTopBottom() {
+        const ChatMessagesParentElement = $('#chat_messages');
+        var scrollToBottom = ChatMessagesParentElement.prop('scrollHeight') - ChatMessagesParentElement.height();
+        ChatMessagesParentElement.scrollTop(scrollToBottom);
+    }
+
+    clearMessages() {
+        localStorage.removeItem("messages")
+    }
+
+    ifScrollToBottom() {
+        // this.log(this.isScrolledToBottom('#chat_messages'));
+        return this.isScrolledToBottom('#chat_messages');
+
+    }
+
+    isScrolledToBottom(selector) {
+        var element = $(selector);
+        var scrollTop = element.scrollTop();
+        var innerHeight = element.innerHeight();
+        var scrollHeight = element[0].scrollHeight;
+
+        return (scrollTop + innerHeight >= scrollHeight);
+    }
+
 
     createMsgOperate() {
         var MsgOperate = [];
@@ -34,16 +58,16 @@ class SaveMessages {
     }
 
     createBotElement(data) {
-        var Element = $('<div class="robotBox"></div>')
-        Element.data('id', data['id']);
-        Element.text(data['content']);
+        var Element = $('<div class="robotBoxContainer"><div class="robotBox"></div></div>')
+        Element.find('.robotBox').data('id', data['id']);
+        Element.find('.robotBox').text(data['content']);
         return Element;
     }
 
     createUserElement(data) {
-        var Element = $('<div class="UserBox"></div>')
-        Element.text(data['content']);
-        Element.data('id', data['id']);
+        var Element = $('<div class="userBoxContainer"><div class="userBox"></div></div>')
+        Element.find('.userBox').text(data['content']);
+        Element.find('.userBox').data('id', data['id']);
         return Element;
     }
 
@@ -67,8 +91,7 @@ class SaveMessages {
         this.MsgOperate.push(msg);
         this.messages.push(message);
         this.saveMsgs();
-        console.log('发送消息', msg);
-        return msg['id'];
+        console.log('发送消息：', msg.content);
     }
 
     newUserMessage(message) {
@@ -89,18 +112,25 @@ class SaveMessages {
         this.saveMsgs();
 
         // console.log('机器人回复', msg);
+        return msg['id'];
     }
 
+
     addNextBotMsg(data, MsgId) {
+        var SaveMessagesObj = this;
         for (let i = 0; i < this.messages.length; i++) {
             if (this.messages[i].id === MsgId) {
-                this.messages[i].content += data;
+                this.messages[i].content = data;
                 this.saveMsgs();
                 const ChatMessagesParentElement = $('#chat_messages');
                 ChatMessagesParentElement.find('div').each(function () {
                     // 在这里对每个div元素进行操作
                     if ($(this).data('id') === MsgId) {
-                        $(this).text($(this).text() + data)
+                        var ifSTB = SaveMsgObj.ifScrollToBottom();
+                        $(this).text(data);
+                        if (ifSTB) {
+                            SaveMsgObj.scrollTopBottom();
+                        }
                     }
 
                 });
@@ -111,12 +141,16 @@ class SaveMessages {
         }
     }
 
-    newBotMessage(message) {
+    newBotMessage(message = '') {
         this.checkMsg();
         var msg = {'role': 'assistant', 'content': message};
-        var MsgId = this.newMsgOperateUserMsg(msg);
+        var MsgId = this.newMsgOperateBotMsg(msg);
         const ChatMessagesParentElement = $('#chat_messages');
+        var ifSTB = SaveMsgObj.ifScrollToBottom();
         ChatMessagesParentElement.append(this.createBotElement(msg));
+        if (ifSTB) {
+            SaveMsgObj.scrollTopBottom();
+        }
 
         return MsgId;
     }
@@ -149,6 +183,58 @@ class SaveMessages {
         return uniqueString;
     }
 
+    getApiContent(data) {
+        var okContent = '';
+        var response = data;
+
+        var allLines = [];
+        var currentLine = "";
+        for (var l = 0; l < response.length; l++) {
+            var char = response.charAt(l);
+            if (char === "\n" || char === "\r") {
+                allLines.push(currentLine);
+                currentLine = "";
+            } else {
+                currentLine += char;
+            }
+        }
+        // this.log(allLines);
+        for (var i = 0; i < allLines.length; i++) {
+            var line = allLines[i];
+            var lineStr = line.toString();
+            if (lineStr.indexOf("data:") === 0) {
+                if (lineStr.indexOf("data: [DONE]") === 0) {
+                    break;
+                }
+                var lineJson = JSON.parse(lineStr.substring(5));
+                if ('choices' in lineJson) {
+                    if (lineJson.choices.length > 0) {
+                        var choice = lineJson.choices[0];
+                        if ('delta' in choice) {
+                            var delta = choice.delta;
+                            var role, deltaContent;
+                            if ('role' in delta) {
+                                role = delta.role;
+                            } else if ('content' in delta) {
+                                deltaContent = delta.content;
+                                i += 1;
+                                if (i < 40) {
+                                    // console.log(deltaContent);
+                                } else if (i === 40) {
+                                    // console.log("......");
+                                }
+                                okContent += deltaContent;
+                                // 这里写继续处理的代码
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return okContent;
+    }
+
     log(...messages) {
         console.log('[Messages]', ...messages);
     }
@@ -158,9 +244,14 @@ var SaveMsgObj = new SaveMessages();
 
 $(document).on('click', '#send-btn', function () {
     var UserInput = $('#userInput');
+    var ifSTB = SaveMsgObj.ifScrollToBottom();
     SaveMsgObj.newUserMessage(UserInput.val());
+    if (ifSTB) {
+        SaveMsgObj.scrollTopBottom();
+    }
     UserInput.val('');
     var NewMessages = [];
+    var MsgId;
     for (let i = 0; i < SaveMsgObj.messages.length; i++) {
         NewMessages.push({'role': SaveMsgObj.messages[i]['role'], 'content': SaveMsgObj.messages[i]['content']})
     }
@@ -175,16 +266,22 @@ $(document).on('click', '#send-btn', function () {
         presence_penalty: 0.6,
         stream: true
     };
-    SaveMsgObj.log(NewMessages);
+    // SaveMsgObj.log(NewMessages);
+    var headers = {};
+    headers["Content-Type"] = "application/json";
+    MsgId = SaveMsgObj.newBotMessage();
     var returnMessageAjax = $.ajax({
         url: "//lpi.glf.one",
         data: JSON.stringify(incomingParameters),
+        headers: headers,
         type: "Post",
         dataType: "text",
         xhrFields: {
             onprogress: function (e) {
                 let response = e.currentTarget.response;
-                SaveMsgObj.log(response);
+                var CurContent = SaveMsgObj.getApiContent(response);
+                // SaveMsgObj.log(CurContent);
+                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
             },
             onload: function (e) {
 
@@ -192,6 +289,11 @@ $(document).on('click', '#send-btn', function () {
         },
         timeout: 1000 * 60 * 2,
         complete: function (XMLHttpRequest, status, e) {
+            let response = XMLHttpRequest.responseText;
+            var CurContent = SaveMsgObj.getApiContent(response);
+            SaveMsgObj.log('机器人回复：', CurContent);
+            SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+            // SaveMsgObj.addNextBotMsg(CurContent, MsgId);
 
         }
     });

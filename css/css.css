@@ -24,7 +24,7 @@ body #chat_content {
     box-sizing: border-box;
     border-radius: 10px;
     background-color: #ffffff;
-    height: 80vh;
+    height: 75vh;
     text-align: center;
     overflow: hidden;
 }
@@ -65,4 +65,29 @@ body #chat_content {
 #chat_messages {
     height: 85%;
     overflow: auto;
+}
+
+
+.robotBox {
+    background-color: #e1e1e1;
+    margin: 30px auto auto 30px;
+
+}
+
+.userBox {
+    background-color: #6399ff;
+    margin: 30px 30px auto auto;
+
+}
+
+.robotBoxContainer, .userBoxContainer {
+    display: block;
+}
+
+.robotBoxContainer {
+    text-align: left;
+}
+
+.userBoxContainer {
+    text-align: right;
 }
