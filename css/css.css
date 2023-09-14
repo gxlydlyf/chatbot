@@ -24,7 +24,7 @@ body #chat_content {
     box-sizing: border-box;
     border-radius: 10px;
     background-color: #ffffff;
-    height: 75vh;
+    height: 70vh;
     text-align: center;
     overflow: hidden;
 }
