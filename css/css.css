@@ -30,12 +30,14 @@ body #chat_content {
 }
 
 #chat_input {
-    height: 50px;
+    height: 55px;
     line-height: 100%;
     margin-bottom: 0;
     position: absolute;
-    bottom: 25px;
+    bottom: 10px;
     width: 100%;
+    overflow: auto;
+    padding-top: 2px;
 }
 
 #chat_input textarea {
@@ -43,7 +45,7 @@ body #chat_content {
     resize: none;
     outline: none;
     position: absolute;
-    vertical-align: center;
+    vertical-align: middle;
     top: 0;
     left: 0;
     background: none;
@@ -63,20 +65,21 @@ body #chat_content {
 }
 
 #chat_messages {
-    height: 85%;
+    height: calc(100% - 70px);
     overflow: auto;
+    padding: 0 10px 0 10px;
 }
 
 
 .robotBox {
     background-color: #e1e1e1;
-    margin: 30px auto auto 30px;
+    margin: 30px auto auto auto;
 
 }
 
 .userBox {
     background-color: #6399ff;
-    margin: 30px 30px auto auto;
+    margin: 30px auto auto auto;
 
 }
 
@@ -91,4 +94,43 @@ body #chat_content {
 .userBoxContainer {
     text-align: right;
 }
-/**/
+
+
+.disable-image-selection {
+    -webkit-user-drag: none; /* Safari */
+    -khtml-user-drag: none; /* Konqueror HTML */
+    -moz-user-drag: none; /* Firefox */
+    -o-user-drag: none; /* Opera */
+    user-drag: none; /* Generic */
+
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -o-user-select: none; /* Opera */
+    user-select: none; /* Generic */
+
+}
+
+.transform-rotate-180 {
+    -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
+    -moz-transform: rotate(180deg); /* Firefox */
+    -ms-transform: rotate(180deg); /* IE9+ */
+    -o-transform: rotate(180deg); /* Opera */
+    transform: rotate(180deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2); /* IE5+ */
+}
+
+/*
+@media (min-width: 600px) {
+  body {
+    background-color: red;
+  }
+}*/
+
+#clear-btn {
+    width: 0;
+    height: 0;
+    background-color: red;
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+}

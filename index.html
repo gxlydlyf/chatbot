@@ -5,26 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/css.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        #send-btn {
+        .fu-btn {
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
             border-radius: 100%;
-            background-color: #22c55e;
             box-sizing: border-box;
             height: 50px;
-            display: inline-block;
             width: 50px;
+            display: inline-block;
             behavior: url(ie-css3.htc);
             position: relative;
             z-index: 2;
             margin: 0;
             padding: 0;
+            cursor: pointer;
+            transition: 0.5s ease-in-out;
+            vertical-align: middle;
+        }
+
+        #send-btn {
+            background-color: #22c55e;
+        }
+
+        #more-btn {
+            height: 25px;
+            width: 25px;
+            background-color: #22c5b2;
         }
 
         #textarea_parent {
             display: inline-block;
             height: 50px;
-            width: 60%;
+            width: 50%;
+            max-width: 400px;
             box-sizing: border-box;
             background-color: #fcfcfc;
             border-radius: 10px;
@@ -35,6 +48,8 @@
             behavior: url(ie-css3.htc);
             outline: 2px solid #e5e7eb;
             border: none;
+            vertical-align: middle;
+            transition: 0.5s ease-in-out;
         }
 
         .robotBox, .userBox {
@@ -49,6 +64,7 @@
             -moz-border-radius: 10px; /* 兼容Firefox */
             -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
             display: inline-block;
+            word-wrap: break-word;
 
         }
 
@@ -93,11 +109,15 @@
             </label>
         </div>
 
-        <img id="send-btn" src="svg/send-btn.svg" onerror="this.src=''" alt="">
+        <img id="send-btn" src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt=""
+             class="disable-image-selection fu-btn">
+        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""
+             class="disable-image-selection fu-btn">
+        <img onclick="SaveMsgObj.clearMessages();SaveMsgObj = new SaveMessages();" alt="" src="svg/delete.svg" id="clear-btn"
+             onerror="this.src='img/delete.png'" class="disable-image-selection fu-btn">
 
     </div>
 </div>
-<button onclick="SaveMsgObj.clearMessages();SaveMsgObj = new SaveMessages();">清空消息</button>
 
 <h3 style="
 text-align: center;

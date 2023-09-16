@@ -1,5 +1,9 @@
 class SaveMessages {
     constructor() {
+        if (typeof localStorage === 'undefined') {
+            localStorage = {};
+        }
+
         this.messages = JSON.parse(localStorage.getItem("messages"));
         this.checkMsg();
         this.createMsgOperate();
@@ -17,7 +21,7 @@ class SaveMessages {
     }
 
     scrollTopBottom() {
-        const ChatMessagesParentElement = $('#chat_messages');
+        var ChatMessagesParentElement = $('#chat_messages');
         var scrollToBottom = ChatMessagesParentElement.prop('scrollHeight') - ChatMessagesParentElement.height();
         ChatMessagesParentElement.scrollTop(scrollToBottom);
     }
@@ -46,7 +50,7 @@ class SaveMessages {
         var MsgOperate = [];
         var tempSave;
         var tempSaveList = [];
-        for (let i = 0; i < this.messages.length; i++) {
+        for (var i = 0; i < this.messages.length; i++) {
             tempSave = this.messages[i];
             tempSaveList.push(tempSave);
             tempSave['id'] = this.generateUniqueString();
@@ -72,9 +76,9 @@ class SaveMessages {
     }
 
     loadMessagesElement() {
-        const ChatMessagesParentElement = $('#chat_messages');
+        var ChatMessagesParentElement = $('#chat_messages');
         ChatMessagesParentElement.empty();
-        for (let i = 0; i < this.messages.length; i++) {
+        for (var i = 0; i < this.messages.length; i++) {
             if (this.messages[i]['role'] === 'user') {
                 ChatMessagesParentElement.append(this.createUserElement(this.messages[i]));
             } else if (this.messages[i]['role'] === 'assistant') {
@@ -91,14 +95,14 @@ class SaveMessages {
         this.MsgOperate.push(msg);
         this.messages.push(message);
         this.saveMsgs();
-        console.log('发送消息：', msg.content);
+        this.log('发送消息：\n', msg.content);
     }
 
     newUserMessage(message) {
         this.checkMsg();
         var msg = {'role': 'user', 'content': message};
         this.newMsgOperateUserMsg(msg);
-        const ChatMessagesParentElement = $('#chat_messages');
+        var ChatMessagesParentElement = $('#chat_messages');
         ChatMessagesParentElement.append(this.createUserElement(msg));
 
     }
@@ -118,11 +122,11 @@ class SaveMessages {
 
     addNextBotMsg(data, MsgId) {
         var SaveMessagesObj = this;
-        for (let i = 0; i < this.messages.length; i++) {
+        for (var i = 0; i < this.messages.length; i++) {
             if (this.messages[i].id === MsgId) {
                 this.messages[i].content = data;
                 this.saveMsgs();
-                const ChatMessagesParentElement = $('#chat_messages');
+                var ChatMessagesParentElement = $('#chat_messages');
                 ChatMessagesParentElement.find('div').each(function () {
                     // 在这里对每个div元素进行操作
                     if ($(this).data('id') === MsgId) {
@@ -145,7 +149,7 @@ class SaveMessages {
         this.checkMsg();
         var msg = {'role': 'assistant', 'content': message};
         var MsgId = this.newMsgOperateBotMsg(msg);
-        const ChatMessagesParentElement = $('#chat_messages');
+        var ChatMessagesParentElement = $('#chat_messages');
         var ifSTB = SaveMsgObj.ifScrollToBottom();
         ChatMessagesParentElement.append(this.createBotElement(msg));
         if (ifSTB) {
@@ -240,61 +244,91 @@ class SaveMessages {
     }
 }
 
-var SaveMsgObj = new SaveMessages();
+SaveMsgObj = new SaveMessages();
 
-$(document).on('click', '#send-btn', function () {
-    var UserInput = $('#userInput');
-    var ifSTB = SaveMsgObj.ifScrollToBottom();
-    SaveMsgObj.newUserMessage(UserInput.val());
-    if (ifSTB) {
-        SaveMsgObj.scrollTopBottom();
-    }
-    UserInput.val('');
-    var NewMessages = [];
-    var MsgId;
-    for (let i = 0; i < SaveMsgObj.messages.length; i++) {
-        NewMessages.push({'role': SaveMsgObj.messages[i]['role'], 'content': SaveMsgObj.messages[i]['content']})
-    }
-    var incomingParameters = {
+$(document).ready(function () {
+    $('#send-btn').click(function () {
+        var UserInput = $('#userInput');
+        var ifSTB = SaveMsgObj.ifScrollToBottom();
+        SaveMsgObj.newUserMessage(UserInput.val());
+        if (ifSTB) {
+            SaveMsgObj.scrollTopBottom();
+        }
+        UserInput.val('');
+        var NewMessages = [];
+        var MsgId;
+        for (var i = 0; i < SaveMsgObj.messages.length; i++) {
+            NewMessages.push({'role': SaveMsgObj.messages[i]['role'], 'content': SaveMsgObj.messages[i]['content']})
+        }
+        var incomingParameters = {
 
-        model: 'gpt-3.5-turbo-16k',
-        messages: NewMessages,
-        temperature: 0.9,
-        max_tokens: 4096,
-        top_p: 1.0,
-        frequency_penalty: 0,
-        presence_penalty: 0.6,
-        stream: true
-    };
-    // SaveMsgObj.log(NewMessages);
-    var headers = {};
-    headers["Content-Type"] = "application/json";
-    MsgId = SaveMsgObj.newBotMessage();
-    var returnMessageAjax = $.ajax({
-        url: "//lpi.glf.one",
-        data: JSON.stringify(incomingParameters),
-        headers: headers,
-        type: "Post",
-        dataType: "text",
-        xhrFields: {
-            onprogress: function (e) {
-                let response = e.currentTarget.response;
-                var CurContent = SaveMsgObj.getApiContent(response);
-                // SaveMsgObj.log(CurContent);
-                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+            model: 'gpt-3.5-turbo-16k',
+            messages: NewMessages,
+            temperature: 0.9,
+            max_tokens: 4096,
+            top_p: 1.0,
+            frequency_penalty: 0,
+            presence_penalty: 0.6,
+            stream: true
+        };
+        // SaveMsgObj.log(NewMessages);
+        var headers = {};
+        headers["Content-Type"] = "application/json";
+        MsgId = SaveMsgObj.newBotMessage();
+        var returnMessageAjax = $.ajax({
+            url: "//lpi.glf.one",
+            data: JSON.stringify(incomingParameters),
+            headers: headers,
+            type: "Post",
+            dataType: "text",
+            xhrFields: {
+                onprogress: function (e) {
+                    var response = e.currentTarget.response;
+                    var CurContent = SaveMsgObj.getApiContent(response);
+                    // SaveMsgObj.log(CurContent);
+                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                },
+                onload: function (e) {
+
+                }
             },
-            onload: function (e) {
+            timeout: 1000 * 60 * 2,
+            complete: function (XMLHttpRequest, status, e) {
+                var response = XMLHttpRequest.responseText;
+                var CurContent = SaveMsgObj.getApiContent(response);
+                SaveMsgObj.log('机器人回复：\n', CurContent);
+                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                // SaveMsgObj.addNextBotMsg(CurContent, MsgId);
 
             }
-        },
-        timeout: 1000 * 60 * 2,
-        complete: function (XMLHttpRequest, status, e) {
-            let response = XMLHttpRequest.responseText;
-            var CurContent = SaveMsgObj.getApiContent(response);
-            SaveMsgObj.log('机器人回复：', CurContent);
-            SaveMsgObj.addNextBotMsg(CurContent, MsgId);
-            // SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+        });
+    });
+
+    $('#more-btn').click(function () {
+        var MoreBtnElm = $('#more-btn');
+        var SendBtnElement = $('#send-btn');
+        var ClearBtnElement = $('#clear-btn');
+        if (MoreBtnElm.data("state") !== "open") {
+            MoreBtnElm.data("state", "open");
+            MoreBtnElm.addClass('transform-rotate-180');
+            ClearBtnElement.animate({ opacity: 1 }, 200);
+            $("#userInput").prop("readonly", true);//不允许输入
+            $('#textarea_parent').width(0);
+            SendBtnElement.width(0);
+            SendBtnElement.height(0);
+            ClearBtnElement.width(50);
+            ClearBtnElement.height(50);
+        } else {
+            MoreBtnElm.data("state", "close");
+            MoreBtnElm.removeClass('transform-rotate-180');
+            ClearBtnElement.animate({ opacity: 0 }, 200);
+            $("#userInput").prop("readonly", false);//不允许输入
+            $('#textarea_parent').width('50%');
+            SendBtnElement.width(50);
+            SendBtnElement.height(50);
+            ClearBtnElement.width(0);
+            ClearBtnElement.height(0);
 
         }
     });
-})
+});
