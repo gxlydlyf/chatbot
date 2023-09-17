@@ -1,9 +1,5 @@
 class SaveMessages {
     constructor() {
-        if (typeof localStorage === 'undefined') {
-            localStorage = {};
-        }
-
         this.messages = JSON.parse(localStorage.getItem("messages"));
         this.checkMsg();
         this.createMsgOperate();
