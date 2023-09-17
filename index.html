@@ -70,9 +70,12 @@
 
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.111.0&callback=polyfillCallback"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script src="js/compatible.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/save-messages.js" defer></script>
+    <script src="js/storage.js"></script>
+    <!--    <script src="js/save-messages.js" defer></script>-->
+    <script src="js/svmsg.js" defer></script>
     <script>
     </script>
     <title>ChatGPT Free</title>
@@ -115,7 +118,8 @@
              class="disable-image-selection fu-btn">
         <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""
              class="disable-image-selection fu-btn">
-        <img onclick="SaveMsgObj.clearMessages();SaveMsgObj = new SaveMessages();" alt="" src="svg/delete.svg" id="clear-btn"
+        <img onclick="SaveMsgObj.clearMessages();SaveMsgConstructor();" alt="" src="svg/delete.svg"
+             id="clear-btn"
              onerror="this.src='img/delete.png'" class="disable-image-selection fu-btn">
 
     </div>
