@@ -244,6 +244,7 @@ class SaveMessages {
     }
 }
 
+
 SaveMsgObj = new SaveMessages();
 
 $(document).ready(function () {
@@ -332,3 +333,7 @@ $(document).ready(function () {
         }
     });
 });
+
+function polyfillCallback(){
+    console.log('Polyfill','Start')
+}
