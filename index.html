@@ -5,75 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/css.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        .fu-btn {
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 100%;
-            box-sizing: border-box;
-            height: 50px;
-            width: 50px;
-            display: inline-block;
+        .fu-btn, #textarea_parent, .robotBox, .userBox {
             behavior: url(ie-css3.htc);
-            position: relative;
-            z-index: 2;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            transition: 0.5s ease-in-out;
-            vertical-align: middle;
-        }
-
-        #send-btn {
-            background-color: #22c55e;
-        }
-
-        #more-btn {
-            height: 25px;
-            width: 25px;
-            background-color: #22c5b2;
-        }
-
-        #textarea_parent {
-            display: inline-block;
-            height: 50px;
-            width: 50%;
-            max-width: 400px;
-            box-sizing: border-box;
-            background-color: #fcfcfc;
-            border-radius: 10px;
-            -moz-border-radius: 10px; /* 兼容Firefox */
-            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
-            position: relative;
-            overflow: hidden;
-            behavior: url(ie-css3.htc);
-            outline: 2px solid #e5e7eb;
-            border: none;
-            vertical-align: middle;
-            transition: 0.5s ease-in-out;
-        }
-
-        .robotBox, .userBox {
-            width: auto;
-            max-width: 80%;
-            min-height: 20px;
-            line-height: 20px;
-            padding: 15px;
-            text-align: left;
-            behavior: url(ie-css3.htc);
-            border-radius: 10px;
-            -moz-border-radius: 10px; /* 兼容Firefox */
-            -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
-            display: inline-block;
-            word-wrap: break-word;
-
         }
 
     </style>
     <script src="js/json2.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.111.0&callback=polyfillCallback"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script src="js/compatible.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/compatible.js"></script>
     <script src="js/storage.js" defer></script>
     <!--    <script src="js/save-messages.js" defer></script>-->
     <script src="js/svmsg.js" defer></script>
@@ -85,6 +26,9 @@
         /* 在IE8及以下版本中应用的样式 */
         #textarea_parent {
             border: 2px inset #e5e7eb;
+        }
+        #chat_messages{
+            height: 300px;
         }
     </style>
     <![endif]-->
@@ -146,5 +90,24 @@ text-underline-offset: 4px;
 </h3>
 <a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a> icon by <a target="_blank"
                                                                                               href="https://icons8.com">Icons8</a>
+<script>
+    (function () {
+        var SVG_NS = 'http://www.w3.org/2000/svg';
+        var SVG_T_F = !!document.createElementNS && !!document.createElementNS(SVG_NS, 'svg').createSVGRect;
+        console.log('对SVG的兼容性：', SVG_T_F);
+        if (!SVG_T_F) {
+
+            for (var i = 0; i < document.images.length; i++) {
+                var image = document.images[i];
+                // 在这里对每个图像进行操作
+                console.log(image.src);
+                document.images[i].src = (image.src).replace('svg/', 'img/').replace('.svg', '.png');
+
+            }
+
+        }
+    })();
+
+</script>
 </body>
 </html>

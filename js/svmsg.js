@@ -224,11 +224,16 @@ function SaveMsgConstructor() {
         },
 
         log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
-            var args = Array.from(arguments).map(function (arg) {
-                return (arg === undefined || arg === null) ? '' : arg;
-            });
-            args.unshift('[Messages]');
-            Function.prototype.apply.call(console.log, console, args);
+            try {
+
+                var args = Array.from(arguments).map(function (arg) {
+                    return (arg === undefined || arg === null) ? '' : arg;
+                });
+                args.unshift('[Messages]');
+                Function.prototype.apply.call(console.log, console, args);
+            } catch (e) {
+                console.warn(e);
+            }
         }
 
     }

@@ -134,3 +134,62 @@ body #chat_content {
     transition: 0.5s ease-in-out;
     opacity: 0;
 }
+
+.fu-btn {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    vertical-align: middle;
+}
+
+#send-btn {
+    background-color: #22c55e;
+}
+
+#more-btn {
+    height: 25px;
+    width: 25px;
+    background-color: #22c5b2;
+}
+
+#textarea_parent {
+    display: inline-block;
+    height: 50px;
+    width: 50%;
+    max-width: 400px;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    -moz-border-radius: 10px; /* 兼容Firefox */
+    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #e5e7eb;
+    border: none;
+    vertical-align: middle;
+    transition: 0.5s ease-in-out;
+}
+
+.robotBox, .userBox {
+    width: auto;
+    max-width: 80%;
+    min-height: 20px;
+    line-height: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    -moz-border-radius: 10px; /* 兼容Firefox */
+    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+    display: inline-block;
+    word-wrap: break-word;
+    /*word-break: break-all;*/
+}
