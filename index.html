@@ -17,7 +17,7 @@
     <script src="js/compatible.js"></script>
     <script src="js/storage.js" defer></script>
     <!--    <script src="js/save-messages.js" defer></script>-->
-    <script src="js/svmsg.js" defer></script>
+    <script src="js/save-msg.js" defer></script>
     <script>
     </script>
     <title>ChatGPT Free</title>
@@ -27,7 +27,8 @@
         #textarea_parent {
             border: 2px inset #e5e7eb;
         }
-        #chat_messages{
+
+        #chat_messages {
             height: 300px;
         }
     </style>
@@ -42,7 +43,8 @@
 <!--[if lte IE 7]>
 <p style="text-align: center">建议使用更高版本的浏览器！</p>
 <![endif]-->
-<div id="chat_content">
+<div id="chat_content" class="border-1px">
+
     <div id="chat_messages">
         <div>
             <div class="robotBox robotBoxContainer"></div>
@@ -61,12 +63,16 @@
 
         <img id="send-btn" src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt=""
              class="disable-image-selection fu-btn">
-        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""
-             class="disable-image-selection fu-btn">
+        <!--        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""-->
+        <!--             class="disable-image-selection fu-btn">-->
+
+    </div>
+
+    <div id="outer_function_container" class="border-1px">
         <img onclick="SaveMsgObj.clearMessages();SaveMsgConstructor();" alt="" src="svg/delete.svg"
              id="clear-btn"
+             style="vertical-align: middle"
              onerror="this.src='img/delete.png'" class="disable-image-selection fu-btn">
-
     </div>
 </div>
 

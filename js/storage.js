@@ -38,3 +38,10 @@ window.LS = localStorage ? localStorage : {
     }
 };
 if (window.jQuery) window.jQuery.LS = window.LS;
+
+if (window.jQuery) window.jQuery.getUrlParam = function (name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+};

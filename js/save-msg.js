@@ -249,7 +249,33 @@ function SaveMsgConstructor() {
         SaveMsgObj.loadMessagesElement();
         SaveMsgObj.scrollTopBottom()
     });
+    var Preliminary_questions = $.getUrlParam('q');
+    if (Preliminary_questions) {
+        console.log(Preliminary_questions);
+        var urlWithoutQueryParam = window.location.href.replace(/[?&]q=[^&]+/, '');
+        history.replaceState(null, '', urlWithoutQueryParam);
+        $(document).ready(function () {
+            // 在DOM加载完成后执行的命令
+            // 可以在这里操作DOM元素、绑定事件等
+            var UserInput = $('#userInput');
+            var uiv = UserInput.val();
+            UserInput.val(Preliminary_questions);
+            SendBtnClick()
+        });
+    }
+
 }
+
+$(window).resize(function () {
+    if ($(window).width() > 500) {
+        // 可用宽度大于500px时执行的命令
+        console.log('可用宽度大于500px');
+        $('#outer_function_container').show();
+    } else {
+        $('#outer_function_container').show();
+    }
+});
+
 
 SaveMsgConstructor();
 $(document).ready(function () {
@@ -341,4 +367,10 @@ $(document).ready(function () {
 
 function polyfillCallback() {
     console.log('Polyfill', 'Start')
+}
+
+function SendBtnClick() {
+    setTimeout(function () {
+        $('#send-btn').click();
+    }, 200)
 }

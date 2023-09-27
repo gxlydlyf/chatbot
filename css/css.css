@@ -15,18 +15,20 @@ body h3 a.jump_to_source span:active {
 }
 
 body #chat_content {
-    position: relative;
-    max-width: 90%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
     min-height: 200px;
-    border: 1px solid #e5e7eb;
+    border-color: #e5e7eb;
     box-sizing: border-box;
     border-radius: 10px;
     background-color: #ffffff;
     height: 70vh;
     text-align: center;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    position: relative;
+    transition: 0.2s ease-in-out;
+
 }
 
 #chat_input {
@@ -95,6 +97,22 @@ body #chat_content {
     text-align: right;
 }
 
+/*功能*/
+.border-1px {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
 
 .disable-image-selection {
     -webkit-user-drag: none; /* Safari */
@@ -120,6 +138,9 @@ body #chat_content {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2); /* IE5+ */
 }
 
+/*功能*/
+
+
 /*
 @media (min-width: 600px) {
   body {
@@ -128,11 +149,13 @@ body #chat_content {
 }*/
 
 #clear-btn {
-    width: 0;
-    height: 0;
+    /*width: 0;*/
+    /*height: 0;*/
+    width: 50px;
+    height: 50px;
     background-color: red;
     transition: 0.5s ease-in-out;
-    opacity: 0;
+    opacity: 1;
 }
 
 .fu-btn {
@@ -154,12 +177,6 @@ body #chat_content {
 
 #send-btn {
     background-color: #22c55e;
-}
-
-#more-btn {
-    height: 25px;
-    width: 25px;
-    background-color: #22c5b2;
 }
 
 #textarea_parent {
@@ -192,4 +209,17 @@ body #chat_content {
     display: inline-block;
     word-wrap: break-word;
     /*word-break: break-all;*/
+}
+
+#outer_function_container {
+    height: 70vh;
+    top: 0;
+    right: -51px;
+    position: absolute;
+    transition: 0.2s ease-in-out;
+    background-color: white;
+    border-bottom-right-radius: 10px;
+    box-sizing: border-box;
+    border-color: #e5e7eb;
+    border-top-right-radius: 10px;
 }
