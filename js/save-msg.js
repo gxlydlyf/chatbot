@@ -266,19 +266,77 @@ function SaveMsgConstructor() {
 
 }
 
-$(window).resize(function () {
+
+function Reset_function_box_position() {
+    var TFC = $('#top_function_container');
+    var OFC = $('#outer_function_container');
+    var TfcShowBtn = $('#tfc_show_btn');
     if ($(window).width() > 500) {
         // 可用宽度大于500px时执行的命令
-        console.log('可用宽度大于500px');
-        $('#outer_function_container').show();
+        // console.log('可用宽度大于500px');
+        TFC.children().not('#tfc_show_btn').prependTo(OFC);
+        TfcShowBtn.data('status', 'show');
+        TfcShowBtn.click();
+
+        TFC.animate({
+            'top': '-20px'
+        }, 100);
+        OFC.animate({
+            'right': '0px'
+        }, 100);
+        $('#chat_messages').animate({
+            'padding-right': '60px'
+        }, 100);
+
     } else {
-        $('#outer_function_container').show();
+        OFC.children().prependTo(TFC);
+        TFC.animate({
+            'top': '0'
+        }, 100);
+        OFC.animate({
+            'right': '-51px'
+        }, 100);
+        $('#chat_messages').animate({
+            'padding-right': '10px'
+        }, 100);
     }
+
+}
+
+Reset_function_box_position();
+$(window).resize(function () {
+    Reset_function_box_position()
 });
 
 
 SaveMsgConstructor();
 $(document).ready(function () {
+    $('#tfc_show_btn').click(function () {
+        var TfcShowBtn = $('#tfc_show_btn');
+        var TFC = $('#top_function_container');
+        var OFC = $('#outer_function_container');
+        var status = TfcShowBtn.data('status');
+        if (status !== 'show' && status !== 'hide') {
+            TfcShowBtn.data('status', 'hide');
+        }
+        status = TfcShowBtn.data('status');
+        if (status === 'hide') {
+            TFC.css('top', '-50px');
+            TFC.css('height', '70px');
+            $('#top_function_container .fu-btn').css('display', 'inline-block');
+
+            TFC.animate({
+                'top': '0'
+            }, 50);
+            TfcShowBtn.data('status', 'show');
+        } else {
+            $('#top_function_container .fu-btn').css('display', 'none');
+            TFC.animate({
+                'height': '20px'
+            }, 50);
+            TfcShowBtn.data('status', 'hide');
+        }
+    });
     $('#send-btn').click(function () {
         var UserInput = $('#userInput');
         var ifSTB = SaveMsgObj.ifScrollToBottom();

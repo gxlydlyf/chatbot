@@ -1,3 +1,5 @@
+/*
+
 class SaveMessages {
     constructor() {
         this.messages = JSON.parse(localStorage.getItem("messages"));
@@ -333,3 +335,5 @@ $(document).ready(function () {
 function polyfillCallback(){
     console.log('Polyfill','Start')
 }
+
+ */

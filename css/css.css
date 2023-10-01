@@ -25,7 +25,7 @@ body #chat_content {
     background-color: #ffffff;
     height: 70vh;
     text-align: center;
-    /*overflow: hidden;*/
+    overflow: hidden;
     position: relative;
     transition: 0.2s ease-in-out;
 
@@ -69,7 +69,8 @@ body #chat_content {
 #chat_messages {
     height: calc(100% - 70px);
     overflow: auto;
-    padding: 0 10px 0 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -222,4 +223,18 @@ body #chat_content {
     box-sizing: border-box;
     border-color: #e5e7eb;
     border-top-right-radius: 10px;
+}
+
+#top_function_container {
+    position: absolute;
+    height: 20px;
+    opacity: 0.5;
+    background-color: #888888;
+    top: 0;
+    width: 100%;
+    left: 0;
+}
+
+#top_function_container .fu-btn{
+    display: none;
 }
