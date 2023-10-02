@@ -267,37 +267,94 @@ function SaveMsgConstructor() {
 }
 
 
+TfcFuns = {
+    Hide: function () {
+        var TfcShowBtn = $('#tfc_show_btn');
+        var TFC = $('#top_function_container');
+        var FbInTFC = $('#top_function_container .fu-btn');
+        FbInTFC.css('display', 'inline-block');
+        TFC.css('top', '0');
+        TFC.animate({
+            'top': '-60px'
+        }, 50);
+        TfcShowBtn.data('status', 'hide');
+        this.BtnBottom();
+    },
+    Show: function () {
+        var TfcShowBtn = $('#tfc_show_btn');
+        var TFC = $('#top_function_container');
+        var FbInTFC = $('#top_function_container .fu-btn');
+
+        TFC.css('top', '-60px');
+        FbInTFC.css('display', 'inline-block');
+
+        TFC.animate({
+            'top': '0'
+        }, 50);
+        TfcShowBtn.data('status', 'show');
+        this.BtnTop();
+    },
+    BtnBottom: function () {//向下
+        var TfcShowBtn = $('#tfc_show_btn');
+        var BtnImg = TfcShowBtn.children();
+        BtnImg.removeClass('transform-rotate-180');
+        BtnImg.addClass('transform-rotate-0');
+    },
+    BtnTop: function () {//向上
+        var TfcShowBtn = $('#tfc_show_btn');
+        var BtnImg = TfcShowBtn.children();
+        BtnImg.removeClass('transform-rotate-0');
+        BtnImg.addClass('transform-rotate-180');
+    },
+}
+
 function Reset_function_box_position() {
     var TFC = $('#top_function_container');
     var OFC = $('#outer_function_container');
     var TfcShowBtn = $('#tfc_show_btn');
+    var FbInTFC = $('#top_function_container .fu-btn');
+    var TfcBtn = $('#tfc_buttons');
     if ($(window).width() > 500) {
         // 可用宽度大于500px时执行的命令
         // console.log('可用宽度大于500px');
-        TFC.children().not('#tfc_show_btn').prependTo(OFC);
-        TfcShowBtn.data('status', 'show');
-        TfcShowBtn.click();
+        //TFC.children().not('#tfc_show_btn').children().prependTo(OFC);
+        TfcBtn.children().prependTo(OFC);
+
 
         TFC.animate({
-            'top': '-20px'
+            'top': '-80px'
         }, 100);
+        TfcShowBtn.data('status', 'hide');
+        TfcFuns.BtnBottom();
+
         OFC.animate({
             'right': '0px'
         }, 100);
         $('#chat_messages').animate({
-            'padding-right': '60px'
+            'margin-right': '60px'
         }, 100);
 
     } else {
-        OFC.children().prependTo(TFC);
-        TFC.animate({
-            'top': '0'
-        }, 100);
+        // console.log('可用宽度小于500px');
+        OFC.children().prependTo(TfcBtn);
+        if (TfcShowBtn.data('status') === 'show') {
+            TFC.animate({
+                'top': '0'
+            }, 50);
+            TfcShowBtn.data('status', 'show');
+            TfcFuns.BtnTop();
+        } else {
+            TFC.animate({
+                'top': '-60px'
+            }, 50);
+            TfcShowBtn.data('status', 'hide');
+            TfcFuns.BtnBottom();
+        }
         OFC.animate({
             'right': '-51px'
         }, 100);
         $('#chat_messages').animate({
-            'padding-right': '10px'
+            'margin-right': '10px'
         }, 100);
     }
 
@@ -315,26 +372,16 @@ $(document).ready(function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var TFC = $('#top_function_container');
         var OFC = $('#outer_function_container');
+        var FbInTFC = $('#top_function_container .fu-btn');
         var status = TfcShowBtn.data('status');
         if (status !== 'show' && status !== 'hide') {
             TfcShowBtn.data('status', 'hide');
         }
         status = TfcShowBtn.data('status');
         if (status === 'hide') {
-            TFC.css('top', '-50px');
-            TFC.css('height', '70px');
-            $('#top_function_container .fu-btn').css('display', 'inline-block');
-
-            TFC.animate({
-                'top': '0'
-            }, 50);
-            TfcShowBtn.data('status', 'show');
+            TfcFuns.Show();
         } else {
-            $('#top_function_container .fu-btn').css('display', 'none');
-            TFC.animate({
-                'height': '20px'
-            }, 50);
-            TfcShowBtn.data('status', 'hide');
+            TfcFuns.Hide();
         }
     });
     $('#send-btn').click(function () {

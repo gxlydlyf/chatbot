@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/css.css" type="text/css" rel="stylesheet">
+    <link href="fun/fun.css" type="text/css" rel="stylesheet">
     <style type="text/css">
         .fu-btn, #textarea_parent, .robotBox, .userBox {
             /*behavior: url(ie-css3.htc);*/
@@ -15,9 +16,10 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/compatible.js"></script>
+    <script src="fun/fun.js"></script>
     <script src="js/storage.js" defer></script>
     <!--    <script src="js/save-messages.js" defer></script>-->
-    <script src="js/save-msg.js" defer></script>
+    <script src="js/main.js" defer></script>
     <script>
     </script>
     <title>ChatGPT Free</title>
@@ -68,13 +70,16 @@
 
     </div>
 
-    <div id="outer_function_container" class="border-1px">
+    <div id="outer_function_container" class="border-1px no-scrollbar">
         <img onclick="SaveMsgObj.clearMessages();SaveMsgConstructor();" alt="" src="svg/delete.svg"
              id="clear-btn"
              style="vertical-align: middle"
              onerror="this.src='img/delete.png'" class="disable-image-selection fu-btn">
     </div>
     <div id="top_function_container">
+        <div id="tfc_buttons" class="no-scrollbar synchronized-vertical-scrolling">
+
+        </div>
         <div id="tfc_show_btn" class="disable-image-selection">
             <img src="svg/double-alt-arrow-left-line-duotone.svg" alt="" style="height: 20px">
         </div>

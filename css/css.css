@@ -98,50 +98,6 @@ body #chat_content {
     text-align: right;
 }
 
-/*功能*/
-.border-1px {
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
-    border-top-style: solid;
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-left-style: solid;
-    border-image-source: initial;
-    border-image-slice: initial;
-    border-image-width: initial;
-    border-image-outset: initial;
-    border-image-repeat: initial;
-}
-
-.disable-image-selection {
-    -webkit-user-drag: none; /* Safari */
-    -khtml-user-drag: none; /* Konqueror HTML */
-    -moz-user-drag: none; /* Firefox */
-    -o-user-drag: none; /* Opera */
-    user-drag: none; /* Generic */
-
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -o-user-select: none; /* Opera */
-    user-select: none; /* Generic */
-
-}
-
-.transform-rotate-180 {
-    -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
-    -moz-transform: rotate(180deg); /* Firefox */
-    -ms-transform: rotate(180deg); /* IE9+ */
-    -o-transform: rotate(180deg); /* Opera */
-    transform: rotate(180deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2); /* IE5+ */
-}
-
-/*功能*/
-
-
 /*
 @media (min-width: 600px) {
   body {
@@ -223,18 +179,42 @@ body #chat_content {
     box-sizing: border-box;
     border-color: #e5e7eb;
     border-top-right-radius: 10px;
+    width: 55px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#outer_function_container .fu-btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #top_function_container {
     position: absolute;
-    height: 20px;
+    height: 80px;
     opacity: 0.5;
     background-color: #888888;
-    top: 0;
+    top: -50px;
     width: 100%;
     left: 0;
 }
 
-#top_function_container .fu-btn{
-    display: none;
+#tfc_buttons {
+    height: 50px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+#tfc_show_btn img {
+    transition: all 0.05s ease-in-out;
+}
+
+#top_function_container .fu-btn {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
 }
