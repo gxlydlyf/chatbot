@@ -62,7 +62,7 @@ function SettingConfigConstructor() {
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
                         'Origin': 'https://8162403981.ai701.live',
-                        'Referer': 'https://8162403981.ai701.live/',
+                        'Referer': 'https://8162403981.ai701.live/'
                     },
                     'id': 1
                 },
