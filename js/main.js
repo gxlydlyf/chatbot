@@ -172,6 +172,7 @@ function SaveMsgConstructor() {
         },
 
         getApiContent: function (data) {
+            console.log(data);
             var okContent = '';
             var response = data;
 
