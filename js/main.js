@@ -351,7 +351,7 @@ function Reset_function_box_position() {
             TfcFuns.BtnBottom();
         }
         OFC.animate({
-            'right': '-51px'
+            'right': '-55px'
         }, 100);
         $('#chat_messages').animate({
             'margin-right': '10px'
@@ -365,8 +365,8 @@ $(window).resize(function () {
     Reset_function_box_position()
 });
 
-
 SaveMsgConstructor();
+
 $(document).ready(function () {
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
@@ -409,11 +409,15 @@ $(document).ready(function () {
             stream: true
         };
         // SaveMsgObj.log(NewMessages);
+        var PostUrl = SettingConfigObj.get("BaseUrl");
         var headers = {};
         headers["Content-Type"] = "application/json";
+        if ('headers' in PostUrl) {
+            $.mergeObjects(headers, PostUrl.headers);
+        }
         MsgId = SaveMsgObj.newBotMessage();
         var returnMessageAjax = $.ajax({
-            url: "//lpi.glf.one",
+            url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
             headers: headers,
             type: "Post",
@@ -475,7 +479,7 @@ function polyfillCallback() {
 }
 
 function SendBtnClick() {
-    setTimeout(function () {
+    $(document).ready(function () {
         $('#send-btn').click();
-    }, 200)
+    });
 }
