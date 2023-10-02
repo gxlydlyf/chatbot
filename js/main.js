@@ -177,13 +177,15 @@ function SaveMsgConstructor() {
 
             var allLines = [];
             var currentLine = "";
-            for (var l = 0; l < response.length; l++) {
-                var char = response.charAt(l);
-                if (char === "\n" || char === "\r") {
-                    allLines.push(currentLine);
-                    currentLine = "";
-                } else {
-                    currentLine += char;
+            if (response !== undefined && response !== null) {
+                for (var l = 0; l < response.length; l++) {
+                    var char = response.charAt(l);
+                    if (char === "\n" || char === "\r") {
+                        allLines.push(currentLine);
+                        currentLine = "";
+                    } else {
+                        currentLine += char;
+                    }
                 }
             }
             // this.log(allLines);
