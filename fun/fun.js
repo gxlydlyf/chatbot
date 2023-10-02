@@ -56,6 +56,7 @@ if (window.jQuery) {
 //     return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
 // };
 
+/*
 $(document).ready(function () {
     $('.synchronized-vertical-scrolling').on('wheel', function (event) {
         event.preventDefault();
@@ -64,4 +65,34 @@ $(document).ready(function () {
         var scrollLeft = $(this).scrollLeft();
         $(this).scrollLeft(scrollLeft + deltaY);
     });
+});
+
+ */
+
+function ready(callback) {
+    if (document.readyState === 'complete') {
+        callback();
+    } else {
+        document.onreadystatechange = function () {
+            if (document.readyState === 'complete') {
+                callback();
+            }
+        };
+    }
+}
+
+ready(function () {
+    var elements = document.getElementsByTagName('div');
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].className.indexOf('synchronized-vertical-scrolling') > -1) {
+            elements[i].onmousewheel = function (event) {
+                event = event || window.event;
+                event.returnValue = false;
+                console.log(event);
+                var deltaY = event.wheelDelta;
+                var scrollLeft = this.scrollLeft;
+                this.scrollLeft = scrollLeft + deltaY;
+            };
+        }
+    }
 });
