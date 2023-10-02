@@ -61,8 +61,8 @@ function SettingConfigConstructor() {
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
-                        "Origin": "https://8162403981.ai701.live",
-                        "Referer": "https://8162403981.ai701.live/",
+                        'Origin': 'https://8162403981.ai701.live',
+                        'Referer': 'https://8162403981.ai701.live/',
                     },
                     'id': 1
                 },
@@ -77,7 +77,7 @@ function SettingConfigConstructor() {
                     'encryption': false,
                     'description': '这是OpenAI官方的接口地址，需要使用境外网络以及自己的 api key 以使用。',
                     'id': 3
-                },
+                }
             ]
             if (id === false) {
                 return BUL;

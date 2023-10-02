@@ -305,7 +305,7 @@ TfcFuns = {
         var BtnImg = TfcShowBtn.children();
         BtnImg.removeClass('transform-rotate-0');
         BtnImg.addClass('transform-rotate-180');
-    },
+    }
 }
 
 function Reset_function_box_position() {
