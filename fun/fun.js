@@ -18,9 +18,16 @@ if (window.jQuery) window.jQuery.getUrlParam = function (name, UrlDecode) {
 if (window.jQuery) window.jQuery["稀奇古怪"] = function (str) {
     return unescape(encodeURIComponent(str));
 };
-if (window.jQuery) window.jQuery.isObject = function (variable) {
-    return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
-};
+
+// if (window.jQuery) window.jQuery.isObject = function (variable) {
+//     return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
+// };
+if (window.jQuery) {
+    window.jQuery.isObject = function (variable) {
+        return variable !== null && variable !== undefined && typeof variable === 'object' && Object.prototype.toString.call(variable) !== '[object Array]';
+    };
+}
+
 
 if (window.jQuery) window.jQuery.mergeObjects = function (obj1, obj2) {
     // 判断浏览器是否为IE5及以上版本
