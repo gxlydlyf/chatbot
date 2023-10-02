@@ -1,4 +1,7 @@
-if (window.jQuery) window.jQuery.getUrlParam = function (name, UrlDecode = true) {
+if (window.jQuery) window.jQuery.getUrlParam = function (name, UrlDecode) {
+    if (typeof UrlDecode === 'undefined') {
+        UrlDecode = true;
+    }
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
     if (UrlDecode === true) {//是否对获取到的内容进行url解码

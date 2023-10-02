@@ -51,7 +51,10 @@ function SettingConfigConstructor() {
                 }
             }
         },
-        BaseUrlList: function (id = false) {
+        BaseUrlList: function (id) {
+            if (typeof id === 'undefined') {
+                id = false;
+            }
             var BUL = [
                 {
                     'domain': 'postapi.lbbai.cc',
