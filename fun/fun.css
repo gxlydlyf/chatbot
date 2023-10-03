@@ -16,17 +16,17 @@
 }
 
 .disable-image-selection {
-    -webkit-user-drag: none; /* Safari */
-    -khtml-user-drag: none; /* Konqueror HTML */
-    -moz-user-drag: none; /* Firefox */
-    -o-user-drag: none; /* Opera */
-    user-drag: none; /* Generic */
-
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
     -o-user-select: none; /* Opera */
     user-select: none; /* Generic */
+
+    -webkit-user-drag: none; /* Safari */
+    -khtml-user-drag: none; /* Konqueror HTML */
+    -moz-user-drag: none; /* Firefox */
+    -o-user-drag: none; /* Opera */
+    user-drag: none; /* Generic */
 
 }
 

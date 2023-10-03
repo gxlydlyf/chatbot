@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>JS鼠标多击</title>
+    <meta charset="utf-8">
+    <link href="../../fun/fun.css" rel="stylesheet">
+    <script type="text/javascript">
+        var count = 0;
+        var clickTimer = null;
+
+        function myclick() {
+            count = count + 1;
+            clearTimeout(clickTimer);
+            clickTimer = window.setTimeout(function () {
+                /* 在此处用条件语句根据count的值来确定执行的操作*/
+                alert("鼠标" + count + "击");
+                /*********************************/
+                count = 0;
+                clickTimer = null;
+            }, 400);
+        }
+    </script>
+</head>
+<body>
+<div onclick="myclick()" style="width:200px;height:200px;background-color:#22ccff;" class="disable-image-selection">
+    点这个正方形
+</div>
+</body>
+</html>

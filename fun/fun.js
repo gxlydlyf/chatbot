@@ -53,6 +53,28 @@ if (window.jQuery) {
         // 调用合并函数
         return merge(obj1, obj2);
     }
+
+
+    $.fn.manyClick = function (count, callback) {//增加多击事件 使用方法 $('Element').manyClick(TheNumberOfClicks,function(){ console.log("callback") })
+        $(document).ready(function () {
+            var clickCount = 0;
+            var element = $(this);
+            var clickTimer = null;
+            element.on('click', function () {
+                clickCount++;
+                clearTimeout(clickTimer);
+
+                clickTimer = window.setTimeout(function () {
+                    console.log(clickCount);
+                    if (clickCount === count) {
+                        callback.call(element.get(0));
+                    }
+                    clickCount = 0;
+                    clickTimer = null;
+                }, 400);
+            });
+        });
+    };
 }
 
 

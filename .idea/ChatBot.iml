@@ -4,8 +4,9 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="core-js" level="application" />
-    <orderEntry type="library" name="core-js-bundle" level="application" />
+    <orderEntry type="library" name="js.cookie" level="application" />
     <orderEntry type="library" name="js-cookie" level="application" />
+    <orderEntry type="library" name="crypto-js" level="application" />
+    <orderEntry type="library" name="polyfill" level="application" />
   </component>
 </module>

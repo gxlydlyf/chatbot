@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>JS鼠标多击</title>
+    <meta charset="utf-8">
+    <link href="../../fun/fun.css" rel="stylesheet">
+    <script src="../../js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.fn.manyClick = function (count, callback) {
+            $(document).ready(function () {
+                var clickCount = 0;
+                var element = $(this);
+                var clickTimer = null;
+                element.on('click', function () {
+                    clickCount++;
+                    clearTimeout(clickTimer);
+
+                    clickTimer = window.setTimeout(function () {
+                        console.log(clickCount);
+                        if (clickCount === count) {
+                            callback.call(element.get(0));
+                        }
+                        clickCount = 0;
+                        clickTimer = null;
+                    }, 400);
+                });
+            });
+        };
+
+        $('#div').manyClick(3, function () {
+            console.log('鼠标三击');
+        });
+    </script>
+</head>
+<body>
+<div style="width:200px;height:200px;background-color:#22ccff;" class="disable-image-selection" id="div">
+    点这个正方形
+</div>
+</body>
+</html>
