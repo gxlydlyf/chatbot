@@ -22,6 +22,9 @@ function SettingConfigConstructor() {
             console.log("解密后的明文：" + decryptedPlaintext);
         },
         check: function () {
+            if ($.LS.getItem('setting-config') === undefined || $.LS.getItem('setting-config') === null) {
+                this.init();
+            }
             var SC = JSON.parse($.LS.getItem('setting-config'));
             if (!this.isObject(SC)) {
                 this.init();
