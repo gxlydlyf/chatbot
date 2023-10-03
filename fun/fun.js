@@ -21,6 +21,9 @@ if (window.jQuery) {
     };
 
     window.jQuery.isObject = function (variable) {//判断是否为对象
+        // if (window.jQuery) window.jQuery.isObject = function (variable) {
+        //     return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
+        // };
         return variable !== null && variable !== undefined && typeof variable === 'object' && Object.prototype.toString.call(variable) !== '[object Array]';
     };
 
@@ -52,11 +55,9 @@ if (window.jQuery) {
     }
 }
 
-// if (window.jQuery) window.jQuery.isObject = function (variable) {
-//     return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
-// };
 
 /*
+//无法兼容到更低版本的浏览器
 $(document).ready(function () {
     $('.synchronized-vertical-scrolling').on('wheel', function (event) {
         event.preventDefault();

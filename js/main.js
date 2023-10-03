@@ -172,7 +172,7 @@ function SaveMsgConstructor() {
         },
 
         getApiContent: function (data) {
-            console.log(data);
+            // console.log(data);
             var okContent = '';
             var response = data;
 
@@ -225,19 +225,21 @@ function SaveMsgConstructor() {
 
             return okContent;
         },
-
         log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
             try {
-
-                var args = Array.from(arguments).map(function (arg) {
-                    return (arg === undefined || arg === null) ? '' : arg;
-                });
+                var args = [];
+                for (var i = 0; i < arguments.length; i++) {
+                    var arg = arguments[i];
+                    args.push((arg === undefined || arg === null) ? '' : arg);
+                }
                 args.unshift('[Messages]');
+                // console.log(args);
                 Function.prototype.apply.call(console.log, console, args);
             } catch (e) {
                 console.warn(e);
             }
         }
+
 
     }
     if ($.LS.getItem("messages") === undefined) {
@@ -256,7 +258,11 @@ function SaveMsgConstructor() {
     if (Preliminary_questions) {
         console.log(Preliminary_questions);
         var urlWithoutQueryParam = window.location.href.replace(/[?&]q=[^&]+/, '');
-        history.replaceState(null, '', urlWithoutQueryParam);
+        try {
+            window.history.replaceState(null, '', urlWithoutQueryParam);
+        } catch (e) {
+            console.log('替换浏览器Url历史出错：', e);
+        }
         $(document).ready(function () {
             // 在DOM加载完成后执行的命令
             // 可以在这里操作DOM元素、绑定事件等
@@ -269,6 +275,7 @@ function SaveMsgConstructor() {
 
 }
 
+SaveMsgConstructor();
 
 TfcFuns = {
     Hide: function () {
@@ -368,14 +375,10 @@ $(window).resize(function () {
     Reset_function_box_position()
 });
 
-SaveMsgConstructor();
 
 $(document).ready(function () {
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
-        var TFC = $('#top_function_container');
-        var OFC = $('#outer_function_container');
-        var FbInTFC = $('#top_function_container .fu-btn');
         var status = TfcShowBtn.data('status');
         if (status !== 'show' && status !== 'hide') {
             TfcShowBtn.data('status', 'hide');
@@ -419,7 +422,8 @@ $(document).ready(function () {
             $.mergeObjects(headers, PostUrl.headers);
         }
         MsgId = SaveMsgObj.newBotMessage();
-        var returnMessageAjax = $.ajax({
+        SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
+        /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
             headers: headers,
@@ -427,7 +431,9 @@ $(document).ready(function () {
             dataType: "text",
             xhrFields: {
                 onprogress: function (e) {
+                    console.log(e);
                     var response = e.currentTarget.response;
+                    console.log(response);
                     var CurContent = SaveMsgObj.getApiContent(response);
                     // SaveMsgObj.log(CurContent);
                     SaveMsgObj.addNextBotMsg(CurContent, MsgId);
@@ -445,7 +451,45 @@ $(document).ready(function () {
                 // SaveMsgObj.addNextBotMsg(CurContent, MsgId);
 
             }
-        });
+        });*/
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "//" + PostUrl.domain, true);
+        for (var header in headers) {
+            xhr.setRequestHeader(header, headers[header]);
+        }
+        xhr.onreadystatechange = function () {
+            // console.log(xhr.responseText);
+            var response;
+            var CurContent;
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    response = xhr.responseText;
+                    CurContent = SaveMsgObj.getApiContent(response);
+                    SaveMsgObj.log('机器人回复：\n', CurContent);
+                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                } else {
+                    // 处理请求失败的情况
+                    console.error('请求失败，状态码：', xhr.status);
+                    CurContent = "请求失败，状态码：" + xhr.status;
+                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                }
+            } else if (xhr.readyState === 3) {
+                console.log("处理流数据中");
+                try {
+                    response = xhr.responseText;
+                    CurContent = SaveMsgObj.getApiContent(response);
+                } catch (e) {
+                    console.log("错误", e);
+                    CurContent = "由于“ " + e + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
+                }
+                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+
+            }
+        };
+        xhr.timeout = 1000 * 60 * 2;
+        xhr.send(JSON.stringify(incomingParameters));
+
+
     });
 
     $('#more-btn').click(function () {
