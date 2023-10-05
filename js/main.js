@@ -43,7 +43,11 @@ function SaveMsgConstructor() {
         },
 
         createBotElement: function (data) {
-            var Element = $('<div class="robotBoxContainer"><div class="robotBox"></div></div>')
+            var copyBtn = '';
+            if (ClipboardJS.isSupported()) {
+                copyBtn = '<span>复制</span>';
+            }
+            var Element = $('<div class="robotBoxContainer"><div class="robotFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>重发</span></div><div class="robotBox"></div></div>');
             Element.find('.robotBox').data('id', data['id']);
             Element.find('.robotBox').text(data['content']);
             return Element;
@@ -97,12 +101,11 @@ function SaveMsgConstructor() {
             this.saveMsgs();
 
             // console.log('机器人回复', msg);
-            return msg['id'];
+            return MsgId;
         },
 
 
         addNextBotMsg: function (data, MsgId) {
-            var SaveMessagesObj = this;
             for (var i = 0; i < this.messages.length; i++) {
                 if (this.messages[i].id === MsgId) {
                     this.messages[i].content = data;
@@ -224,6 +227,48 @@ function SaveMsgConstructor() {
             }
 
             return okContent;
+        },
+        getMsgContent: function (id) {
+            for (var i = 0; i < this.messages.length; i++) {
+                if (this.messages[i].id === id) {
+                    return this.messages[i].content;
+                }
+            }
+            return null;
+        },
+        removeMsg: function (MsgId) {
+            for (var i = 0; i < this.messages.length; i++) {
+                if (this.messages[i].id === MsgId) {
+                    this.messages.splice(i, 1);
+                    this.saveMsgs();
+                    var ChatMessagesParentElement = $('#chat_messages');
+                    ChatMessagesParentElement.find('div').each(function () {
+                        // 在这里对每个div元素进行操作
+                        if ($(this).data('id') === MsgId) {
+                            $(this).parent().remove();
+                        }
+
+                    });
+
+                    return true;
+                }
+
+            }
+            return false;
+
+        },
+        getMsgBox: function (MsgId) {
+            var returnElement = null;
+            $('#chat_messages').find('div').each(function () {
+                // 在这里对每个div元素进行操作
+                if ($(this).data('id') === MsgId) {
+                    console.log("ok")
+                    returnElement = $(this);
+                }
+
+            });
+            return returnElement;
+
         },
         log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
             try {
@@ -375,6 +420,26 @@ $(window).resize(function () {
     Reset_function_box_position()
 });
 
+function ClipboardCopy(text, callback) {
+    var tempElement = $("<button>click</buttpn>").get(0);
+    var clipboard = new ClipboardJS(tempElement, {
+        text: function () {
+            clipboard.destroy();
+            return text;
+        },
+    });
+    clipboard.on('success', function (e) {
+        if (typeof callback === "function") {
+            callback.call(null, true, e)
+        }
+    });
+    clipboard.on('error', function (e) {
+        if (typeof callback === "function") {
+            callback.call(null, false, e)
+        }
+    });
+    tempElement.click();
+}
 
 $(document).ready(function () {
     $('#tfc_show_btn').click(function () {
@@ -422,6 +487,8 @@ $(document).ready(function () {
             $.mergeObjects(headers, PostUrl.headers);
         }
         MsgId = SaveMsgObj.newBotMessage();
+        var robotBox = SaveMsgObj.getMsgBox(MsgId);
+        robotBox.parent().children('.robotFun').append('<span>停止</span>');
         SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
         /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
@@ -457,7 +524,13 @@ $(document).ready(function () {
         for (var header in headers) {
             xhr.setRequestHeader(header, headers[header]);
         }
+        var requestAborted = false;
         xhr.onreadystatechange = function () {
+            if (requestAborted) {
+                // 处理请求被中断的情况
+                // console.log('请求被中断');
+                return;
+            }
             // console.log(xhr.responseText);
             var response;
             var CurContent;
@@ -473,6 +546,7 @@ $(document).ready(function () {
                     CurContent = "请求失败，状态码：" + xhr.status;
                     SaveMsgObj.addNextBotMsg(CurContent, MsgId);
                 }
+                robotBox.data("stopCode").call();
             } else if (xhr.readyState === 3) {
                 console.log("处理流数据中");
                 try {
@@ -488,6 +562,18 @@ $(document).ready(function () {
         };
         xhr.timeout = 1000 * 60 * 2;
         xhr.send(JSON.stringify(incomingParameters));
+        // 中断流请求
+        if (robotBox) {
+            robotBox.data("stopCode", function () {
+                requestAborted = true;
+                xhr.abort();
+                var stopSpan = robotBox.parent().children('.robotFun').find('span').filter(function () {
+                    return $(this).text().trim() === '停止';
+                });
+                stopSpan.remove();
+
+            });
+        }
 
 
     });
@@ -519,6 +605,29 @@ $(document).ready(function () {
 
         }
     });
+
+
+    $(document).on("click", ".robotFun span", function () {
+        var btn = $(this);
+        var btnText = btn.text();
+        var msgContainer = btn.parent().parent();
+        var msgBox = $(msgContainer).children().not('.robotFun');
+        var msgId = msgBox.data('id');
+        if (btnText === '复制') {
+            ClipboardCopy(SaveMsgObj.getMsgContent(msgId), function (status, event) {
+                if (status) {
+                    console.log("复制成功");
+                } else {
+                    console.log("复制失败", event);
+                }
+            });
+        } else if (btnText === '删除') {
+            SaveMsgObj.removeMsg(msgId);
+        } else if (btnText === '停止') {
+            msgBox.data("stopCode").call();
+        }
+    });
+
 });
 
 function polyfillCallback() {

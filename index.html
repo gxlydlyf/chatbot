@@ -13,17 +13,18 @@
     </style>
     <script src="js/json2.js"></script>
     <script src="//polyfill.io/v3/polyfill.min.js"></script><!--?version=3.111.0&callback=polyfillCallback-->
-<!--    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>-->
+    <!--    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/compatible.js"></script>
     <script src="js/js.cookie.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
 
     <script src="fun/fun.js"></script>
     <script src="js/storage.js" defer></script>
     <script src="js/setting-config.js" defer></script>
     <!--    <script src="js/save-messages.js" defer></script>-->
-    <script src="js/main.js" defer></script>
+        <script src="js/main.js" defer></script>
     <script>
     </script>
     <title>ChatGPT Free</title>
@@ -50,13 +51,15 @@
 <p style="text-align: center">建议使用更高版本的浏览器！</p>
 <![endif]-->
 <div id="chat_content" class="border-1px">
-
     <div id="chat_messages">
-        <div>
-            <div class="robotBox robotBoxContainer"></div>
+        <div class="robotBoxContainer">
+            <div class="robotFun disable-selection no-scrollbar">
+                <span>删除</span><span>复制</span><span>编辑</span><span>重发</span><!--<span>停止</span>-->
+            </div>
+            <div class="robotBox"></div>
         </div>
-        <div>
-            <div class="userBox userBoxContainer"></div>
+        <div class="userBoxContainer">
+            <div class="userBox"></div>
         </div>
 
     </div>
@@ -68,9 +71,9 @@
         </div>
 
         <img id="send-btn" src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt=""
-             class="disable-image-selection fu-btn">
+             class="disable-selection fu-btn">
         <!--        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""-->
-        <!--             class="disable-image-selection fu-btn">-->
+        <!--             class="disable-selection fu-btn">-->
 
     </div>
 
@@ -78,13 +81,13 @@
         <img onclick="SaveMsgObj.clearMessages();SaveMsgConstructor();" alt="" src="svg/delete.svg"
              id="clear-btn"
              style="vertical-align: middle"
-             onerror="this.src='img/delete.png'" class="disable-image-selection fu-btn">
+             onerror="this.src='img/delete.png'" class="disable-selection fu-btn">
     </div>
     <div id="top_function_container">
         <div id="tfc_buttons" class="no-scrollbar synchronized-vertical-scrolling">
 
         </div>
-        <div id="tfc_show_btn" class="disable-image-selection">
+        <div id="tfc_show_btn" class="disable-selection">
             <img src="svg/double-alt-arrow-left-line-duotone.svg" alt="" style="height: 20px">
         </div>
     </div>
@@ -127,6 +130,7 @@ text-underline-offset: 4px;
 
         }
     })();
+
 
 </script>
 </body>

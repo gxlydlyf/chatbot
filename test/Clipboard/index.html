@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/clipboard.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+</head>
+<body>
+<script>
+    function copy(text, callback) {
+        var tempElement = $("<button>click</buttpn>").get(0);
+        var clipboard = new ClipboardJS(tempElement, {
+            text: function () {
+                clipboard.destroy();
+                return text;
+            },
+        });
+        clipboard.on('success', function (e) {
+            if (typeof callback === "function") {
+                callback.call(null, true, e)
+            }
+        });
+        clipboard.on('error', function (e) {
+            if (typeof callback === "function") {
+                callback.call(null, false, e)
+            }
+        });
+        tempElement.click();
+    }
+</script>
+<button onclick="copy(document.documentElement.outerHTML)">复制源代码</button>
+<button onclick="copy($('body > script').html())">复制Js</button>
+</body>
+</html>
