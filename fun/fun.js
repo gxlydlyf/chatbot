@@ -54,27 +54,116 @@ if (window.jQuery) {
         return merge(obj1, obj2);
     }
 
+    $.generateRandomString = function (length, otherCharacters) {
+        if (!otherCharacters) {
+            otherCharacters = '';
+        }
+        var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" + otherCharacters.toString();
+        var randomString = "";
 
-    $.fn.manyClick = function (count, callback) {//增加多击事件 使用方法 $('Element').manyClick(TheNumberOfClicks,function(){ console.log("callback") })
-        $(document).ready(function () {
-            var clickCount = 0;
-            var element = $(this);
-            var clickTimer = null;
-            element.on('click', function () {
-                clickCount++;
-                clearTimeout(clickTimer);
+        for (var i = 0; i < length; i++) {
+            var randomIndex = Math.floor(Math.random() * characters.length);
+            randomString += characters.charAt(randomIndex);
+        }
 
-                clickTimer = window.setTimeout(function () {
-                    console.log(clickCount);
-                    if (clickCount === count) {
-                        callback.call(element.get(0));
+        return randomString;
+    }
+
+    $._manyClick = {
+        eventsList: [],
+        newEvent: function (element, eventClass, unregisterCode) {
+            this.eventsList.push({"element": element, "class": eventClass, "remove": unregisterCode})
+        },
+        remove: function (eventClass, element) {
+            if (!eventClass) {
+                eventClass = '';
+            }
+            eventClass = eventClass.toString();
+
+            var found = false;
+            for (var i = 0; i < this.eventsList.length; i++) {
+                var item = this.eventsList[i];
+                if (element) {
+                    if (!(item.element.selector === element.selector)) {
+                        continue;
                     }
-                    clickCount = 0;
-                    clickTimer = null;
-                }, 400);
-            });
-        });
+                }
+                if (eventClass) {
+                    if (!(item.class === eventClass)) {
+                        continue;
+                    }
+                }
+
+                found = true;
+                // 找到匹配项后的操作
+                item.remove();
+                delete this.eventsList[i];
+            }
+
+            this.deleteNull();
+
+            return found;
+
+        },
+        deleteNull: function () {
+            list = this.eventsList;
+            // 创建一个新数组，用于存储非空值
+            var filteredList = [];
+
+            // 遍历原始列表
+            for (var i = 0; i < list.length; i++) {
+                // 判断元素是否为空值
+                if (list[i]) {
+                    // 将非空值添加到新数组中
+                    filteredList.push(list[i]);
+                }
+            }
+            this.eventsList = filteredList
+        }
+    }
+
+
+    $.fn.manyClick = function (count, callback, eventClass) {//增加多击事件 使用方法(请在document ready时使用) $('Element').manyClick(TheNumberOfClicks,function(){ console.log("callback") ,'自定义事件类'})
+        var element = this;
+        // console.log(element)
+        if (!eventClass) {
+            eventClass = new Date().getTime() + ";" + $.generateRandomString(10);
+        }
+        var clickCount = 0;
+        var clickTimer = null;
+        var clickHandler = function (event) {
+            var triggerElement = $(event.target);//触发这个事件的元素
+            clickCount++;
+            clearTimeout(clickTimer);
+
+            clickTimer = window.setTimeout(function () {
+                // console.log(clickCount);
+                if (clickCount === count) {
+                    callback.call(triggerElement, eventClass, unregisterClickHandler);
+                }
+                clickCount = 0;
+                clickTimer = null;
+            }, 400);
+        };
+        element.on('click', clickHandler);
+        var unregisterClickHandler = function () {
+            element.off('click', clickHandler);
+            // console.log('事件处理程序已注销');
+        };
+        $._manyClick.newEvent(element, eventClass, unregisterClickHandler);
     };
+    $.fn.offManyClick = function (eventClass) {
+        return $._manyClick.remove(eventClass, $(this));
+    }
+    $.offManyClick = function (eventClass, JqueryElement) {
+        if (!JqueryElement) {
+            JqueryElement = '';
+        }
+        // console.log($._manyClick.eventsList)
+        return $._manyClick.remove(eventClass, JqueryElement);
+
+    }
+
 }
 
 

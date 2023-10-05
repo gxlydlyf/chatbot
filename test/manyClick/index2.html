@@ -2,38 +2,57 @@
 <head>
     <title>JS鼠标多击</title>
     <meta charset="utf-8">
+    <style>
+        .c {
+            width: 200px;
+            height: 200px;
+            background-color: #00FFFF;
+        }
+    </style>
     <link href="../../fun/fun.css" rel="stylesheet">
     <script src="../../js/jquery.min.js"></script>
+    <script src="../../fun/fun.js"></script>
     <script type="text/javascript">
-        $.fn.manyClick = function (count, callback) {
-            $(document).ready(function () {
-                var clickCount = 0;
-                var element = $(this);
-                var clickTimer = null;
-                element.on('click', function () {
-                    clickCount++;
-                    clearTimeout(clickTimer);
+        $(document).ready(function () {
+            element = $('.c');// 注册事件
+            // element = $('#div');// 注册事件
+            element.manyClick(3, function () {
+                console.log("你点击了3次");
+                if (this.css("backgroundColor") === 'rgb(0, 255, 255)') {
+                    this.css("backgroundColor", "red")
+                } else {
+                    this.css("backgroundColor", "aqua")
+                }
+            }, '3');
 
-                    clickTimer = window.setTimeout(function () {
-                        console.log(clickCount);
-                        if (clickCount === count) {
-                            callback.call(element.get(0));
-                        }
-                        clickCount = 0;
-                        clickTimer = null;
-                    }, 400);
-                });
-            });
-        };
+            function createEvent() {
+                element.manyClick(2, function (eventClass, unregister) {
+                    console.log("你点击了", "2", "次，事件class是", eventClass, "当前触发的元素是", this);
 
-        $('#div').manyClick(3, function () {
-            console.log('鼠标三击');
-        });
+                    unregister();
+                    console.log("注销事件");
+                    setTimeout(function () {
+                        console.log("重新注册了事件");
+                        createEvent();
+                    }, 2000)
+                },'2');
+            }
+
+            createEvent();
+            // createEvent();
+            // createEvent();
+            // createEvent();
+            // createEvent();
+        })
+
     </script>
 </head>
 <body>
-<div style="width:200px;height:200px;background-color:#22ccff;" class="disable-image-selection" id="div">
+<div class="disable-selection c" id="div">
     点这个正方形
+</div>
+<div class="disable-selection c">
+    sv
 </div>
 </body>
 </html>

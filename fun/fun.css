@@ -15,7 +15,7 @@
     border-image-repeat: initial;
 }
 
-.disable-image-selection {
+.disable-selection {
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
