@@ -96,7 +96,7 @@ body #chat_content {
     height: 20px;
     white-space: nowrap;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
     transition: left .3s ease-in-out;
     position: relative;
     left: -150%;
