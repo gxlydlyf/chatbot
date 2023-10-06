@@ -93,7 +93,7 @@ body #chat_content {
 }
 .robotFun {
     width: 100%;
-    height: 18px;
+    height: 20px;
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
