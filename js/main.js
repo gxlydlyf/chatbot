@@ -572,7 +572,7 @@ $(document).ready(function () {
             robotBox.data("stopCode", function () {
                 requestAborted = true;
                 xhr.abort();
-                var stopSpan = robotBox.parent().children('.robotFun').find('span').filter(function () {
+                var stopSpan = robotBox.parent().children('.msgFun').find('span').filter(function () {
                     return $(this).text().trim() === '停止';
                 });
                 stopSpan.remove();
