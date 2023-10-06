@@ -100,7 +100,7 @@ body #chat_content {
     transition: left .3s ease-in-out;
     position: relative;
     left: -150%;
-    margin-bottom: 2px;
+    padding-bottom: 10px;
 }
 
 .robotBoxContainer:hover .robotFun {
