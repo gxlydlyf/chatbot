@@ -47,14 +47,18 @@ function SaveMsgConstructor() {
             if (ClipboardJS.isSupported()) {
                 copyBtn = '<span>复制</span>';
             }
-            var Element = $('<div class="robotBoxContainer"><div class="robotFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>重发</span></div><div class="robotBox"></div></div>');
+            var Element = $('<div class="robotBoxContainer"><div class="msgFun robotFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span></div><div class="robotBox"></div></div>');
             Element.find('.robotBox').data('id', data['id']);
             Element.find('.robotBox').text(data['content']);
             return Element;
         },
 
         createUserElement: function (data) {
-            var Element = $('<div class="userBoxContainer"><div class="userBox"></div></div>')
+            var copyBtn = '';
+            if (ClipboardJS.isSupported()) {
+                copyBtn = '<span>复制</span>';
+            }
+            var Element = $('<div class="userBoxContainer"><div class="msgFun userFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="userBox"></div></div>')
             Element.find('.userBox').text(data['content']);
             Element.find('.userBox').data('id', data['id']);
             return Element;
@@ -105,7 +109,7 @@ function SaveMsgConstructor() {
         },
 
 
-        addNextBotMsg: function (data, MsgId) {
+        editMessage: function (data, MsgId) {
             for (var i = 0; i < this.messages.length; i++) {
                 if (this.messages[i].id === MsgId) {
                     this.messages[i].content = data;
@@ -315,6 +319,7 @@ function SaveMsgConstructor() {
             var uiv = UserInput.val();
             UserInput.val(Preliminary_questions);
             SendBtnClick()
+            UserInput.val(uiv);
         });
     }
 
@@ -503,7 +508,7 @@ $(document).ready(function () {
                     console.log(response);
                     var CurContent = SaveMsgObj.getApiContent(response);
                     // SaveMsgObj.log(CurContent);
-                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                    SaveMsgObj.editMessage(CurContent, MsgId);
                 },
                 onload: function (e) {
 
@@ -514,8 +519,8 @@ $(document).ready(function () {
                 var response = XMLHttpRequest.responseText;
                 var CurContent = SaveMsgObj.getApiContent(response);
                 SaveMsgObj.log('机器人回复：\n', CurContent);
-                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
-                // SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                SaveMsgObj.editMessage(CurContent, MsgId);
+                // SaveMsgObj.editMessage(CurContent, MsgId);
 
             }
         });*/
@@ -539,12 +544,12 @@ $(document).ready(function () {
                     response = xhr.responseText;
                     CurContent = SaveMsgObj.getApiContent(response);
                     SaveMsgObj.log('机器人回复：\n', CurContent);
-                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                    SaveMsgObj.editMessage(CurContent, MsgId);
                 } else {
                     // 处理请求失败的情况
                     console.error('请求失败，状态码：', xhr.status);
                     CurContent = "请求失败，状态码：" + xhr.status;
-                    SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                    SaveMsgObj.editMessage(CurContent, MsgId);
                 }
                 robotBox.data("stopCode").call();
             } else if (xhr.readyState === 3) {
@@ -556,7 +561,7 @@ $(document).ready(function () {
                     console.log("错误", e);
                     CurContent = "由于“ " + e + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
                 }
-                SaveMsgObj.addNextBotMsg(CurContent, MsgId);
+                SaveMsgObj.editMessage(CurContent, MsgId);
 
             }
         };
@@ -608,11 +613,11 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", ".robotFun span", function () {
+    $(document).on("click", ".msgFun span", function () {
         var btn = $(this);
         var btnText = btn.text();
         var msgContainer = btn.parent().parent();
-        var msgBox = $(msgContainer).children().not('.robotFun');
+        var msgBox = $(msgContainer).children().not('.msgFun');
         var msgId = msgBox.data('id');
         if (btnText === '复制') {
             ClipboardCopy(SaveMsgObj.getMsgContent(msgId), function (status, event) {
@@ -634,6 +639,24 @@ $(document).ready(function () {
             SaveMsgObj.removeMsg(msgId);
         } else if (btnText === '停止') {
             msgBox.data("stopCode").call();
+        } else if (btnText === '编辑') {
+            btn.text("保存");
+            $("*").attr("contenteditable", "false");
+            var rawContent = SaveMsgObj.getMsgContent(msgId);
+            msgBox.val(rawContent);
+            msgBox.attr("contenteditable", "true");
+            msgBox.focus();
+        } else if (btnText === '保存') {
+            $("*").attr("contenteditable", "false");
+            SaveMsgObj.editMessage(msgBox.text(), msgId);
+            btn.text("编辑");
+        } else if (btnText === '发送') {
+            var Preliminary_questions = SaveMsgObj.getMsgContent(msgId);
+            var UserInput = $('#userInput');
+            var uiv = UserInput.val();
+            UserInput.val(Preliminary_questions);
+            SendBtnClick()
+            UserInput.val(uiv);
         }
     });
 

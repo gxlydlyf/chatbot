@@ -74,37 +74,52 @@ body #chat_content {
 }
 
 
-.robotFun span {
+.msgFun span {
     margin-right: 5px;
     cursor: pointer;
     font-size: 16px;
-    padding: 2px;
+    padding: 5px;
     background-color: white;
     border-radius: 5px;
     transition: background-color .3s ease-in-out;
 }
-.robotFun span:hover{
+
+.msgFun span:hover {
     background-color: #e3e3e3;
 
 }
-.robotFun span:active{
+
+.msgFun span:active {
     background-color: #d7d7d7;
 
 }
-.robotFun {
+
+.msgFun {
     width: 100%;
     height: 20px;
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: visible;
-    transition: left .3s ease-in-out;
+    transition: all .3s ease-in-out;
     position: relative;
-    left: -150%;
     padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.robotFun {
+    left: -150%;
 }
 
 .robotBoxContainer:hover .robotFun {
     left: 0;
+
+}
+.userFun {
+    right: -150%;
+}
+
+.userBoxContainer:hover .userFun {
+    right: 0;
 
 }
 
@@ -124,6 +139,7 @@ body #chat_content {
     display: block;
     padding-top: 20px;
     padding-bottom: 20px;
+    overflow-x: hidden;
 }
 
 .robotBoxContainer {
