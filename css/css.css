@@ -77,8 +77,16 @@ body #chat_content {
 .robotFun span {
     margin-right: 5px;
     cursor: pointer;
+    font-size: 16px;
+    padding: 2px;
+    background-color: white;
+    border-radius: 2px;
+    transition: background-color .3s ease-in-out;
 }
+.robotFun span:hover{
+    background-color: #e3e3e3;
 
+}
 .robotFun {
     width: 100%;
     height: 20px;
