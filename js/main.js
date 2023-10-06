@@ -571,6 +571,7 @@ $(document).ready(function () {
                     return $(this).text().trim() === '停止';
                 });
                 stopSpan.remove();
+                robotBox.data("stopCode", null);
 
             });
         }
@@ -616,12 +617,20 @@ $(document).ready(function () {
         if (btnText === '复制') {
             ClipboardCopy(SaveMsgObj.getMsgContent(msgId), function (status, event) {
                 if (status) {
-                    console.log("复制成功");
+                    btn.text('成功');
                 } else {
                     console.log("复制失败", event);
+                    btn.text('失败');
                 }
             });
+            setTimeout(function () {
+                btn.text('复制');
+            }, 1000);
+
         } else if (btnText === '删除') {
+            if (msgBox.data("stopCode")) {
+                msgBox.data("stopCode").call();
+            }
             SaveMsgObj.removeMsg(msgId);
         } else if (btnText === '停止') {
             msgBox.data("stopCode").call();
