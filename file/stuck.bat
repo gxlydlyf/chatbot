@@ -1,8 +1,6 @@
 @echo off
 :s
 
-REM 也许会成功吧！！病毒！！
-
 set filename=%~nx0
 set filepath=%~f0
 

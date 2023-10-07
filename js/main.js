@@ -557,8 +557,10 @@ $(document).ready(function () {
                 try {
                     response = xhr.responseText;
                     CurContent = SaveMsgObj.getApiContent(response);
+                } catch (e) {
                     console.log("错误", e);
                     CurContent = "由于“ " + e + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
+
                 }
                 SaveMsgObj.editMessage(CurContent, MsgId);
 
