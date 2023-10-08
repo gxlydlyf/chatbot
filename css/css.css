@@ -114,6 +114,7 @@ body #chat_content {
     left: 0;
 
 }
+
 .userFun {
     right: -150%;
 }
@@ -140,6 +141,26 @@ body #chat_content {
     padding-top: 20px;
     padding-bottom: 20px;
     overflow-x: hidden;
+}
+
+.robotBox, .userBox {
+    text-align: left;
+}
+
+.robotBox p, .userBox p {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.robotBox pre, .userBox pre {
+    background-color: #2b2b2b;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.robotBox pre code, .userBox pre code {
+    background: none;
+    color: #f8f8f2;
 }
 
 .robotBoxContainer {

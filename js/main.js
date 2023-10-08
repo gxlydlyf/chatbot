@@ -37,31 +37,28 @@ function SaveMsgConstructor() {
                 tempSave['id'] = this.generateUniqueString();
                 MsgOperate.push(tempSave);
             }
-            this.MsgOperate = MsgOperate;
-            this.log('创建聊天信息变量', '过程：', tempSaveList, '结果：', this.MsgOperate);
+            this.messages = MsgOperate;
+            this.log('创建聊天信息变量', '过程：', tempSaveList, '结果：', MsgOperate);
             this.saveMsgs();
         },
 
-        createBotElement: function (data) {
+        createContainerElement: function (FunClass, BoxClass, ContainerClass, data) {
             var copyBtn = '';
             if (ClipboardJS.isSupported()) {
                 copyBtn = '<span>复制</span>';
             }
-            var Element = $('<div class="robotBoxContainer"><div class="msgFun robotFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span></div><div class="robotBox"></div></div>');
-            Element.find('.robotBox').data('id', data['id']);
-            Element.find('.robotBox').text(data['content']);
+            var Element = $('<div class="' + ContainerClass + '"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + '"></div></div>');
+            Element.find('.' + BoxClass).data('id', data['id']);
+            Element.find('.' + BoxClass).html(marked.marked(data['content']));
             return Element;
+
+        },
+        createBotElement: function (data) {
+            return this.createContainerElement("robotFun", "robotBox", "robotBoxContainer", data)
         },
 
         createUserElement: function (data) {
-            var copyBtn = '';
-            if (ClipboardJS.isSupported()) {
-                copyBtn = '<span>复制</span>';
-            }
-            var Element = $('<div class="userBoxContainer"><div class="msgFun userFun disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="userBox"></div></div>')
-            Element.find('.userBox').text(data['content']);
-            Element.find('.userBox').data('id', data['id']);
-            return Element;
+            return this.createContainerElement("userFun", "userBox", "userBoxContainer", data)
         },
 
         loadMessagesElement: function () {
@@ -81,7 +78,6 @@ function SaveMsgConstructor() {
         newMsgOperateUserMsg: function (message) {
             var msg = message;
             msg['id'] = this.generateUniqueString();
-            this.MsgOperate.push(msg);
             this.messages.push(message);
             this.saveMsgs();
             this.log('发送消息：\n', msg.content);
@@ -99,7 +95,6 @@ function SaveMsgConstructor() {
         newMsgOperateBotMsg: function (message) {
             var msg = message;
             msg['id'] = this.generateUniqueString();
-            this.MsgOperate.push(msg);
             this.messages.push(message);
             var MsgId = msg['id'];
             this.saveMsgs();
@@ -110,6 +105,7 @@ function SaveMsgConstructor() {
 
 
         editMessage: function (data, MsgId) {
+            var ifSTB;
             for (var i = 0; i < this.messages.length; i++) {
                 if (this.messages[i].id === MsgId) {
                     this.messages[i].content = data;
@@ -118,11 +114,8 @@ function SaveMsgConstructor() {
                     ChatMessagesParentElement.find('div').each(function () {
                         // 在这里对每个div元素进行操作
                         if ($(this).data('id') === MsgId) {
-                            var ifSTB = SaveMsgObj.ifScrollToBottom();
-                            $(this).text(data);
-                            if (ifSTB) {
-                                SaveMsgObj.scrollTopBottom();
-                            }
+                            ifSTB = SaveMsgObj.ifScrollToBottom();
+                            $(this).html(marked.marked(data));
                         }
 
                     });
@@ -130,6 +123,9 @@ function SaveMsgConstructor() {
 
                 }
 
+            }
+            if (ifSTB) {
+                SaveMsgObj.scrollTopBottom();
             }
         },
 
@@ -644,7 +640,7 @@ $(document).ready(function () {
             btn.text("保存");
             $("*").attr("contenteditable", "false");
             var rawContent = SaveMsgObj.getMsgContent(msgId);
-            msgBox.val(rawContent);
+            msgBox.text(rawContent);
             msgBox.attr("contenteditable", "true");
             msgBox.focus();
         } else if (btnText === '保存') {
