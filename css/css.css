@@ -155,12 +155,51 @@ body #chat_content {
 .robotBox pre, .userBox pre {
     background-color: #2b2b2b;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .robotBox pre code, .userBox pre code {
     background: none;
     color: #f8f8f2;
+    font-weight: normal;
+}
+
+.msgPreBox {
+    position: relative;
+}
+
+.msgPreBox:hover .BoxPreCopyBtn {
+    opacity: 1;
+}
+
+.BoxPreCopyBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 10px;
+    color: white;
+    display: block;
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.robotBox code, .userBox code {
+    border-radius: 2px;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.robotBox code {
+    background-color: #a6a6a6;
+    color: #1b1b1b;
+}
+
+.userBox code {
+    background-color: #c9d0ff;
+    color: #0b0b0b;
 }
 
 .robotBoxContainer {

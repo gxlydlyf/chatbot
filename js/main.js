@@ -656,6 +656,26 @@ $(document).ready(function () {
             UserInput.val(uiv);
         }
     });
+    $(document).on("click", ".msgPreBox .BoxPreCopyBtn", function () {
+        var btn = $(this);
+        var msgPreBox = btn.parent();
+        var pre = msgPreBox.children().not('.BoxPreCopyBtn');
+        var code = pre.children();
+        if (btn.text() === "复制代码") {
+            ClipboardCopy(code.text(), function (status, event) {
+                if (status) {
+                    btn.text('复制成功');
+                } else {
+                    console.log("复制失败", event);
+                    btn.text('复制失败');
+                }
+            });
+            setTimeout(function () {
+                btn.text('复制代码');
+            }, 1000);
+
+        }
+    });
 
 });
 

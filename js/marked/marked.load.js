@@ -1,4 +1,6 @@
-var {markedHighlight} = globalThis.markedHighlight;
+markedHighlight = window.markedHighlight.markedHighlight;
+marked = window.marked;
+hljs = window.hljs;
 
 var renderer = new marked.Renderer();
 
@@ -44,6 +46,9 @@ renderer.text = function (text) {
     NewText = escapeReplaceText(NewText);
     // console.log("转义之后",NewText)
     return NewText;
+};
+renderer.code = function (code, language) {
+    return '<div class="msgPreBox"><span class="BoxPreCopyBtn disable-selection">复制代码</span><pre><code class="language-' + escape(language, true) + '">' + code + '</code></pre></div>';
 };
 
 //marked.marked.setOptions({

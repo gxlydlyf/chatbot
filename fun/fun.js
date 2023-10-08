@@ -200,7 +200,7 @@ ready(function () {
             elements[i].onmousewheel = function (event) {
                 event = event || window.event;
                 event.returnValue = false;
-                console.log(event);
+                // console.log(event);
                 var deltaY = event.wheelDelta;
                 var scrollLeft = this.scrollLeft;
                 this.scrollLeft = scrollLeft + deltaY;
