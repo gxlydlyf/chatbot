@@ -176,7 +176,7 @@ body #chat_content {
 
 .BoxPreCopyBtn {
     position: absolute;
-    right: 0;
+    right: 4px;
     top: 0;
     font-size: 10px;
     color: white;
