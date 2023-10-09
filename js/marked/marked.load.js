@@ -1,3 +1,10 @@
+/*@cc_on
+@if (@_jscript_version <= 5.6)
+    isIE6 = true;
+    return;
+@end
+@*/
+
 markedHighlight = window.markedHighlight.markedHighlight;
 marked = window.marked;
 hljs = window.hljs;

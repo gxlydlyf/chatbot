@@ -24,7 +24,15 @@
     <script src="js/marked/highlight/languages/go.min.js"></script>
     <link href="js/marked/highlight/styles/a11y-dark.min.css" type="text/css" rel="stylesheet">
     <script src="js/marked/linkify/index.umd.js"></script>
-    <script src="js/marked/marked.load.js"></script>
+    <script>
+        if (!window.marked || !window.markedHighlight || !window.hljs) {
+            window.marked.marked = function (markdown) {
+                return markdown;
+            }
+        } else {
+            $('head').append('<script src="js/marked/marked.load.js"></' + "script>");
+        }
+    </script>
 
     <script src="js/download.min.js"></script>
     <script src="js/js.cookie.min.js"></script>
