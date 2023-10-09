@@ -1,10 +1,3 @@
-/*@cc_on
-@if (@_jscript_version <= 5.6)
-    isIE6 = true;
-    return;
-@end
-@*/
-
 markedHighlight = window.markedHighlight.markedHighlight;
 marked = window.marked;
 hljs = window.hljs;
@@ -75,7 +68,7 @@ marked.use(
         langPrefix: 'language-',
         highlight(code, lang) {
             // console.log(lang);
-            var language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            var language = hljs.getLanguage(lang) ? lang : 'markdown';//plaintext
             // console.log(hljs.highlight(code, { language }));
             return hljs.highlight(code, {language}).value;
         }
