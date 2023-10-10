@@ -379,7 +379,7 @@ function Reset_function_box_position() {
     var TfcShowBtn = $('#tfc_show_btn');
     var FbInTFC = $('#top_function_container .fu-btn');
     var TfcBtn = $('#tfc_buttons');
-    if ($(window).width() > 500) {
+    if ($(document).width() > 500) {//$(window).width()
         // 可用宽度大于500px时执行的命令
         // console.log('可用宽度大于500px');
         //TFC.children().not('#tfc_show_btn').children().prependTo(OFC);
