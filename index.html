@@ -26,9 +26,10 @@
     <script src="js/marked/linkify/index.umd.js"></script>
     <script>
         if (!window.marked || !window.markedHighlight || !window.hljs) {
+            $('head').append('<script src="js/markdown.js"></' + "script>");
             window.marked = {
-                marked: function (markdown) {
-                    return markdown;
+                marked: function (markdownText) {
+                    return window.markdown(markdownText);
                 }
             }
         } else {

@@ -23,7 +23,9 @@ function SaveMsgConstructor() {
             var innerHeight = element.innerHeight();
             var scrollHeight = element[0].scrollHeight;
 
-            return (scrollTop + innerHeight >= scrollHeight);
+            var deviation = 50; // 偏差值
+
+            return (scrollTop + innerHeight + deviation >= scrollHeight);
         },
 
 
@@ -274,6 +276,9 @@ function SaveMsgConstructor() {
             return returnElement;
 
         },
+        editContenteditable: function () {
+            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
+        },
         log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
             try {
                 var args = [];
@@ -465,9 +470,12 @@ $(document).ready(function () {
         var UserInput = $('#userInput');
         var ifSTB = SaveMsgObj.ifScrollToBottom();
         SaveMsgObj.newUserMessage(UserInput.val());
-        if (ifSTB) {
-            SaveMsgObj.scrollTopBottom();
-        }
+        setTimeout(function () {
+            if (ifSTB) {
+                SaveMsgObj.scrollTopBottom();
+            }
+
+        }, 100);
         UserInput.val('');
         var NewMessages = [];
         var MsgId;
@@ -643,13 +651,13 @@ $(document).ready(function () {
             msgBox.data("stopCode").call();
         } else if (btnText === '编辑') {
             btn.text("保存");
-            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
+            SaveMsgObj.editContenteditable();
             var rawContent = SaveMsgObj.getMsgContent(msgId);
             msgBox.text(rawContent);
             msgBox.attr("contenteditable", "true");
             msgBox.focus();
         } else if (btnText === '保存') {
-            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
+            SaveMsgObj.editContenteditable();
             SaveMsgObj.editMessage(msgBox.text(), msgId);
             btn.text("编辑");
         } else if (btnText === '发送') {
@@ -663,7 +671,7 @@ $(document).ready(function () {
     });
     $(document).on("click", ".msgPreBox .BoxPreCopyBtn", function () {
         var btn = $(this);
-        var msgPreBox = btn.parent();
+        var msgPreBox = $(btn.parent());
         var pre = msgPreBox.children().not('.BoxPreCopyBtn');
         var code = pre.children();
         if (btn.text() === "复制代码") {
