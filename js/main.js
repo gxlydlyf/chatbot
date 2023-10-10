@@ -643,13 +643,13 @@ $(document).ready(function () {
             msgBox.data("stopCode").call();
         } else if (btnText === '编辑') {
             btn.text("保存");
-            $("*").attr("contenteditable", "false");
+            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
             var rawContent = SaveMsgObj.getMsgContent(msgId);
             msgBox.text(rawContent);
             msgBox.attr("contenteditable", "true");
             msgBox.focus();
         } else if (btnText === '保存') {
-            $("*").attr("contenteditable", "false");
+            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
             SaveMsgObj.editMessage(msgBox.text(), msgId);
             btn.text("编辑");
         } else if (btnText === '发送') {
