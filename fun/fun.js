@@ -72,7 +72,7 @@ if (window.jQuery) {
     $._manyClick = {
         eventsList: [],
         newEvent: function (element, eventClass, unregisterCode) {
-            this.eventsList.push({"element": element, "class": eventClass, "remove": unregisterCode})
+            this.eventsList.push({"element": element, "eventClass": eventClass, "remove": unregisterCode})
         },
         remove: function (eventClass, element) {
             if (!eventClass) {
@@ -89,7 +89,7 @@ if (window.jQuery) {
                     }
                 }
                 if (eventClass) {
-                    if (!(item.class === eventClass)) {
+                    if (!(item.eventClass === eventClass)) {
                         continue;
                     }
                 }

@@ -61,3 +61,14 @@
 .synchronized-vertical-scrolling {
 
 }
+
+.opacity-0 {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.opacity-1 {
+    opacity: 1;
+    filter: alpha(opacity=100);
+
+}

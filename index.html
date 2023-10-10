@@ -26,8 +26,10 @@
     <script src="js/marked/linkify/index.umd.js"></script>
     <script>
         if (!window.marked || !window.markedHighlight || !window.hljs) {
-            window.marked.marked = function (markdown) {
-                return markdown;
+            window.marked = {
+                marked: function (markdown) {
+                    return markdown;
+                }
             }
         } else {
             $('head').append('<script src="js/marked/marked.load.js"></' + "script>");
@@ -37,6 +39,7 @@
     <script src="js/download.min.js"></script>
     <script src="js/js.cookie.min.js"></script>
     <script src="js/clipboard.min.js"></script>
+    <script src="js/clipboard.load.js"></script>
 
     <script src="fun/fun.js"></script>
     <script src="js/storage.js" defer></script>
@@ -48,7 +51,7 @@
     <title>ChatGPT Free</title>
     <!--[if lte IE 7]>
     <style>
-        /* 在IE8及以下版本中应用的样式 */
+        /* 在IE7及以下版本中应用的样式 */
         #textarea_parent {
             border: 2px inset #e5e7eb;
         }
@@ -56,9 +59,25 @@
         #chat_messages {
             height: 300px;
         }
+
+        #send-btn {
+            bottom: 1px;
+            position: absolute;
+            right: 1px;
+        }
     </style>
     <![endif]-->
-
+    <!--[if lte IE 6]>
+    <style>
+        .msgFun {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+        body{
+            text-align: center;
+        }
+    </style>
+    <![endif]-->
 </head>
 <body>
 <h1 style="text-align: center">AI ChatBot</h1>
@@ -70,13 +89,13 @@
 <![endif]-->
 <div id="chat_content" class="border-1px">
     <div id="chat_messages">
-        <div class="robotBoxContainer">
+        <div class="robotBoxContainer msgContainer">
             <div class="msgFun robotFun disable-selection no-scrollbar">
                 <span>删除</span><span>复制</span><span>编辑</span><!--<span>停止</span>-->
             </div>
             <div class="robotBox"></div>
         </div>
-        <div class="userBoxContainer">
+        <div class="userBoxContainer msgContainer">
             <div class="msgFun userFun disable-selection no-scrollbar">
                 <span>删除</span><span>复制</span><span>编辑</span><span>发送</span>
             </div>

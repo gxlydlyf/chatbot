@@ -44,10 +44,14 @@ function SaveMsgConstructor() {
 
         createContainerElement: function (FunClass, BoxClass, ContainerClass, data) {
             var copyBtn = '';
-            if (ClipboardJS.isSupported()) {
-                copyBtn = '<span>复制</span>';
+            try {
+                if (ClipboardJS.isSupported()) {
+                    copyBtn = '<span>复制</span>';
+                }
+            } catch (e) {
+                console.log(e);
             }
-            var Element = $('<div class="' + ContainerClass + '"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + '"></div></div>');
+            var Element = $('<div class="' + ContainerClass + ' msgContainer"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + '"></div></div>');
             Element.find('.' + BoxClass).data('id', data['id']);
             Element.find('.' + BoxClass).html(marked.marked(data['content']));
             return Element;
@@ -422,24 +426,25 @@ $(window).resize(function () {
 });
 
 function ClipboardCopy(text, callback) {
-    var tempElement = $("<button>click</buttpn>").get(0);
-    var clipboard = new ClipboardJS(tempElement, {
-        text: function () {
+    if (ClipboardJS.isSupported()) {
+        var tempElement = $("<button>click</buttpn>").get(0);
+        var clipboard = new ClipboardJS(tempElement);
+        clipboard.text = function () {
             clipboard.destroy();
             return text;
-        },
-    });
-    clipboard.on('success', function (e) {
-        if (typeof callback === "function") {
-            callback.call(null, true, e)
-        }
-    });
-    clipboard.on('error', function (e) {
-        if (typeof callback === "function") {
-            callback.call(null, false, e)
-        }
-    });
-    tempElement.click();
+        };
+        clipboard.on('success', function (e) {
+            if (typeof callback === "function") {
+                callback.call(null, true, e)
+            }
+        });
+        clipboard.on('error', function (e) {
+            if (typeof callback === "function") {
+                callback.call(null, false, e)
+            }
+        });
+        tempElement.click();
+    }
 }
 
 $(document).ready(function () {

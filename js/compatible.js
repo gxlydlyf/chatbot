@@ -24,3 +24,9 @@ if (typeof Object.freeze !== 'function') {
     };
 }
 
+// Polyfill 字符串的.trim()去除两边空白符号
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
