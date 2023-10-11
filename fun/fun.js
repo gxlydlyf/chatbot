@@ -28,30 +28,30 @@ if (window.jQuery) {
     };
 
     window.jQuery.mergeObjects = function (obj1, obj2) {//合并两个对象
-        // 判断浏览器是否为IE5及以上版本
-        var isIE5orAbove = (navigator.userAgent.indexOf("MSIE") !== -1 && parseFloat(navigator.appVersion.split("MSIE")[1]) >= 5);
+        // 检测浏览器是否支持Object.assign方法
+        if (typeof Object.assign === 'function') {
+            return Object.assign({}, obj1, obj2);
+        } else {
+            // 创建一个新对象作为合并结果
+            var mergedObj = {};
+            var prop;
 
-        // 判断浏览器是否支持ES6的Object.assign方法
-        var isObjectAssignSupported = (typeof Object.assign === 'function');
-
-        // 兼容IE5及以上的方法
-        function merge(obj1, obj2) {
-            if (isObjectAssignSupported) {
-                return Object.assign(obj1, obj2);
-            } else if (isIE5orAbove) {
-                for (var key in obj2) {
-                    if (obj2.hasOwnProperty(key)) {
-                        obj1[key] = obj2[key];
-                    }
+            // 复制obj1的属性到mergedObj
+            for (prop in obj1) {
+                if (obj1.hasOwnProperty(prop)) {
+                    mergedObj[prop] = obj1[prop];
                 }
-                return obj1;
-            } else {
-                throw new Error('Browser not supported');
             }
-        }
 
-        // 调用合并函数
-        return merge(obj1, obj2);
+            // 复制obj2的属性到mergedObj
+            for (prop in obj2) {
+                if (obj2.hasOwnProperty(prop)) {
+                    mergedObj[prop] = obj2[prop];
+                }
+            }
+
+            return mergedObj;
+        }
     }
 
     $.generateRandomString = function (length, otherCharacters) {

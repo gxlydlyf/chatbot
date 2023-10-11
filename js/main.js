@@ -279,6 +279,18 @@ function SaveMsgConstructor() {
         editContenteditable: function () {
             $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
         },
+        findFunBtn: function (jQueryElement, funName) {
+            /*var stopSpan = robotBox.parent().children('.msgFun').find('span').filter(function () {
+                return $(this).text().trim() === '停止';
+            });*/
+            if (!funName) {
+                funName = '停止';
+            }
+            return jQueryElement.filter(function () {
+                return $(this).text().trim() === funName;
+            });
+
+        },
         log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
             try {
                 var args = [];
@@ -504,6 +516,7 @@ $(document).ready(function () {
         var robotBox = SaveMsgObj.getMsgBox(MsgId);
         robotBox.parent().children('.robotFun').append('<span>停止</span>');
         SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
+        var msgFunButtons = robotBox.parent().children('.msgFun').find('span');
         /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
@@ -534,7 +547,16 @@ $(document).ready(function () {
             }
         });*/
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "//" + PostUrl.domain, true);
+        try {
+            xhr.open("POST", "//" + PostUrl.domain, true);
+        } catch (e) {
+            console.warn("请求错误:", e)
+            var stopSpan = SaveMsgObj.findFunBtn(msgFunButtons);
+            stopSpan.remove();
+            SaveMsgObj.editMessage("请求错误：" + e["description"], MsgId);
+            return;
+
+        }
         for (var header in headers) {
             xhr.setRequestHeader(header, headers[header]);
         }
@@ -554,6 +576,9 @@ $(document).ready(function () {
                     CurContent = SaveMsgObj.getApiContent(response);
                     SaveMsgObj.log('机器人回复：\n', CurContent);
                     SaveMsgObj.editMessage(CurContent, MsgId);
+                } else if (xhr.status === 0) {
+                    // 发生"拒绝访问"错误
+                    console.log("发生拒绝访问错误");
                 } else {
                     // 处理请求失败的情况
                     console.error('请求失败，状态码：', xhr.status);
@@ -568,13 +593,28 @@ $(document).ready(function () {
                     CurContent = SaveMsgObj.getApiContent(response);
                 } catch (e) {
                     console.log("错误", e);
-                    CurContent = "由于“ " + e + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
+                    CurContent = "由于“ " + e["description"] + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
 
                 }
                 SaveMsgObj.editMessage(CurContent, MsgId);
 
             }
         };
+        xhr.onerror = function () {
+            // 发生网络错误
+            console.log("网络错误");
+        };
+
+        xhr.ontimeout = function () {
+            // 请求超时
+            console.log("请求超时");
+        };
+
+        xhr.onabort = function () {
+            // 请求被中止
+            console.log("请求被中止");
+        };
+
         xhr.timeout = 1000 * 60 * 2;
         xhr.send(JSON.stringify(incomingParameters));
         // 中断流请求
@@ -582,9 +622,7 @@ $(document).ready(function () {
             robotBox.data("stopCode", function () {
                 requestAborted = true;
                 xhr.abort();
-                var stopSpan = robotBox.parent().children('.msgFun').find('span').filter(function () {
-                    return $(this).text().trim() === '停止';
-                });
+                var stopSpan = SaveMsgObj.findFunBtn(msgFunButtons);
                 stopSpan.remove();
                 robotBox.data("stopCode", null);
 

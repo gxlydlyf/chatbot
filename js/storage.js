@@ -1,6 +1,6 @@
 window.LS = localStorage ? localStorage : {
     isObject: function (variable) {
-        return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
+        return $.isObject(variable);
     },
     checkItem: function () {
         var tempLocalStorage = Cookies.get('localStorage');
