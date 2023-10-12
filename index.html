@@ -25,15 +25,35 @@
     <link href="js/marked/highlight/styles/a11y-dark.min.css" type="text/css" rel="stylesheet">
     <script src="js/marked/linkify/index.umd.js"></script>
     <script>
+        var headDom = $('head');
         if (!window.marked || !window.markedHighlight || !window.hljs) {
-            $('head').append('<script src="js/markdown.js"></' + "script>");
+            headDom.append('<script src="js/showdown/dist/showdown.js"></' + "script>");
+            headDom.append('<script src="js/SyntaxHighlighter.load.js"></' + "script>");
             window.marked = {
                 marked: function (markdownText) {
-                    return window.markdown(markdownText);
+                    var conv = new showdown.Converter({metadata: true});
+                    var html = conv.makeHtml(markdownText);
+                    html = $(html);
+
+                    function escapeHtmlTags(text) {
+                        return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    }
+
+                    html.children('pre code').each(function () {
+                        var codeElement = $(this);
+                        if (codeElement) {/*
+                            console.log(codeElement);
+                            var HLcontent = SyntaxHighligher.highlight(escapeHtmlTags(codeElement.text()));
+                            console.log(HLcontent);
+                            console.log(escapeHtmlTags(codeElement.text()));
+                            codeElement.html(HLcontent);*/
+                        }
+                    })
+                    return html;
                 }
             }
         } else {
-            $('head').append('<script src="js/marked/marked.load.js"></' + "script>");
+            headDom.append('<script src="js/marked/marked.load.js"></' + "script>");
         }
     </script>
 
@@ -74,13 +94,16 @@
             opacity: 1 !important;
             filter: alpha(opacity=100) !important;
         }
-        body{
+
+        body {
             text-align: center;
         }
-        #tfc_show_btn{
+
+        #tfc_show_btn {
             margin-top: 5px;
         }
-        #tfc_buttons .fu-btn{
+
+        #tfc_buttons .fu-btn {
             margin-top: -5px;
         }
     </style>

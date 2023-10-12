@@ -9,7 +9,7 @@ function parseMarkdown(markdownText) {
     // 解析代码块
     regex = /```([\s\S]*?)```/g;
     markdownText = markdownText.replace(regex, function (match, code) {
-        return "<pre><code>" + code + "</code></pre>";
+        return "<pre><code>" + SyntaxHighligher.highlight(code) + "</code></pre>";
     });
 
     // 解析代码高亮
