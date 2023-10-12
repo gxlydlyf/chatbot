@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hello SyntaxHighlighter</title>
+    <!--	<script type="text/javascript" src="scripts/shCore.js"></script>-->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+    <!--	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>-->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+    <!--	<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css">-->
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCoreDefault.min.css">
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeRDark.min.css">
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css">
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+    <style type="text/css">
+        body {
+            background: white;
+            font-family: helvetica;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Hello SyntaxHighlighter</h1>
+
+<pre class="brush: js;">var code = 'YOUR_CODE_HERE'; // 替换成你的代码字符串
+var highlightedCode = code.replace(/&/g, '&amp;')
+                         .replace(/< /g, '&lt;')
+                         .replace(/>/g, '&gt;');
+
+var preElem = document.createElement('pre');
+var codeElem = document.createElement('code');
+codeElem.innerHTML = highlightedCode;
+
+preElem.appendChild(codeElem);
+document.body.appendChild(preElem);
+</pre>
+</body>
+</html>

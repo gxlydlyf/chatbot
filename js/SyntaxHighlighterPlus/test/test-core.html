@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>J+ Library</title>
+<script type="text/javascript">(function () {
+    var sourceBaseUrl = "../src/";
+    var sources = [
+      "core.js",
+      "dom.js",
+      "lang/common.js",
+      "lang/apollo.js",
+      "lang/clj.js",
+      "lang/coffee.js",
+      "lang/css.js",
+      "lang/go.js",
+      "lang/hs.js",
+      "lang/lisp.js",
+      "lang/lua.js",
+      "lang/ml.js",
+      "lang/n.js",
+      "lang/php.js",
+      "lang/proto.js",
+      "lang/scala.js",
+      "lang/sql.js",
+      "lang/tex.js",
+      "lang/vhdl.js",
+      "lang/wiki.js",
+      "lang/vb.js",
+      "lang/xq.js",
+      "lang/yaml.js",
+    ];
+    var styles = [
+      "themes/default.css"
+    ];
+    for (var i = 0; i < sources.length; ++i) {
+        document.write("<script src=\"" + sourceBaseUrl + sources[i] + "\"><\/script>");
+    }
+    for (var i = 0; i < styles.length; ++i) {
+        document.write("<link rel=\"stylesheet\" href=\"" + sourceBaseUrl + styles[i] + "\">");
+    }
+})();
+</script>
+
+	</head>
+	<body onload="SyntaxHighligher.all();">
+        <pre class="5sh-css">
+            .ccc{
+                color: red;
+            }
+        </pre>
+        <pre class="sh sh-js sh-line">function walk(node) {
+	switch (node.nodeType) {
+		case 1:
+			// Element
+			for (var child = node.firstChild; child; child = child.nextSibling) {
+				walk(child);
+			}
+			var nodeName = node.nodeName;
+			if ('BR' === nodeName || 'LI' === nodeName) {
+				chunks[k] = '\n';
+				spans[k << 1] = length++;
+				spans[(k++ << 1) | 1] = node;
+			}
+			break;
+		case 3:
+		case 4:
+			// Text
+			var text = node.nodeValue;
+			if (text.length) {
+				if (isPreformatted) {
+					text = text.replace(/\r\n?/g, '\n'); // Normalize newlines.
+				} else {
+					text = text.replace(/[ \t\r\n]+/g, ' ');
+				}
+				// TODO: handle tabs here?
+				chunks[k] = text;
+				spans[k << 1] = length;
+				length += text.length;
+				spans[(k++ << 1) | 1] = node;
+			}
+			break;
+	}
+}</pre>
+	hh</body>
+</html>

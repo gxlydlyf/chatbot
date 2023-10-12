@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>J+ Library</title>
+		<script type="text/javascript">(function () {
+    var sourceBaseUrl = "../src/";
+    var styles = [
+      "themes/default.css"
+    ];
+    var sources = [
+      "core.js",
+      "dom.js",
+      "text.js",
+      "lang/common.js",
+      "lang/apollo.js",
+      "lang/clj.js",
+      "lang/coffee.js",
+      "lang/css.js",
+      "lang/go.js",
+      "lang/hs.js",
+      "lang/lisp.js",
+      "lang/lua.js",
+      "lang/ml.js",
+      "lang/n.js",
+      "lang/php.js",
+      "lang/proto.js",
+      "lang/scala.js",
+      "lang/sql.js",
+      "lang/tex.js",
+      "lang/vhdl.js",
+      "lang/wiki.js",
+      "lang/vb.js",
+      "lang/xq.js",
+      "lang/yaml.js"
+    ];
+    for (var i = 0; i < styles.length; ++i) {
+        document.write("<link rel=\"stylesheet\" href=\"" + sourceBaseUrl + styles[i] + "\">");
+    }
+    for (var i = 0; i < sources.length; ++i) {
+        document.write("<script src=\"" + sourceBaseUrl + sources[i] + "\"><\/script>");
+    }
+})();
+</script>
+
+	</head>
+	<body onload="SyntaxHighligher.all()">
+		
+        <pre class="sh sh-line">#include &lt;iostream&gt;
+
+int <strong>main</strong>(){
+	return 2;
+}</pre>
+
+	</body>
+</html>
