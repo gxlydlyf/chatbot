@@ -31,22 +31,30 @@
             headDom.append('<script src="js/SyntaxHighlighter.load.js"></' + "script>");
             window.marked = {
                 marked: function (markdownText) {
-                    var conv = new showdown.Converter({metadata: true});
-                    var html = conv.makeHtml(markdownText);
-                    html = $(html);
+                    var conv = new showdown.Converter({metadata: true,converter:true});
+
+                    function escapeReplaceHtml(html) {//转义html为文本
+                        var text = document.createTextNode(html);
+                        var div = document.createElement('div');
+                        div.appendChild(text);
+                        return div.innerHTML;
+                    }
 
                     function escapeHtmlTags(text) {
                         return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
                     }
 
+                    var html = conv.makeHtml(markdownText);
+                    html = $(html);
+
                     html.children('pre code').each(function () {
                         var codeElement = $(this);
-                        if (codeElement) {/*
+                        if (codeElement) {
                             console.log(codeElement);
-                            var HLcontent = SyntaxHighligher.highlight(escapeHtmlTags(codeElement.text()));
-                            console.log(HLcontent);
-                            console.log(escapeHtmlTags(codeElement.text()));
-                            codeElement.html(HLcontent);*/
+                            // var HLcontent = SyntaxHighligher.highlight(codeElement.text());
+                            // console.log(HLcontent);
+                            // console.log(escapeReplaceHtml(codeElement.text()));
+                            // codeElement.html(HLcontent);
                         }
                     })
                     return html;
@@ -77,9 +85,9 @@
             border: 2px inset #e5e7eb;
         }
 
-        #chat_messages {
-            height: 300px;
-        }
+        /*#chat_messages {*/
+        /*    height: 300px;*/
+        /*}*/
 
         #send-btn {
             bottom: 1px;

@@ -438,9 +438,114 @@ function Reset_function_box_position() {
 }
 
 Reset_function_box_position();
-$(window).resize(function () {
-    Reset_function_box_position()
-});
+// $(window).resize(function () {
+//     Reset_function_box_position()
+// });
+function windowResize(callback) {
+    if (typeof window.addEventListener === "undefined" && typeof window.attachEvent !== "undefined") {
+        // IE5 or older browser
+        window.attachEvent("onresize", function () {
+            callback.call();
+        });
+    } else {
+        // Modern browsers
+        window.addEventListener("resize", function () {
+            callback.call();
+        });
+    }
+
+}
+
+windowResize(function () {
+    Reset_function_box_position();
+})
+
+function setElementHeight() {
+    setInterval(function () {
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        var targetHeight = Math.floor(windowHeight * 0.7); // 设置目标高度为窗口高度的70%(70vh)
+
+        var element = document.getElementById("chat_content");
+        var element2 = document.getElementById("outer_function_container");
+        var element3 = document.getElementById("chat_messages");
+        var sendBtnElement = document.getElementById("send-btn");
+        var textareaPlaceholder = 70;
+        if (element) {
+            element.style.height = targetHeight + "px";
+            element2.style.height = targetHeight - textareaPlaceholder + "px";
+            element3.style.height = targetHeight - textareaPlaceholder + "px";
+        }
+    }, 100)
+}
+
+function isViewportHeightSupported() {
+    var testElement = document.createElement("div");
+    try {
+        testElement.style.height = "50vh";
+    } catch (e) {
+        return false;
+    }
+    return !!testElement.style.height;//支持返回true，否则返回false
+}
+
+if (!isViewportHeightSupported()) {
+    console.log("不支持css属性 vh");
+    setElementHeight();
+}
+
+function adjustWidth(element) {
+    if (!element) {
+        element = '.userBoxContainer, .robotBoxContainer';
+    }
+    var container = $(element);
+
+    var content = container.find('.userBox, .robotBox');
+
+    content.each(function () {
+        var maxWidthPercent = 80; // 最大宽度百分比
+        var containerWidth = container.innerWidth();
+
+        var span = $('<span>', {
+            html: $(this).html(),
+            css: {
+                visibility: 'hidden',
+                whiteSpace: 'nowrap',
+                display: 'none'
+            }
+        }).appendTo('body');
+
+        var textWidth = span.width();
+        span.remove();
+
+        var maxWidth = Math.floor(containerWidth * (maxWidthPercent / 100)); // 计算最大宽度
+        // console.log(textWidth, maxWidth)
+
+        if (textWidth > maxWidth) {
+            $(this).width(maxWidth); // 设置宽度为最大宽度，单位是px
+        } else {
+            $(this).width(textWidth); // 设置宽度为最大宽度，单位是px
+
+        }
+
+    })
+}
+
+function isIE7OrLower() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    return (userAgent.indexOf("msie") !== -1) && (parseInt(userAgent.split("msie")[1]) <= 7);
+}
+
+if (isIE7OrLower()) {
+    console.log("Ie7以下浏览器");
+    adjustWidth(); // 重复执行一次
+    $(document).ready(function () {
+        adjustWidth();
+    })
+    windowResize(function () {
+        adjustWidth();
+    })
+
+}
 
 function ClipboardCopy(text, callback) {
     if (ClipboardJS.isSupported()) {
@@ -517,6 +622,15 @@ $(document).ready(function () {
         robotBox.parent().children('.robotFun').append('<span>停止</span>');
         SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
         var msgFunButtons = robotBox.parent().children('.msgFun').find('span');
+
+        if (isIE7OrLower()) {
+            adjustWidth();
+            setTimeout(function () {
+                adjustWidth();
+            }, 5000)
+            robotBox.data("adjustWidth", true);
+
+        }
         /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
@@ -594,6 +708,13 @@ $(document).ready(function () {
                 } catch (e) {
                     console.log("错误", e);
                     CurContent = "由于“ " + e["description"] + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
+                    if (isIE7OrLower()) {
+                        if (robotBox.data("adjustWidth") === true) {
+                            robotBox.data("adjustWidth", false);
+                            adjustWidth();
+
+                        }
+                    }
 
                 }
                 SaveMsgObj.editMessage(CurContent, MsgId);

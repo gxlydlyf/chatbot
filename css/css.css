@@ -35,7 +35,7 @@ body #chat_content {
     height: 55px;
     line-height: 100%;
     margin-bottom: 0;
-    /*position: absolute;*/
+    position: relative;
     margin-top: 5px;
     width: 100%;
     overflow: auto;
@@ -160,6 +160,7 @@ body #chat_content {
 
 .robotBox, .userBox {
     text-align: left;
+    font-size: 15px;
 }
 
 .robotBox p, .userBox p {
