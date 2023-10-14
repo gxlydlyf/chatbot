@@ -78,6 +78,12 @@ function SaveMsgConstructor() {
                 }
 
             }
+            if (isIE7OrLower()) {
+                adjustWidth();
+                setTimeout(function () {
+                    SaveMsgObj.scrollTopBottom();
+                })
+            }
 
         },
 
@@ -505,12 +511,13 @@ function adjustWidth(element) {
         var maxWidthPercent = 80; // 最大宽度百分比
         var containerWidth = container.innerWidth();
 
-        var span = $('<span>', {
+        var span = $('<div>', {
             html: $(this).html(),
             css: {
                 visibility: 'hidden',
                 whiteSpace: 'nowrap',
-                display: 'none'
+                display: 'none',
+                fontSize: '15px'
             }
         }).appendTo('body');
 
@@ -628,9 +635,9 @@ $(document).ready(function () {
             setTimeout(function () {
                 adjustWidth();
             }, 5000)
-            robotBox.data("adjustWidth", true);
 
         }
+        robotBox.data("adjustWidth", true);
         /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
@@ -700,6 +707,10 @@ $(document).ready(function () {
                     SaveMsgObj.editMessage(CurContent, MsgId);
                 }
                 robotBox.data("stopCode").call();
+                if (isIE7OrLower()) {
+                    robotBox.data("adjustWidth", undefined);
+                    adjustWidth();
+                }
             } else if (xhr.readyState === 3) {
                 console.log("处理流数据中");
                 try {
@@ -708,16 +719,17 @@ $(document).ready(function () {
                 } catch (e) {
                     console.log("错误", e);
                     CurContent = "由于“ " + e["description"] + " ”错误，当前不支持流请求数据，所以请等待ChatGPT回答完毕后才可获取回答。（当前正在获取回答中，您不必重新发送问题。）";
-                    if (isIE7OrLower()) {
-                        if (robotBox.data("adjustWidth") === true) {
-                            robotBox.data("adjustWidth", false);
-                            adjustWidth();
 
-                        }
-                    }
 
                 }
                 SaveMsgObj.editMessage(CurContent, MsgId);
+                if (isIE7OrLower()) {
+                    if (robotBox.data("adjustWidth") === true) {
+                        robotBox.data("adjustWidth", false);
+                        adjustWidth();
+
+                    }
+                }
 
             }
         };
