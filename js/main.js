@@ -79,7 +79,7 @@ function SaveMsgConstructor() {
 
             }
             if (isIE7OrLower()) {
-                adjustWidth();
+                ModifyMessageBoxWidth();
                 setTimeout(function () {
                     SaveMsgObj.scrollTopBottom();
                 })
@@ -499,7 +499,18 @@ if (!isViewportHeightSupported()) {
     setElementHeight();
 }
 
-function adjustWidth(element) {
+function getStringWidth(Text, fontSize) {
+    var text = Text; // 替换为您要检查的文本字符串
+
+    var englishCount = (text.match(/[\u0000-\u007F]/g) || []).length;
+    var nonEnglishCount = (text.match(/[^\u0000-\u007F]/g) || []).length;
+
+    //console.log("英文字符个数（含数字）：" + englishCount);
+    //console.log("非英文字符个数：" + nonEnglishCount);
+    return englishCount * (fontSize * 0.5) + nonEnglishCount * fontSize;
+}
+
+function ModifyMessageBoxWidth(element) {
     if (!element) {
         element = '.userBoxContainer, .robotBoxContainer';
     }
@@ -511,18 +522,8 @@ function adjustWidth(element) {
         var maxWidthPercent = 80; // 最大宽度百分比
         var containerWidth = container.innerWidth();
 
-        var span = $('<div>', {
-            html: $(this).html(),
-            css: {
-                visibility: 'hidden',
-                whiteSpace: 'nowrap',
-                display: 'none',
-                fontSize: '15px'
-            }
-        }).appendTo('body');
-
-        var textWidth = span.width();
-        span.remove();
+        var textWidth = $(this).text().length * 15;
+        textWidth = getStringWidth($(this).text(), 15)
 
         var maxWidth = Math.floor(containerWidth * (maxWidthPercent / 100)); // 计算最大宽度
         // console.log(textWidth, maxWidth)
@@ -544,15 +545,12 @@ function isIE7OrLower() {
 
 if (isIE7OrLower()) {
     console.log("Ie7以下浏览器");
-    adjustWidth(); // 重复执行一次
-    $(document).ready(function () {
-        adjustWidth();
-    })
-    windowResize(function () {
-        adjustWidth();
-    })
+    setInterval(function () {
+        ModifyMessageBoxWidth();//手动设置自适应文本宽度(大概适应)
+    }, 100)
 
 }
+
 
 function ClipboardCopy(text, callback) {
     if (ClipboardJS.isSupported()) {
@@ -630,14 +628,6 @@ $(document).ready(function () {
         SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
         var msgFunButtons = robotBox.parent().children('.msgFun').find('span');
 
-        if (isIE7OrLower()) {
-            adjustWidth();
-            setTimeout(function () {
-                adjustWidth();
-            }, 5000)
-
-        }
-        robotBox.data("adjustWidth", true);
         /*var returnMessageAjax = $.ajax({
             url: "//" + PostUrl.domain,
             data: JSON.stringify(incomingParameters),
@@ -707,10 +697,6 @@ $(document).ready(function () {
                     SaveMsgObj.editMessage(CurContent, MsgId);
                 }
                 robotBox.data("stopCode").call();
-                if (isIE7OrLower()) {
-                    robotBox.data("adjustWidth", undefined);
-                    adjustWidth();
-                }
             } else if (xhr.readyState === 3) {
                 console.log("处理流数据中");
                 try {
@@ -723,13 +709,6 @@ $(document).ready(function () {
 
                 }
                 SaveMsgObj.editMessage(CurContent, MsgId);
-                if (isIE7OrLower()) {
-                    if (robotBox.data("adjustWidth") === true) {
-                        robotBox.data("adjustWidth", false);
-                        adjustWidth();
-
-                    }
-                }
 
             }
         };
