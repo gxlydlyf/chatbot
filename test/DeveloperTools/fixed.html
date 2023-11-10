@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>纯CSS实现固定定位position:fixed（兼容IE6）</title>
+    <style type="text/css">
+        /** {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*}*/
+        .wrap {
+            width: 960px;
+            height: 1500px;
+            border: 1px dashed #666;
+            background: #FCF;
+            margin: 0 auto;
+        }
+
+        .upBtn {
+            width: 100px;
+            height: 100px;
+            border: 1px dashed #f00;
+            background: #06F;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+        }
+
+        html, body {
+            _height: 100%; /*浏览器窗口高度*/
+        }
+
+        html {
+            _overflow: hidden; /*避免html产生滚动条*/
+        }
+
+        body {
+            _overflow: auto; /*body内容溢出产生滚动条*/
+        }
+
+        .upBtn {
+            _position: absolute;
+            _right: 17px; /*upBtn相对于html定位的，避免覆盖body产生的滚动条*/
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <p>跨浏览器css固定定位position:fixed;</p>
+</div>
+<div class="upBtn">返回顶部</div>
+</body>
+</html>

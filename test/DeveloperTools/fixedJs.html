@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        #fixme {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+        }
+
+        body > div#fixme {
+            position: fixed;
+        }
+
+        body {
+            height: 10000px;
+            width: 10000px;
+        }
+    </style>
+</head>
+<body>
+<div id="fixme">悬浮元素内容</div>
+<!-- 其他页面内容 -->
+
+<script>
+    function makeElementFloat() {
+        var fixme = document.getElementById('fixme');
+
+        if (document.layers) {
+            setInterval(function () {
+                fixme.style.top = window.pageYOffset + 'px';
+            }, 100);
+        }
+    }
+
+    // 调用函数使元素悬浮
+    makeElementFloat();
+</script>
+</body>
+</html>
