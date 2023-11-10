@@ -1370,10 +1370,10 @@ module.exports = function (chai, _) {
    *
    *     expect('foobar').to.have.string('bar');
    *
-   * @name string
-   * @param {String} string
-   * @param {String} message _optional_
-   * @api public
+   // * @name string
+   // * @param {String} string
+   // * @param {String} message _optional_
+   // * @api public
    */
 
   Assertion.addMethod('string', function (str, msg) {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resizable Div</title>
+    <script type="text/javascript">
+        function initResize(elementId) {
+            var element = document.getElementById(elementId);
+            element.onmousedown = startResize;
+        }
+
+        function startResize(e) {
+            e = e || window.event;
+            var element = e.target || e.srcElement;
+            var startX = e.clientX;
+            var startY = e.clientY;
+            var originalWidth = element.offsetWidth;
+            var originalHeight = element.offsetHeight;
+
+            document.onmousemove = doResize;
+            document.onmouseup = stopResize;
+
+            function doResize(e) {
+                e = e || window.event;
+                var newWidth = originalWidth + (e.clientX - startX);
+                var newHeight = originalHeight + (e.clientY - startY);
+                element.style.width = newWidth + 'px';
+                element.style.height = newHeight + 'px';
+
+                return false; // 阻止默认事件
+            }
+
+            function stopResize() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+    </script>
+    <style type="text/css">
+        #resizableDiv {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            overflow: auto;
+            cursor: nwse-resize;
+        }
+    </style>
+</head>
+<body onload="initResize('resizableDiv')">
+<div id="resizableDiv"></div>
+</body>
+</html>

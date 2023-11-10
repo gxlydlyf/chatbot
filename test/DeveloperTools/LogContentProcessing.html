@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--此版本过旧-->
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/jquery2/jquery-1.8.2.js"></script>
+    <script src="../../js/jquery2/jquery-ui.js"></script>
+    <script>
+        window.jQuery2 = window.$2 = jQuery.noConflict(true);
+    </script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/debug.js"></script>
+    <script>
+        function _LogContentProcessing(msgList) {
+            var elementList = $('');
+            var Msg;
+            if (typeof msgList === 'object' && msgList instanceof Array) {
+                Msg = msgList;
+            } else {
+                Msg = [msgList];
+            }
+            var MsgElement = $('<div></div>');
+            for (var o = 0; Msg.length > o; o++) {
+                var individualContentElement;
+                if (typeof Msg[o] === "string") {
+                    individualContentElement = $('<span style="color: black"></span>').text(Msg[o]);
+                } else if (typeof Msg[o] === "number") {
+                    individualContentElement = $('<span style="color: #0078D7"></span>').text(Msg[o]);
+                } else if (DeveloperToolsPolyfill._moreOrTo(Msg[o], undefined, null)) {
+                    individualContentElement = $('<span style="color: #999999"></span>').text(String(Msg[o]));
+                } else if (DeveloperToolsPolyfill._moreOrTo(Msg[o], false, true)) {
+                    individualContentElement = $('<span style="color: #ce8d6d"></span>').text(Msg[o]);
+                } else if (typeof Msg[o] === 'function') {
+                    var functionText = String(Msg[o]);
+                    var codeElement = $('<div style="background: black"><pre style="display: block;font-size: 20px;background: black"><code></code></pre></div>');
+                    codeElement.find('code').text(functionText);
+                    individualContentElement = $('<span style="color: white;font-weight: bold;"></span>').html(codeElement);
+                } else if (typeof Msg[o] === 'object' && Msg[o] instanceof Array) {
+                    var arrayContainer = $('<div><span style="color: black;">[</span></div>');
+                    for (var j = 0; Msg[o].length > j; j++) {
+                        var valueContainer = $('<div style="margin-left: 30px"></div>');
+                        valueContainer.append("<span style='color: #b140ff;font-weight: bold' class='DeveloperToolsPolyfillConsoleContentKey'>" + j + "</span>");
+                        valueContainer.append("<span style='color: #000000'>：</span>");
+                        var quotationMarks;
+                        if (typeof Msg[o][j] === "string") {
+                            quotationMarks = "<span style='color: #b140ff;background: #ebebeb;'>&quot;</span>";
+                        } else {
+                            quotationMarks = '';
+                        }
+                        valueContainer.append("<span>" + quotationMarks + _LogContentProcessing([Msg[o][j]]).html() + quotationMarks + "</span>");
+                        arrayContainer.append(valueContainer);
+                    }
+                    arrayContainer.append('<span style="color: black;">]</span>');
+                    individualContentElement = $('<span style="color: #000000"></span>').append(arrayContainer);
+                } else if (typeof Msg[o] === 'object') {
+                    var objectContainer = $('<div><span style="color: black;">{</span></div>');
+                    for (var key in Msg[o]) {
+                        var objectValueContainer = $('<div style="margin-left: 30px"></div>');
+                        objectValueContainer.append("<span style='color: #b140ff;font-weight: bold;' class='DeveloperToolsPolyfillConsoleContentKey'>" + key + "</span>");
+                        objectValueContainer.append("<span style='color: #000000'>：</span>");
+                        var objectQuotationMarks;
+                        if (typeof Msg[o][key] === "string") {
+                            objectQuotationMarks = "<span style='color: #b140ff;background: #ebebeb;'>&quot;</span>";
+                        } else {
+                            objectQuotationMarks = '';
+                        }
+                        objectValueContainer.append("<span>" + objectQuotationMarks + _LogContentProcessing([Msg[o][key]]).html() + objectQuotationMarks + "</span>");
+                        objectContainer.append(objectValueContainer);
+                    }
+                    objectContainer.append('<span style="color: black;">}</span>');
+                    individualContentElement = $('<span style="color: #000000"></span>').append(objectContainer);
+                }
+
+                MsgElement.append(individualContentElement);
+                if (o !== Msg.length - 1) {
+                    // 当前不是最后一次迭代
+                    MsgElement.append('<span style="display: inline-block;width: 5px"></span>');
+                }
+            }
+            elementList = elementList.add(MsgElement);
+
+            return elementList
+        }
+    </script>
+</head>
+<body>
+<script>
+    var content = _LogContentProcessing([
+            {0: ['hh', 'ok']},
+            'ds',
+            1,
+            3.1415926,
+            undefined,
+            null,
+            false,
+            true,
+            '2',
+            function () {
+                return ok;
+            },
+            'ok',
+            ['1', 0, 1, '0', '000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'],
+            [function () {
+
+            }, 1],
+            {"hello": 'das', jq: jQuery, f: _LogContentProcessing, d: DeveloperToolsPolyfill}
+        ]
+    )
+    $('body').append(content);
+</script>
+</body>
+</html>

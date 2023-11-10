@@ -118,30 +118,31 @@ body #chat_content {
     right: -5px;
 }
 
-
-.robotBoxContainer:hover .robotFun {
-    left: 0;
-
-}
-
-.userBoxContainer:hover .userFun {
-    right: 0;
-
-}
-
 .msgContainer .msgFun span {
     font-size: 15px;
     margin-right: 5px;
 }
 
-.msgContainer:hover .msgFun span {
-    font-size: 16px;
+.msgFunHover .robotBoxContainer .robotFun {
+    left: 0;
+
 }
 
-.msgContainer:hover .msgFun {
+.msgFunHover .userBoxContainer .userFun {
+    right: 0;
+
+}
+
+.msgFunHover .msgFun span {
+    font-size: 16px;
+
+}
+
+.msgFunHover .msgFun {
     opacity: 1;
     filter: alpha(opacity=100);
 }
+
 
 
 .robotBox {

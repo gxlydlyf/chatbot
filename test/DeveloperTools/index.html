@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>F12开发人员工具</title>
+    <link rel="stylesheet" href="../../js/jquery2/jquery.ui.all.css">
+    <link rel="stylesheet" href="../../fun/fun.css">
+    <script src="../../js/jquery2/jquery-1.8.2.js"></script>
+    <!--    <script src="../../js/jquery2/jquery.ui.core.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.widget.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.mouse.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.draggable.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.sortable.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.tabs.js"></script>-->
+    <!--    <script src="../../js/jquery2/jquery.ui.resizable.js"></script>-->
+    <script src="../../js/jquery2/jquery-ui.js"></script>
+    <script>
+        window.jQuery2 = window.$2 = jQuery.noConflict(true);
+    </script>
+    <script src="../../js/jquery.min.js"></script>
+    <!--    <script src="../../js/jquery.js"></script>-->
+    <script src="../../js/debug.js"></script>
+    <!--    <script src="./debug解决问题.js"></script>-->
+    <style>
+        #DeveloperToolsPolyfillWindow .ui-state-default, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-default, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-default {
+            border: none;
+            background: #1e1e1e;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-default a, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-default a, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-default a {
+            color: white;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-active {
+            border: none;
+            background: #ffffff;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-active a, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-active a, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-active a {
+            color: black;
+            cursor: pointer;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-hover, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-hover, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-hover {
+            border: none;
+            background: #464646;
+            font-weight: normal;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-hover A:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-state-hover.ui-state-active A:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-tabs .ui-tabs-nav LI.ui-tabs-active A {
+            cursor: pointer;
+        }
+
+
+        #DeveloperToolsPolyfillWindow .ui-state-hover.ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-hover.ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-hover.ui-state-active {
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-widget-content {
+            padding: 0;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-resizable-e {
+            right: 0;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-resizable-s {
+            bottom: 0;
+        }
+
+        #DeveloperToolsPolyfillWindow .ui-resizable-sw, #DeveloperToolsPolyfillWindow .ui-resizable-nw, #DeveloperToolsPolyfillWindow .ui-resizable-ne {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        #DeveloperToolsPolyfillWindow {
+            -webkit-font-smoothing: unset !important;
+            font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial !important;
+        }
+
+        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer span.DeveloperToolsPolyfillWindowNavItemsConsoleFunIcon {
+            width: 30px;
+            height: 30px;
+            bottom: 0;
+            position: absolute;
+            overflow: hidden;
+            /*background-size: 20px;*/
+            /*background-position: center;*/
+            /*background-repeat: no-repeat;*/
+        }
+
+        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer img.DeveloperToolsPolyfillWindowNavItemsConsoleFunIcon {
+            width: 20px;
+            height: 20px;
+            bottom: 0;
+            position: absolute;
+            margin: 5px;
+        }
+
+        #DeveloperToolsPolyfillWindow {
+            _position: absolute !important;
+        }
+        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer .ui-resizable-n{
+            top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

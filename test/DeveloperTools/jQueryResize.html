@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../js/jquery2/jquery.ui.all.css" type="text/css" rel="stylesheet">
+    <script src="../../js/jquery2/jquery-1.8.2.js"></script>
+    <script src="../../js/jquery2/jquery.ui.core.js"></script>
+    <script src="../../js/jquery2/jquery.ui.widget.js"></script>
+    <script src="../../js/jquery2/jquery.ui.mouse.js"></script>
+    <script src="../../js/jquery2/jquery.ui.resizable.js"></script>
+<!--    <link href="../../js/jquery2/demos.css" type="text/css" rel="stylesheet">-->
+    <title>jQueryResize</title>
+    <style>
+        #resizable {
+            width: 200px;
+            height: 150px;
+            padding: 5px;
+        }
+
+        #resizable h3 {
+            text-align: center;
+            margin: 0;
+        }
+
+    </style>
+    <script>
+        $2(function () {
+            $2("#resizable").resizable({
+                maxHeight: 250,
+                maxWidth: 350,
+                minHeight: 150,
+                minWidth: 200
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="resizable" class="ui-widget-content">
+    <h3 class="ui-widget-header">Resize larger / smaller</h3>
+</div>
+
+<div class="demo-description">
+    <p>Limit the resizable element to a maximum or minimum height or width using the <code>maxHeight</code>, <code>maxWidth</code>,
+        <code>minHeight</code>, and <code>minWidth</code> options.</p>
+</div>
+</body>
+</html>

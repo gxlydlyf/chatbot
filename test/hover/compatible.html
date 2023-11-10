@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #test::before {
+            content: " ";
+            display: block;
+        }
+
+        #test:hover::before {
+            content: "supported";
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+
+<script>
+    var testElement = document.getElementById("test");
+    var isHoverSupported;
+
+    // 检查元素的内容是否变化，来判断是否支持伪元素:hover
+    if (testElement.currentStyle) { // 兼容IE5
+        isHoverSupported = (testElement.currentStyle.content !== "supported");
+    } else if (window.getComputedStyle) {
+        isHoverSupported = (window.getComputedStyle(testElement, "::before").content !== "supported");
+    }
+    console.log(testElement.currentStyle)
+
+    // 输出结果
+    if (isHoverSupported) {
+        console.log("浏览器不支持伪元素:hover");
+    } else {
+        console.log("浏览器支持伪元素:hover");
+    }
+</script>
+</body>
+</html>

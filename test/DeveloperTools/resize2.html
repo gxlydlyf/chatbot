@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resize</title>
+    <style></style>
+    <script>
+        function renderCorner({width, height}) {
+            // 来4个元素
+            const eles = Array.from({length: 4}).map(() =>
+                document.createElement("div")
+            );
+            eles.forEach(x => x.classList.add("controller-corner"));
+            // 分别在topleft、topright、bottomleft、bottomright位置
+            const [tl, tr, bl, br] = eles;
+
+            // 每一个角都移动半个身位
+            Object.assign(tl.style, {
+                top: `-5px`,
+                left: `-5px`,
+                cursor: "nw-resize"
+            });
+            Object.assign(tr.style, {
+                top: `-5px`,
+                cursor: "ne-resize",
+                right: `-5px`
+            });
+            Object.assign(bl.style, {
+                bottom: `-5px`,
+                cursor: "sw-resize",
+                left: `-5px`
+            });
+            Object.assign(br.style, {
+                bottom: `-5px`,
+                cursor: "se-resize",
+                right: `-5px`
+            });
+            return {eles};
+        }
+    </script>
+</head>
+<body>
+<div id="div"></div>
+</body>
+</html>

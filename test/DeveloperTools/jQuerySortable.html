@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/jquery2/jquery.ui.all.css">
+    <script src="../../js/jquery2/jquery-1.8.2.js"></script>
+    <script src="../../js/jquery2/jquery.ui.core.js"></script>
+    <script src="../../js/jquery2/jquery.ui.widget.js"></script>
+    <script src="../../js/jquery2/jquery.ui.mouse.js"></script>
+    <script src="../../js/jquery2/jquery.ui.draggable.js"></script>
+    <script src="../../js/jquery2/jquery.ui.sortable.js"></script>
+        <script src="../../js/jquery2/jquery.ui.tabs.js"></script>
+    <!--    <script src="../../js/jquery2/jquery.ui.resizable.js"></script>-->
+    <style>
+        #tabs {
+            width: 95%; /* 设置容器的宽度，根据需要进行调整 */
+            overflow: hidden; /* 隐藏溢出的部分 */
+            margin: auto;
+        }
+    </style>
+    <script>
+        $2(function () {
+            $2("#tabs").tabs();
+        });
+    </script>
+</head>
+<body>
+<div id="tabs">
+    <ul>
+        <li><a href="#tab1">Tab 1</a></li>
+        <li><a href="#tab2">Tab 2</a></li>
+        <li><a href="#tab3">Tab 3</a></li>
+    </ul>
+    <div id="tab1">
+        <!-- Tab 1 Content -->
+    </div>
+    <div id="tab2">
+        <!-- Tab 2 Content -->
+    </div>
+    <div id="tab3">
+        <!-- Tab 3 Content -->
+    </div>
+</div>
+</body>
+</html>

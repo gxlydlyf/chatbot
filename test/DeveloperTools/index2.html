@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Draggable - Constrain movement</title>
+    <!--    <link rel="stylesheet" href="jquery-ui-1.9.0/themes/base/jquery.ui.all.css">-->
+    <script src="../../js/jquery2/jquery-1.8.2.js"></script>
+    <script src="../../js/jquery2/jquery.ui.core.js"></script>
+    <script src="../../js/jquery2/jquery.ui.widget.js"></script>
+    <script src="../../js/jquery2/jquery.ui.mouse.js"></script>
+    <script src="../../js/jquery2/jquery.ui.draggable.js"></script>
+    <!--    <link rel="stylesheet" href="jquery-ui-1.9.0/demos/demos.css">-->
+    <style>
+        .draggable {
+            width: 90px;
+            height: 90px;
+            padding: 0.5em;
+            float: left;
+            margin: 0 10px 10px 0;
+        }
+
+    </style>
+    <script>
+        $2(function () {
+            $2("#draggable3").draggable({containment: "body", scroll: false});
+        });
+    </script>
+</head>
+<body>
+
+<div id="draggable3" class="draggable ui-widget-content">
+    <p>I'm contained within the box</p>
+</div>
+
+</body>
+</html>

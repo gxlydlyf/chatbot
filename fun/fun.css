@@ -72,3 +72,18 @@
     filter: alpha(opacity=100);
 
 }
+
+.empty-style-input-box {
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: none;
+}
+
+.empty-style-input-box::-ms-clear {
+    display: none;
+}
+
+.empty-style-input-box::-webkit-search-cancel-button {
+    display: none;
+}

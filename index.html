@@ -6,15 +6,23 @@
     <link href="css/css.css" type="text/css" rel="stylesheet">
     <link href="fun/fun.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        .fu-btn, #textarea_parent, .robotBox, .userBox {
-            /*behavior: url(ie-css3.htc);*/
+        .robotBox, .userBox {
+            behavior: url(ie-css3.htc);
         }
 
     </style>
+    <script src="js/jquery2/jquery-1.8.2.js"></script>
+    <script src="js/jquery2/jquery-ui.js"></script>
+    <script>
+        window.jQuery2 = window.$2 = jQuery.noConflict(true);
+    </script>
+    <script src="js/debug.js"></script>
+
     <script src="js/json2.js"></script>
-    <script src="//polyfill.io/v3/polyfill.min.js"></script><!--?version=3.111.0&callback=polyfillCallback-->
+    <!--    <script src="//polyfill.io/v3/polyfill.min.js"></script>&lt;!&ndash;?version=3.111.0&callback=polyfillCallback&ndash;&gt;-->
     <!--    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>-->
+    <script src="js/crypto-js.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/compatible.js"></script>
 
@@ -31,7 +39,7 @@
             headDom.append('<script src="js/SyntaxHighlighter.load.js"></' + "script>");
             window.marked = {
                 marked: function (markdownText) {
-                    var conv = new showdown.Converter({metadata: true,converter:true});
+                    var conv = new showdown.Converter({metadata: true, converter: true});
 
                     function escapeReplaceHtml(html) {//转义html为文本
                         var text = document.createTextNode(html);
@@ -98,9 +106,8 @@
     <![endif]-->
     <!--[if lte IE 6]>
     <style>
-        .msgFun {
-            opacity: 1 !important;
-            filter: alpha(opacity=100) !important;
+        .msgFun span {
+            font-size: 16px;
         }
 
         body {
@@ -203,9 +210,10 @@ text-underline-offset: 4px;
 
             for (var i = 0; i < document.images.length; i++) {
                 var image = document.images[i];
+                var newSrc = (image.src).replace('svg/', 'img/').replace('.svg', '.png')
                 // 在这里对每个图像进行操作
-                console.log(image.src);
-                document.images[i].src = (image.src).replace('svg/', 'img/').replace('.svg', '.png');
+                console.log("改变图像URL“" + image.src + "”变为“" + newSrc + "”", image);
+                document.images[i].src = newSrc;
 
             }
 
