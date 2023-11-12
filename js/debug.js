@@ -18,6 +18,15 @@ var DeveloperToolsPolyfill = {
         // 判断是否按下了 F12 键或其他按键组合（例如Ctrl+Shift+I、Ctrl+Shift+J等），按下返回false，不按下返回true
         return (keyCode === 123 || (event.ctrlKey && event.shiftKey && (keyCode === 73 || keyCode === 74)));
     },
+    _checkCustomKeyPress: function (event) {
+        // 检测按键事件
+        // 检测按下的键码
+        event = this._repairEventError(event);
+        var keyCode = event.keyCode || event.which;
+
+        // 判断是否按下了 Ctrl+Shift+I+J，按下返回true，否则返回false
+        return (event.ctrlKey && event.shiftKey && keyCode === 72);
+    },
     _showDeveloperToolsWindow: function () {
         var DTPW_changeTagName = function (element, newTagName) {
             if (element instanceof jQuery) {
@@ -71,7 +80,7 @@ var DeveloperToolsPolyfill = {
         for (i = 0; i < DTPW_nav_items_name_list.length; i++) {
             var idName = "DeveloperToolsPolyfillWindowNavItems-" + (i + 1);
             DTPW_nav_items_list.append("<li style='border: none;margin: 0;border-radius: 0;'><a style='padding: 3px 10px 3px 10px' href='#" + idName + "'>" + DTPW_nav_items_name_list[i]['name'] + "</a></li>");
-            DTPW_nav_items.append("<div style='background: white' id='" + idName + "'>" + DTPW_nav_items_name_list[i]['pageElement'] + "</div>");
+            DTPW_nav_items.append("<div style='background: white' id='" + idName + "' class='DeveloperToolsPolyfillWindowNavItems'>" + DTPW_nav_items_name_list[i]['pageElement'] + "</div>");
         }
         DTPW_nav.append(DTPW_nav_items);
 
@@ -83,8 +92,8 @@ var DeveloperToolsPolyfill = {
             top: "0px",
             width: ScreenWidth80Percent + 'px',
             height: ScreenHeight80Percent + 'px',
-            fontSize: '15px'
-            // fontFamily: "-apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial!important"
+            fontSize: '15px',
+            fontFamily: "'Microsoft YaHei',Arial,Helvetica,sans-serif !important"
         });
         DTPW_windowControl.css({
             position: "absolute",
@@ -213,7 +222,8 @@ var DeveloperToolsPolyfill = {
                     availableHeight = 0;
                 }
                 // 设置元素的高度
-                element.style.height = availableHeight + 'px';
+                // element.style.height = availableHeight + 'px';
+                $('.DeveloperToolsPolyfillWindowNavItems').css('height', availableHeight + 'px');
 
                 container = document.getElementById('DeveloperToolsPolyfillWindowNavItemsConsole');
                 element = document.getElementById('DeveloperToolsPolyfillWindowNavItemsConsoleTextarea');
@@ -439,71 +449,6 @@ var DeveloperToolsPolyfill = {
         }
         $("#DeveloperToolsPolyfillWindow").remove();
     },
-    _funClassDependent: function () {
-        if (typeof jQuery === "undefined") {// 创建<script>元素
-            var scriptElement = document.createElement("script");
-
-            // 设置<script>元素的属性
-            scriptElement.src = "//code.jquery.com/jquery-1.12.4.min.js";
-            scriptElement.integrity = "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=";
-            scriptElement.crossOrigin = "anonymous";
-
-            // 将<script>元素添加到<head>标签中
-            document.getElementsByTagName("head")[0].appendChild(scriptElement);
-        }
-        if (typeof jQuery !== "undefined") {
-            var cssElement = ".border-1px {\n" +
-                "    border-top-width: 1px;\n" +
-                "    border-right-width: 1px;\n" +
-                "    border-bottom-width: 1px;\n" +
-                "    border-left-width: 1px;\n" +
-                "    border-top-style: solid;\n" +
-                "    border-right-style: solid;\n" +
-                "    border-bottom-style: solid;\n" +
-                "    border-left-style: solid;\n" +
-                "    border-image-source: initial;\n" +
-                "    border-image-slice: initial;\n" +
-                "    border-image-width: initial;\n" +
-                "    border-image-outset: initial;\n" +
-                "    border-image-repeat: initial;\n" +
-                "}\n" +
-                "\n" +
-                ".disable-selection {\n" +
-                "    -webkit-user-select: none; /* Safari */\n" +
-                "    -khtml-user-select: none; /* Konqueror HTML */\n" +
-                "    -moz-user-select: none; /* Firefox */\n" +
-                "    -o-user-select: none; /* Opera */\n" +
-                "    user-select: none; /* Generic */\n" +
-                "\n" +
-                "    -webkit-user-drag: none; /* Safari */\n" +
-                "    -khtml-user-drag: none; /* Konqueror HTML */\n" +
-                "    -moz-user-drag: none; /* Firefox */\n" +
-                "    -o-user-drag: none; /* Opera */\n" +
-                "    user-drag: none; /* Generic */\n" +
-                "\n" +
-                "}" +
-                "\n" +
-                ".empty-style-input-box{\n" +
-                "    padding: 0;\n" +
-                "    border: 0;\n" +
-                "    outline: none;\n" +
-                "    background: none;" +
-                "}" +
-                ".empty-style-input-box::-ms-clear {\n" +
-                "    display: none;\n" +
-                "}\n" +
-                "\n" +
-                ".empty-style-input-box::-webkit-search-cancel-button {\n" +
-                "    display: none;\n" +
-                "}";
-            var DTPW_Style = $("#DeveloperToolsPolyfillWindowStyle");
-            if ((DTPW_Style.length > 0)) {
-                DTPW_Style.remove();
-            }
-            $('head').append($("<style id='DeveloperToolsPolyfillWindowStyle'>" + cssElement + "</style>"));
-
-        }
-    },
     _DTPW_NICIC_Is_Single_Line: function (DTPW_NICIC) {//可传入元素，防止重复jQuery选择器
         if (!DTPW_NICIC) {
             DTPW_NICIC = $('#DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer');
@@ -645,7 +590,6 @@ var DeveloperToolsPolyfill = {
 }
 if (!window.console) {
     window.Console = window.console = DeveloperToolsPolyfill.console;//兼容IE,当IE不支持console.log时，自定义一个包含log方法的对象给他
-    DeveloperToolsPolyfill._funClassDependent();
 
     if (document.addEventListener) {
         // 标准浏览器支持 addEventListener 方法
@@ -658,13 +602,8 @@ if (!window.console) {
             return !DeveloperToolsPolyfill._checkKeyPress();
         });
     }
-}
-
-/*
-setTimeout(function () {
-// 绑定按键事件
+    // 绑定按键事件
     $(document).keydown(function (event) {
-        DeveloperToolsPolyfill._funClassDependent();
         var WhetherToPress = DeveloperToolsPolyfill._checkKeyPress(event);
         if (WhetherToPress) {
             // console.log("被按下");
@@ -678,8 +617,126 @@ setTimeout(function () {
         }
         return !WhetherToPress;//按下就阻止这个事件的发生
     });
-
-}, 1000)
+}
+// 绑定按键事件
+$(document).keydown(function (event) {
+    var WhetherToPress = DeveloperToolsPolyfill._checkCustomKeyPress(event);
+    if (WhetherToPress) {
+        // console.log("被按下");
+        if ($("#DeveloperToolsPolyfillWindow").length > 0) {
+            // console.log("DeveloperToolsPolyfillWindow元素存在");
+            DeveloperToolsPolyfill._hideDeveloperToolsWindow();
+        } else {
+            // console.log("DeveloperToolsPolyfillWindow元素不存在");
+            DeveloperToolsPolyfill._showDeveloperToolsWindow();
+        }
+    }
+    return !WhetherToPress;//按下就阻止这个事件的发生
+});
+$('head').append("    <style>\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-default, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-default, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-default {\n" +
+    "            border: none;\n" +
+    "            background: #1e1e1e;\n" +
+    "            font-weight: normal;\n" +
+    "            cursor: pointer;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-default a, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-default a, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-default a {\n" +
+    "            color: white;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-active {\n" +
+    "            border: none;\n" +
+    "            background: #ffffff;\n" +
+    "            font-weight: normal;\n" +
+    "            cursor: pointer;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-active a, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-active a, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-active a {\n" +
+    "            color: black;\n" +
+    "            cursor: pointer;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-hover, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-hover, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-hover {\n" +
+    "            border: none;\n" +
+    "            background: #464646;\n" +
+    "            font-weight: normal;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-hover A:hover {\n" +
+    "            color: white;\n" +
+    "            text-decoration: none;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-hover.ui-state-active A:hover {\n" +
+    "            color: black;\n" +
+    "            text-decoration: none;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-tabs .ui-tabs-nav LI.ui-tabs-active A {\n" +
+    "            cursor: pointer;\n" +
+    "        }\n" +
+    "\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-state-hover.ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-content .ui-state-hover.ui-state-active, #DeveloperToolsPolyfillWindow .ui-widget-header .ui-state-hover.ui-state-active {\n" +
+    "            background: #ffffff;\n" +
+    "            cursor: pointer;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-widget-content {\n" +
+    "            padding: 0;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-resizable-e {\n" +
+    "            right: 0;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-resizable-s {\n" +
+    "            bottom: 0;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow .ui-resizable-sw, #DeveloperToolsPolyfillWindow .ui-resizable-nw, #DeveloperToolsPolyfillWindow .ui-resizable-ne {\n" +
+    "            top: 0;\n" +
+    "            left: 0;\n" +
+    "            bottom: 0;\n" +
+    "            right: 0;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow {\n" +
+    "            -webkit-font-smoothing: unset !important;\n" +
+    "            font-family: 'Microsoft YaHei',Arial,Helvetica,sans-serif !important;\n" +
+    "            z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;\n" +
+    "        }\n" +
+    "\n        #DeveloperToolsPolyfillWindow * {\n" +
+    "            font-family: 'Microsoft YaHei',Arial,Helvetica,sans-serif !important;\n" +
+    "        }" +
+    "        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer span.DeveloperToolsPolyfillWindowNavItemsConsoleFunIcon {\n" +
+    "            width: 30px;\n" +
+    "            height: 30px;\n" +
+    "            bottom: 0;\n" +
+    "            position: absolute;\n" +
+    "            overflow: hidden;\n" +
+    "            /*background-size: 20px;*/\n" +
+    "            /*background-position: center;*/\n" +
+    "            /*background-repeat: no-repeat;*/\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer img.DeveloperToolsPolyfillWindowNavItemsConsoleFunIcon {\n" +
+    "            width: 20px;\n" +
+    "            height: 20px;\n" +
+    "            bottom: 0;\n" +
+    "            position: absolute;\n" +
+    "            margin: 5px;\n" +
+    "        }\n" +
+    "\n" +
+    "        #DeveloperToolsPolyfillWindow {\n" +
+    "            _position: absolute !important;\n" +
+    "        }\n" +
+    "        #DeveloperToolsPolyfillWindow #DeveloperToolsPolyfillWindowNavItemsConsoleInputContainer .ui-resizable-n{\n" +
+    "            top: -10px;\n" +
+    "        }\n" +
+    "    </style>")
+/*
 setTimeout(function () {
     content = function () {
         return ['ds', 1, 3.1415926, undefined, null, false, true, '2', function () {
