@@ -4,16 +4,16 @@ function copyToClipboard(text, callback) {
 
         }
     }
-    callback = callback.bind(null);
     var error;
     var Elog = function (error) {
-        if (window.console && window.console.error) {
+        if (typeof window.console !== 'undefined' && typeof window.console.error === 'function') {
             window.console.error(error);
         }
     }
     if (window.clipboardData && window.clipboardData.setData) {
         // For IE5
         window.clipboardData.setData('Text', text);
+        callback('success', text);
     } else if (document.execCommand) {
         if (document.body) {
             var input = document.createElement("input");
@@ -31,14 +31,14 @@ function copyToClipboard(text, callback) {
             callback('error', error);
         }
     } else if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText("")
-            .then(() => {
-                // console.log('文本成功写入剪贴板');
-                callback('success', text);
-            })
-            .catch((error) => {
-                callback('error', error);
-            });
+        try {
+            navigator.clipboard.writeText(text).then()
+            callback('success', text);
+        }catch (error) {
+            callback('error', error);
+        }
+
+
     } else {
         // Clipboard API is not supported
         error = "Clipboard API is not supported";
