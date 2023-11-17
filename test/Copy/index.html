@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="copy.js"></script>
+    <script src="../../js/es5-shim.min.js"></script>
     <script>
-        // 使用示例
-        var textToCopy = '要复制的文本';
-        copyToClipboard(textToCopy);
+        copyToClipboard('要复制的文本');
     </script>
 </head>
 <body>
-
+<label>
+    <input type="text" id="copyText">
+</label>
+<button onclick="copyToClipboard(document.getElementById('copyText').value);">复制</button>
 </body>
 </html>
