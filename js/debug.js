@@ -60,7 +60,8 @@ var DeveloperToolsPolyfill = {
             backgroundColor: "1E1E1E",
             width: "100%",
             position: "absolute",
-            top: "0px"
+            top: "0px",
+            left: "0px"
         });
         DTPW_nav.css("backgroundColor", "1E1E1E");
         DTPW_nav.append(DTPW_nav_title);
@@ -126,6 +127,7 @@ var DeveloperToolsPolyfill = {
         // $2(function () {
         //     $2("#DeveloperToolsPolyfillWindow").draggable({containment: "body", scroll: false});
         // });
+        $(".DeveloperToolsPolyfillWindowNavItems").css({textAlign: "left"});
         DTPW_windowControl_sizeBtn.on('click', function () {
             DTPW_nav_title.dblclick();
         });
