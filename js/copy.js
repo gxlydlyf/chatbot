@@ -14,7 +14,7 @@ function copyToClipboard(text, callback) {
     if (window.clipboardData && window.clipboardData.setData) {
         // For IE5
         window.clipboardData.setData('Text', text);
-        if (window.clipboardData.getData('Text') === text) {
+        if (window.clipboardData.getData('Text') === text && text === '') {
             callback('success', text);
         } else {
             callback('error', 'Failed to copy to clipboard');
