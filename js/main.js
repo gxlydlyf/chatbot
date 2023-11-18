@@ -655,6 +655,7 @@ $(document).ready(function () {
 });
 
 function ClipboardCopy(text, callback) {
+    /*
     if (ClipboardJS.isSupported()) {
         var tempElement = $("<button>click</buttpn>").get(0);
         var clipboard = new ClipboardJS(tempElement);
@@ -674,6 +675,19 @@ function ClipboardCopy(text, callback) {
         });
         tempElement.click();
     }
+     */
+    if (typeof callback !== "function") {
+        callback = function () {
+
+        };
+    }
+    window.ClipboardPlugin.Copy(text, function (status, message) {
+        if (status === 'error') {
+            callback(false, message)
+        } else if (status === 'success') {
+            callback(true, message)
+        }
+    });
 }
 
 $(document).ready(function () {
