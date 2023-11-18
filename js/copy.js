@@ -20,12 +20,7 @@ function copyToClipboard(text, callback) {
             callback('error', 'Failed to copy to clipboard');
         }
     } else if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-
-        } catch (e) {
-
-        }
-        Promise.resolve(navigator.clipboard.writeText(text))
+        navigator.clipboard.writeText(text)
             .then(function () {
                 callback('success', text);
             }, function (error) {

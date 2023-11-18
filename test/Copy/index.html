@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Copy</title>
-    <script src = "../../js/bluebird.min.js"></script>
+    <script src="../../js/bluebird.min.js"></script>
 
     <script src="../../js/copy.js"></script>
     <script>
@@ -20,7 +20,19 @@
 </div>
 <script>
     document.getElementById("copy").onclick = function () {
-        copyToClipboard(document.getElementById('copyText').value);
+        copyToClipboard(document.getElementById('copyText').value, function (status, message) {
+            var Elog = function (error) {
+                document.getElementById("log").innerHTML = '<span style="color: red">' + error + '</span>';
+            }
+            var Log = function (log) {
+                document.getElementById("log").innerHTML = '<span style="color: black">' + log + '</span>';
+            }
+            if (status === 'error') {
+                Elog(message)
+            } else if (status === 'success') {
+                Log(message)
+            }
+        });
     }
 </script>
 </body>
