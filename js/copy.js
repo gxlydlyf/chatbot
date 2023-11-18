@@ -10,10 +10,27 @@ function copyToClipboard(text, callback) {
             window.console.error(error);
         }
     }
+
     if (window.clipboardData && window.clipboardData.setData) {
         // For IE5
         window.clipboardData.setData('Text', text);
-        callback('success', text);
+        if (window.clipboardData.getData('Text') === text) {
+            callback('success', text);
+        } else {
+            callback('error', 'Failed to copy to clipboard');
+        }
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+
+        } catch (e) {
+
+        }
+        Promise.resolve(navigator.clipboard.writeText(text))
+            .then(function () {
+                callback('success', text);
+            }, function (error) {
+                callback('error', error);
+            });//某些IE浏览器没有.catch，引用时会报错
     } else if (document.execCommand) {
         if (document.body) {
             var input = document.createElement("input");
@@ -30,15 +47,6 @@ function copyToClipboard(text, callback) {
             Elog(error);
             callback('error', error);
         }
-    } else if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-            navigator.clipboard.writeText(text).then()
-            callback('success', text);
-        }catch (error) {
-            callback('error', error);
-        }
-
-
     } else {
         // Clipboard API is not supported
         error = "Clipboard API is not supported";
