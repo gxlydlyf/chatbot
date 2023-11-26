@@ -1,12 +1,3 @@
-window.documentSize = {
-    height: function () {
-        return (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || document.documentElement.offsetHeight);
-    },
-    width: function () {
-        return (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || document.documentElement.offsetWidth);
-    }
-};
-
 function SaveMsgConstructor() {
     window.SaveMsgObj = {
 
@@ -355,8 +346,16 @@ function SaveMsgConstructor() {
 }
 
 SaveMsgConstructor();
+window.documentSize = {
+    height: function () {
+        return (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || document.documentElement.offsetHeight);
+    },
+    width: function () {
+        return (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || document.documentElement.offsetWidth);
+    }
+};
 
-TfcFuns = {
+window.TfcFuns = {
     Hide: function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var TFC = $('#top_function_container');
@@ -467,6 +466,19 @@ function windowResize(callback) {
     }
 
 }
+
+var resizeTrigger = function () {
+    var event;
+    if (window.attachEvent) {
+        // Old IE browsers
+        event = document.createEventObject();
+        window.fireEvent("onresize", event);
+    } else {
+        // Modern browsers
+        event = new Event("resize");
+        window.dispatchEvent(event);
+    }
+};
 
 windowResize(function () {
     Reset_function_box_position();
@@ -756,6 +768,9 @@ $(document).ready(function () {
         MsgId = SaveMsgObj.newBotMessage();
         var robotBox = SaveMsgObj.getMsgBox(MsgId);
         robotBox.parent().children('.robotFun').append('<span>停止</span>');
+        if (isIE7OrLower()) {
+            ModifyMessageBoxWidth();//手动设置自适应文本宽度(大概适应)
+        }
         SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
         var msgFunButtons = robotBox.parent().children('.msgFun').find('span');
 
