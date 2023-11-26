@@ -803,7 +803,15 @@ $(document).ready(function () {
 
             }
         });*/
-        var xhr = new XMLHttpRequest();
+        var xhr;
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");//在IE6中，XMLHttpRequest对象不是原生支持的。可以使用ActiveXObject来创建一个与XMLHttpRequest相似的对象。
+        } else {
+            // 浏览器不支持AJAX
+            xhr = null;
+        }
         try {
             xhr.open("POST", "//" + PostUrl.domain, true);
         } catch (e) {
