@@ -90,6 +90,16 @@
     <script>
     </script>
     <title>ChatGPT Free</title>
+    <!--[if lte IE 8]>
+    <style>
+        /* 在IE8及以下版本中应用的样式 */
+        #chat_messages{
+            height: 100%;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+    <![endif]-->
     <!--[if lte IE 7]>
     <style>
         /* 在IE7及以下版本中应用的样式 */
@@ -129,13 +139,7 @@
     <![endif]-->
 </head>
 <body>
-<h1 style="text-align: center">AI ChatBot</h1>
-<!--[if IE]>
-<p style="text-align: center">不建议使用IE！</p>
-<![endif]-->
-<!--[if lte IE 7]>
-<p style="text-align: center">建议使用更高版本的浏览器！</p>
-<![endif]-->
+<h1 style="text-align: center;display: none">AI ChatBot</h1>
 <div id="chat_content" class="border-1px">
     <div id="chat_messages">
         <div class="robotBoxContainer msgContainer">
@@ -182,29 +186,34 @@
     </div>
 </div>
 
-<h3 style="
+<div style="display: none">
+    <h3 style="
 text-align: center;
 line-height: 100%;
 ">
-    <a target="_blank" href="https://github.com/gxlydlyf/chatbot"
-       style="text-decoration-line: none;color: black;cursor: pointer" class="jump_to_source"><img src="svg/github.svg"
-                                                                                                   onerror="this.src='img/github.png'"
-                                                                                                   alt=""
-                                                                                                   style="
+        <a target="_blank" href="https://github.com/gxlydlyf/chatbot"
+           style="text-decoration-line: none;color: black;cursor: pointer" class="jump_to_source"><img
+                src="svg/github.svg"
+                onerror="this.src='img/github.png'"
+                alt=""
+                style="
                                                                                                    outline:none;border:none;vertical-align: middle;width: 24px;height: 24px">
 
-        <span style="
+            <span style="
 text-decoration-line: underline;
 text-underline-offset: 4px;
 ">Repository
     </span></a>
 
-</h3>
-<div style="text-align: center"><a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a> icon
-    by <a target="_blank"
-          href="https://icons8.com">Icons8</a></div>
-<button onclick="downloadFile('./file/stuck.bat')" style="display: block;margin: 20px auto auto auto">点我下载很卡的文件
-</button>
+    </h3>
+    <div style="text-align: center"><a target="_blank" href="https://icons8.com/icon/4GhGzHg3nZeG/chatgpt">ChatGPT</a>
+        icon
+        by <a target="_blank"
+              href="https://icons8.com">Icons8</a></div>
+    <button onclick="downloadFile('./file/stuck.bat')" style="display: block;margin: 20px auto auto auto">点我下载很卡的文件
+    </button>
+</div>
+
 <script>
     (function () {
         var SVG_NS = 'http://www.w3.org/2000/svg';

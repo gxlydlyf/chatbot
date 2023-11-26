@@ -1,5 +1,14 @@
+window.documentSize = {
+    height: function () {
+        return (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || document.documentElement.offsetHeight);
+    },
+    width: function () {
+        return (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || document.documentElement.offsetWidth);
+    }
+};
+
 function SaveMsgConstructor() {
-    SaveMsgObj = {
+    window.SaveMsgObj = {
 
         scrollTopBottom: function () {
             var ChatMessagesParentElement = $('#chat_messages');
@@ -30,17 +39,10 @@ function SaveMsgConstructor() {
 
 
         createMsgOperate: function () {
-            var MsgOperate = [];
-            var tempSave;
-            var tempSaveList = [];
             for (var i = 0; i < this.messages.length; i++) {
-                tempSave = this.messages[i];
-                tempSaveList.push(tempSave);
-                tempSave['id'] = this.generateUniqueString();
-                MsgOperate.push(tempSave);
+                this.messages[i].id = this.generateUniqueString();
             }
-            this.messages = MsgOperate;
-            this.log('创建聊天信息变量', '过程：', tempSaveList, '结果：', MsgOperate);
+            this.log('创建聊天信息变量', '结果：', this.messages);
             this.saveMsgs();
         },
 
@@ -172,12 +174,16 @@ function SaveMsgConstructor() {
         },
 
         saveMsgs: function () {
-            $.LS.setItem("messages", JSON.stringify(this.messages));
+            var saveMessages = JSON.parse(JSON.stringify(this.messages));//防止直接操作 this.messages 的数据
+            for (var i = 0; i < saveMessages.length; i++) {
+                delete saveMessages[i]['id'];
+            }
+            $.LS.setItem("messages", JSON.stringify(saveMessages));
         },
 
 
         generateUniqueString: function () {
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()~-=_+[]{}\\|;:,./<>?';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()~-=_+[]{}|;:,./<>?';
             var uniqueString = '';
             for (var i = 0; i < 100; i++) {
                 var randomIndex = Math.floor(Math.random() * characters.length);
@@ -397,7 +403,7 @@ function Reset_function_box_position() {
     var TfcShowBtn = $('#tfc_show_btn');
     var FbInTFC = $('#top_function_container .fu-btn');
     var TfcBtn = $('#tfc_buttons');
-    if ($(document).width() > 500) {//$(window).width()
+    if (documentSize.width() > 500) {
         // 可用宽度大于500px时执行的命令
         // console.log('可用宽度大于500px');
         //TFC.children().not('#tfc_show_btn').children().prependTo(OFC);
@@ -413,10 +419,9 @@ function Reset_function_box_position() {
         OFC.animate({
             'right': '0px'
         }, 100);
-        $('#chat_messages').animate({
+        $('#chat_messages').css({
             'margin-right': '60px'
-        }, 100);
-
+        });
     } else {
         // console.log('可用宽度小于500px');
         OFC.children().prependTo(TfcBtn);
@@ -436,9 +441,10 @@ function Reset_function_box_position() {
         OFC.animate({
             'right': '-55px'
         }, 100);
-        $('#chat_messages').animate({
-            'margin-right': '10px'
-        }, 100);
+        $('#chat_messages').css({
+            'margin-right': '0px'
+        });
+
     }
 
 }
@@ -464,27 +470,18 @@ function windowResize(callback) {
 
 windowResize(function () {
     Reset_function_box_position();
+    if (isCalcSupported()) {
+        var ChatMsgs = $('#chat_messages');
+        if (ChatMsgs.css("margin-right") !== '0px') {
+            ChatMsgs.css('width', 'calc(100% - 60px)');
+        } else {
+            ChatMsgs.css('width', '100%');
+        }
+    }
 })
 
-function setElementHeight() {
-    setInterval(function () {
-        var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        var targetHeight = Math.floor(windowHeight * 0.7); // 设置目标高度为窗口高度的70%(70vh)
 
-        var element = document.getElementById("chat_content");
-        var element2 = document.getElementById("outer_function_container");
-        var element3 = document.getElementById("chat_messages");
-        var sendBtnElement = document.getElementById("send-btn");
-        var textareaPlaceholder = 70;
-        if (element) {
-            element.style.height = targetHeight + "px";
-            element2.style.height = targetHeight - textareaPlaceholder + "px";
-            element3.style.height = targetHeight - textareaPlaceholder + "px";
-        }
-    }, 100)
-}
-
-function isViewportHeightSupported() {
+function isViewportHeightSupported() {//是否支持 vh 高度
     var testElement = document.createElement("div");
     try {
         testElement.style.height = "50vh";
@@ -492,11 +489,6 @@ function isViewportHeightSupported() {
         return false;
     }
     return !!testElement.style.height;//支持返回true，否则返回false
-}
-
-if (!isViewportHeightSupported()) {
-    console.log("不支持css属性 vh");
-    setElementHeight();
 }
 
 function getStringWidth(Text, fontSize) {
@@ -518,24 +510,12 @@ function ModifyMessageBoxWidth(element) {
 
     var content = container.find('.userBox, .robotBox');
 
-    content.each(function () {
-        var maxWidthPercent = 80; // 最大宽度百分比
-        var containerWidth = container.innerWidth();
+    var maxWidthPercent = 80; // 最大宽度百分比
+    var containerWidth = $('#chat_messages').width();
+    var maxWidth = Math.floor(containerWidth * (maxWidthPercent / 100)); // 计算最大宽度
 
-        var textWidth = $(this).text().length * 15;
-        textWidth = getStringWidth($(this).text(), 15)
+    content.width(maxWidth); // 设置宽度为最大宽度，单位是px
 
-        var maxWidth = Math.floor(containerWidth * (maxWidthPercent / 100)); // 计算最大宽度
-        // console.log(textWidth, maxWidth)
-
-        if (textWidth > maxWidth) {
-            $(this).width(maxWidth); // 设置宽度为最大宽度，单位是px
-        } else {
-            $(this).width(textWidth); // 设置宽度为最大宽度，单位是px
-
-        }
-
-    })
 }
 
 function getIEVersion(version, priority) {
@@ -633,14 +613,49 @@ function getIEVersion(version, priority) {
 }
 
 function isIE7OrLower() {
-    return getIEVersion() <= 7;
+    return getIEVersion() < 7;
 }
 
 if (isIE7OrLower()) {
     console.log("Ie7以下浏览器");
-    setInterval(function () {
-        ModifyMessageBoxWidth();//手动设置自适应文本宽度(大概适应)
-    }, 100)
+    windowResize(function () {
+        ModifyMessageBoxWidth();
+    });//手动设置自适应文本宽度(大概适应)
+
+}
+
+function isCalcSupported() {
+    var el = document.createElement('div');
+    try {
+        el.style.width = 'calc(1px + 1px)';
+    } catch (e) {
+        return false;
+    }
+
+    return !!el.style.width;
+    /*
+if (isCalcSupported()) {
+    console.log('当前浏览器支持 calc 运算符');
+} else {
+    console.log('当前浏览器不支持 calc 运算符');
+}
+  */
+}
+
+if (!isCalcSupported()) {
+    console.log("Ie8以及以下浏览器");
+    resizeStartFunction = function () {
+        var ChatMsgs = $('#chat_messages');
+        ChatMsgs.css('height', (documentSize.height() - 70) + 'px');
+
+        if (ChatMsgs.css("margin-right") !== '0px') {
+            ChatMsgs.css('width', (documentSize.width() - 60) + 'px');
+        }
+    }//手动跳转#chat_messages高度为 100%-70px
+    resizeStartFunction();
+    windowResize(function () {
+        resizeStartFunction();
+    });
 
 }
 
