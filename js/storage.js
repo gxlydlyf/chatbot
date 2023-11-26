@@ -1,4 +1,4 @@
-window.LS = localStorage ? localStorage : {
+window.LS = localStorage || {
     isObject: function (variable) {
         return $.isObject(variable);
     },
