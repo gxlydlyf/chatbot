@@ -402,6 +402,7 @@ function Reset_function_box_position() {
     var TfcShowBtn = $('#tfc_show_btn');
     var FbInTFC = $('#top_function_container .fu-btn');
     var TfcBtn = $('#tfc_buttons');
+    var ChatMsgs = $('#chat_messages');
     if (documentSize.width() > 500) {
         // 可用宽度大于500px时执行的命令
         // console.log('可用宽度大于500px');
@@ -414,15 +415,21 @@ function Reset_function_box_position() {
         }, 100);
         TfcShowBtn.data('status', 'hide');
         TfcFuns.BtnBottom();
+        setTimeout(function () {
+            TFC.css("display", "none");
+        }, 100)
 
         OFC.animate({
             'right': '0px'
         }, 100);
-        $('#chat_messages').css({
+        ChatMsgs.css({
             'margin-right': '60px'
         });
     } else {
         // console.log('可用宽度小于500px');
+        setTimeout(function () {
+            TFC.css("display", "block");
+        }, 100)
         OFC.children().prependTo(TfcBtn);
         if (TfcShowBtn.data('status') === 'show') {
             TFC.animate({
@@ -440,10 +447,17 @@ function Reset_function_box_position() {
         OFC.animate({
             'right': '-55px'
         }, 100);
-        $('#chat_messages').css({
+        ChatMsgs.css({
             'margin-right': '0px'
         });
 
+    }
+    if (isCalcSupported()) {
+        if (ChatMsgs.css("margin-right") !== '0px') {
+            ChatMsgs.css('width', 'calc(100% - 60px)');
+        } else {
+            ChatMsgs.css('width', '100%');
+        }
     }
 
 }
@@ -482,14 +496,6 @@ var resizeTrigger = function () {
 
 windowResize(function () {
     Reset_function_box_position();
-    if (isCalcSupported()) {
-        var ChatMsgs = $('#chat_messages');
-        if (ChatMsgs.css("margin-right") !== '0px') {
-            ChatMsgs.css('width', 'calc(100% - 60px)');
-        } else {
-            ChatMsgs.css('width', '100%');
-        }
-    }
 })
 
 
@@ -662,6 +668,8 @@ if (!isCalcSupported()) {
 
         if (ChatMsgs.css("margin-right") !== '0px') {
             ChatMsgs.css('width', (documentSize.width() - 60) + 'px');
+        }else {
+            ChatMsgs.css('width', '100%');
         }
     }//手动跳转#chat_messages高度为 100%-70px
     resizeStartFunction();
@@ -807,7 +815,15 @@ $(document).ready(function () {
         if (window.XMLHttpRequest) {
             xhr = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");//在IE6中，XMLHttpRequest对象不是原生支持的。可以使用ActiveXObject来创建一个与XMLHttpRequest相似的对象。
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                    // 创建XMLHttpRequest对象失败
+                }
+            }
         } else {
             // 浏览器不支持AJAX
             xhr = null;
