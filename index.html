@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
     <link href="css/css.css" type="text/css" rel="stylesheet">
     <link href="fun/fun.css" type="text/css" rel="stylesheet">
     <style type="text/css">
@@ -93,7 +94,7 @@
     <!--[if lte IE 8]>
     <style>
         /* 在IE8及以下版本中应用的样式 */
-        #chat_messages{
+        #chat_messages {
             height: 100%;
             padding-bottom: 30px;
             margin-bottom: 30px;
@@ -137,19 +138,24 @@
         }
     </style>
     <![endif]-->
+    <style>
+        .DisplayNone {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <h1 style="text-align: center;display: none">AI ChatBot</h1>
 <div id="chat_content" class="border-1px">
     <div id="chat_messages">
         <div class="robotBoxContainer msgContainer">
-            <div class="msgFun robotFun disable-selection no-scrollbar">
-                <span>删除</span><span>复制</span><span>编辑</span><!--<span>停止</span>-->
+            <div class="msgFun robotFun disable-selection no-scrollbar DisplayNone">
+                <span>删除</span><span>复制</span><span>编辑</span><span>发送</span><!--<span>停止</span>-->
             </div>
             <div class="robotBox"></div>
         </div>
         <div class="userBoxContainer msgContainer">
-            <div class="msgFun userFun disable-selection no-scrollbar">
+            <div class="msgFun userFun disable-selection no-scrollbar DisplayNone">
                 <span>删除</span><span>复制</span><span>编辑</span><span>发送</span>
             </div>
             <div class="userBox"></div>

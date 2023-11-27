@@ -668,7 +668,7 @@ if (!isCalcSupported()) {
 
         if (ChatMsgs.css("margin-right") !== '0px') {
             ChatMsgs.css('width', (documentSize.width() - 60) + 'px');
-        }else {
+        } else {
             ChatMsgs.css('width', '100%');
         }
     }//手动跳转#chat_messages高度为 100%-70px
@@ -779,7 +779,9 @@ $(document).ready(function () {
         if (isIE7OrLower()) {
             ModifyMessageBoxWidth();//手动设置自适应文本宽度(大概适应)
         }
-        SaveMsgObj.log("请求接口：" + location.protocol + "//" + PostUrl.domain);
+        var protocol = (window.location.protocol.indexOf('https') === 0) ? 'https://' : 'http://';
+        PostUrl.domain = protocol + PostUrl.domain;
+        SaveMsgObj.log("请求接口：" + PostUrl.domain);
         var msgFunButtons = robotBox.parent().children('.msgFun').find('span');
 
         /*var returnMessageAjax = $.ajax({
@@ -829,7 +831,7 @@ $(document).ready(function () {
             xhr = null;
         }
         try {
-            xhr.open("POST", "//" + PostUrl.domain, true);
+            xhr.open("POST", PostUrl.domain, true);
         } catch (e) {
             console.warn("请求错误:", e)
             var stopSpan = SaveMsgObj.findFunBtn(msgFunButtons);
