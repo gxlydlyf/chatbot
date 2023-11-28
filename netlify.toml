@@ -1,3 +1,6 @@
 [[redirects]]
-from = "/news/*"
-to = "/blog/:splat"
+  from = "/api/*"
+  to = "https://:splat"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
