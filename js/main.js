@@ -692,7 +692,7 @@ $(document).ready(function () {
 function ClipboardCopy(text, callback) {
     /*
     if (ClipboardJS.isSupported()) {
-        var tempElement = $("<button>click</buttpn>").get(0);
+        var tempElement = $("<button>click</button>").get(0);
         var clipboard = new ClipboardJS(tempElement);
         clipboard.text = function () {
             clipboard.destroy();

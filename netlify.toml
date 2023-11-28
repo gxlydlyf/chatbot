@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/prod-api/*"
+  to = "https://postapi.lbbai.cc/:splat"
+  status = 200
