@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/api/*"
-  to = "https://:splat"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
+from = "/api/*"
+to = "https://:splat"
+status = 200
+force = true
+headers = { X-From = "Netlify", Origin = "https://8162403981.ai701.live", Referer = "https://8162403981.ai701.live/" }
