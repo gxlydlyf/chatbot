@@ -3,4 +3,3 @@ from = "/api/*"
 to = "https://:splat"
 status = 200
 force = true
-headers = { "*" = "{headers}" }
