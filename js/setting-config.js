@@ -60,7 +60,7 @@ function SettingConfigConstructor() {
             }
             var BUL = [
                 {
-                    'domain': 'c1.glf.one/api/postapi.lbbai.cc',
+                    'domain': 'postapi.lbbai.cc',
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
