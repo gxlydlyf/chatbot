@@ -3,7 +3,3 @@ from = "/api/*"
 to = "https://:splat"
 status = 200
 force = true
-[[redirects]]
-from = "/ai/*"
-to = "/netlify/functions/forward/:splat"
-status = 200
