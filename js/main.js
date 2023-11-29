@@ -911,7 +911,11 @@ $(document).ready(function () {
 
         }
 
-        xhr.timeout = 1000 * 60 * 2;
+        try {
+            xhr.timeout = 1000 * 60 * 2;
+        } catch (e) {
+
+        }
         xhr.send(JSON.stringify(incomingParameters));
         // 中断流请求
         if (robotBox) {
