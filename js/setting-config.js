@@ -60,7 +60,7 @@ function SettingConfigConstructor() {
             }
             var BUL = [
                 {
-                    'domain': 'http://c1.glf.one/api/lpi.glf.one',
+                    'domain': 'c1.glf.one/api/lpi.glf.one',
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
