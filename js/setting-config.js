@@ -60,7 +60,7 @@ function SettingConfigConstructor() {
             }
             var BUL = [
                 {
-                    'domain': 'c1.glf.one/api/tud5ihkrrr.freet.top/api/openai/v1/chat/completions',//postapi.lbbai.cc
+                    'domain': 'postapi.lbbai.cc',//postapi.lbbai.cc
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
@@ -72,7 +72,7 @@ function SettingConfigConstructor() {
                 {
                     'domain': 'tud5ihkrrr.freet.top/api/openai/v1/chat/completions',//postapi.lbbai.cc
                     'encryption': false,
-                    'description': '这是默认的 源地址 ，是免费的。',
+                    'description': '这是默认的 源地址2 ，是免费的。',
                     'headers': {
                         'Origin': 'https://8162403981.ai701.live',
                         'Referer': 'https://8162403981.ai701.live/'
