@@ -884,20 +884,32 @@ $(document).ready(function () {
 
             }
         };
-        xhr.onerror = function () {
-            // 发生网络错误
-            console.log("网络错误");
-        };
+        try {
+            xhr.onerror = function () {
+                // 发生网络错误
+                console.log("网络错误");
+            };
+        } catch (e) {
 
-        xhr.ontimeout = function () {
-            // 请求超时
-            console.log("请求超时");
-        };
+        }
 
-        xhr.onabort = function () {
-            // 请求被中止
-            console.log("请求被中止");
-        };
+        try {
+            xhr.ontimeout = function () {
+                // 请求超时
+                console.log("请求超时");
+            };
+        } catch (e) {
+
+        }
+
+        try {
+            xhr.onabort = function () {
+                // 请求被中止
+                console.log("请求被中止");
+            };
+        } catch (e) {
+
+        }
 
         xhr.timeout = 1000 * 60 * 2;
         xhr.send(JSON.stringify(incomingParameters));
