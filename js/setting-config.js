@@ -22,10 +22,13 @@ function SettingConfigConstructor() {
             console.log("解密后的明文：" + decryptedPlaintext);
         },
         check: function () {
-            if ($.LS.getItem('setting-config') === undefined || $.LS.getItem('setting-config') === null) {
-                this.init();
+            if (!this["SC"]) {
+                if ($.LS.getItem('setting-config') === undefined || $.LS.getItem('setting-config') === null) {
+                    this.init();
+                }
+                this.SC = JSON.parse($.LS.getItem('setting-config'))
             }
-            var SC = JSON.parse($.LS.getItem('setting-config'));
+            var SC = this.SC;
             if (!this.isObject(SC)) {
                 this.init();
                 SC = JSON.parse($.LS.getItem('setting-config'));
@@ -33,6 +36,7 @@ function SettingConfigConstructor() {
             if (!('BaseUrl' in SC)) {
                 SC.BaseUrl = 1;
             }
+            this.Save(SC);
             return SC;
         },
         init: function () {
@@ -40,6 +44,9 @@ function SettingConfigConstructor() {
             $.LS.setItem("setting-config", JSON.stringify(SC));
         },
         Save: function (setting) {
+            if (!setting){
+                setting=this.SC;
+            }
             $.LS.setItem("setting-config", JSON.stringify(setting));
         },
         get: function (key) {
@@ -51,6 +58,23 @@ function SettingConfigConstructor() {
                     SC.BaseUrl = 1;
                     this.Save(SC);
                     return this.BaseUrlList(SC.BaseUrl);
+                }
+            }
+        },
+        modify: function (key, value) {
+            var SC = this.SC;
+            if (key === 'BaseUrl') {
+                if (value) {
+                    if (this.BaseUrlList(value) !== null) {
+                        SC.BaseUrl=value;
+                        this.Save();
+                        return true;
+                    }else {
+                        return false;
+                    }
+
+                }else {
+                    return false;
                 }
             }
         },

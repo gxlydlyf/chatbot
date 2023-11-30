@@ -27,17 +27,18 @@ window.proxyObj = {
     netlify: function () {
         var xhr = this.createXHR();
         var result = null;
-        xhr.open("GET", this.currentURL() + "verify/netlify", true);
+        try {
+            xhr.open("GET", this.currentURL() + "verify/netlify", true);
+        } catch (e) {
+            return false;
+        }
+
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 result = xhr.responseText;
             }
         }
         xhr.send();
-        if (result === 'netlify') {
-            return true;
-        } else {
-            return false;
-        }
+        return result === 'netlify';
     }
 }
