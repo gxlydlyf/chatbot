@@ -271,7 +271,7 @@ function SaveMsgConstructor() {
             $('#chat_messages').find('div').each(function () {
                 // 在这里对每个div元素进行操作
                 if ($(this).data('id') === MsgId) {
-                    console.log("ok")
+                    // console.log("ok")
                     returnElement = $(this);
                 }
 
@@ -403,7 +403,20 @@ function Reset_function_box_position() {
     var FbInTFC = $('#top_function_container .fu-btn');
     var TfcBtn = $('#tfc_buttons');
     var ChatMsgs = $('#chat_messages');
-    if (documentSize.width() > 500) {
+    var ChatContent = $('#chat_content');
+    var FunBar = $('#leftFunctionBar');
+    if (documentSize.width() > 700) {
+        FunBar.show();
+        if (isCalcSupported()) {
+            ChatContent.width('calc(100% - 300px)');
+        } else {
+            ChatContent.width((documentSize.width() - 300) + 'px');
+        }
+    } else {
+        FunBar.hide();
+        ChatContent.width('100%');
+    }
+    if (ChatContent.width() > 500) {
         // 可用宽度大于500px时执行的命令
         // console.log('可用宽度大于500px');
         //TFC.children().not('#tfc_show_btn').children().prependTo(OFC);
@@ -661,13 +674,14 @@ if (isCalcSupported()) {
 }
 
 if (!isCalcSupported()) {
-    console.log("Ie8以及以下浏览器");
+    console.log("不支持calc() css运算");
     resizeStartFunction = function () {
         var ChatMsgs = $('#chat_messages');
-        ChatMsgs.css('height', (documentSize.height() - 70) + 'px');
+        var ChatContent = $('#chat_content');
+        ChatMsgs.css('height', (ChatContent.height() - 70) + 'px');
 
         if (ChatMsgs.css("margin-right") !== '0px') {
-            ChatMsgs.css('width', (documentSize.width() - 60) + 'px');
+            ChatMsgs.css('width', (ChatContent.width() - 60) + 'px');
         } else {
             ChatMsgs.css('width', '100%');
         }
@@ -725,6 +739,17 @@ function ClipboardCopy(text, callback) {
     });
 }
 
+$(document).ready(function () {
+    var userInput = $('#userInput');
+    var textareaParent = $('#textarea_parent');
+    userInput.focus(function () {
+        textareaParent.addClass('active');
+    });
+
+    userInput.blur(function () {
+        textareaParent.removeClass('active');
+    });
+});
 $(document).ready(function () {
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');

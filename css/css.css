@@ -31,8 +31,42 @@ body #chat_content {
     overflow: hidden;
     position: absolute;
     transition: 0.2s ease-in-out;
+    right: 0;
+    top: 0;
+
+    background-image: -webkit-linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
+    background-image: -moz-linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
+    background-image: -o-linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
+    background-image: linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
+}
+
+#leftFunctionBar {
+    height: 100%;
+    width: 300px;
     left: 0;
     top: 0;
+    border-color: #8c8c8c;
+    /*background: #0b97c4;*/
+    position: absolute;
+    display: none;
+    z-index: 10;
+}
+
+#leftFunctionBar table{
+    width: 100%;
+    height: 100%;
+}
+#leftFunctionBar table td{
+    padding: 0;
+}
+
+.theTopHalf {
+    height: 30%;
+    /*background: red;*/
+}
+
+.theBottomHalf {
+    height: 70%;
 }
 
 #chat_input {
@@ -68,9 +102,15 @@ body #chat_content {
     display: inline-block;
 }
 
-#chat_input textarea:focus {
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#888888, direction=135, strength=2);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+#textarea_parent.active {
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction=135, strength=3);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid #9b9b9b;
     /*behavior: url(/js/ie-css3.htc);*/
 }
 
@@ -80,15 +120,22 @@ body #chat_content {
     width: calc(100% - 60px);
 }
 
-
 .msgFun span {
-    margin-right: 4px;
     cursor: pointer;
     font-size: 15px;
     padding: 5px;
-    background-color: white;
+    background: none;
     border-radius: 5px;
     transition: all .3s ease-in-out;
+}
+
+.userFun span {
+    margin-right: 5px;
+
+}
+
+.robotFun span {
+    margin-left: 5px;
 }
 
 .msgFun span:hover {
@@ -123,10 +170,10 @@ body #chat_content {
     right: -5px;
 }
 
-.msgContainer .msgFun span {
-    font-size: 15px;
-    margin-right: 5px;
-}
+/*.msgContainer .msgFun span {*/
+/*    font-size: 15px;*/
+/*    margin-right: 5px;*/
+/*}*/
 
 .msgFunHover .robotBoxContainer .robotFun {
     left: 0;
@@ -251,14 +298,19 @@ body #chat_content {
     /*height: 0;*/
     width: 50px;
     height: 50px;
-    background-color: red;
+    background-color: #ff6060;
     transition: 0.5s ease-in-out;
     opacity: 1;
+
+    background-image: -webkit-linear-gradient(to right top, #ff9090 30%, red 100%);
+    background-image: -moz-linear-gradient(to right top, #ff9090 30%, red 100%);
+    background-image: -o-linear-gradient(to right top, #ff9090 30%, red 100%);
+    background-image: linear-gradient(to right top, #ff9090 30%, red 100%);
 }
 
 .fu-btn {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
     border-radius: 100%;
     box-sizing: border-box;
     height: 50px;
@@ -277,6 +329,11 @@ body #chat_content {
     background-color: #22c55e;
     display: inline-block;
     vertical-align: middle;
+
+    background-image: -webkit-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
 }
 
 #textarea_parent {
@@ -291,10 +348,10 @@ body #chat_content {
     -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
     position: relative;
     overflow: hidden;
-    outline: 2px solid #e5e7eb;
-    border: none;
+    outline: none;
+    border: 2px solid #e5e7eb;
     vertical-align: middle;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .robotBox, .userBox {
@@ -312,19 +369,20 @@ body #chat_content {
 }
 
 #outer_function_container {
-    height: 70vh;
+    height: 80%;
     top: 0;
     right: -55px;
     position: absolute;
     transition: 0.2s ease-in-out;
     background-color: white;
     border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     box-sizing: border-box;
     border-color: #e5e7eb;
-    border-top-right-radius: 10px;
     width: 55px;
     overflow-y: auto;
     overflow-x: hidden;
+    opacity: 0.8;
 }
 
 #outer_function_container .fu-btn {
@@ -362,4 +420,11 @@ body #chat_content {
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+#outer_function_container img, #top_function_container img {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+
 }
