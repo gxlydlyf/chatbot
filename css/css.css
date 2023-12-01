@@ -52,17 +52,28 @@ body #chat_content {
     z-index: 10;
 }
 
-#leftFunctionBar table{
+#leftFunctionBar table {
     width: 100%;
     height: 100%;
 }
-#leftFunctionBar table td{
+
+#leftFunctionBar table td {
     padding: 0;
 }
 
 .theTopHalf {
     height: 30%;
     /*background: red;*/
+}
+
+.theTopHalf .btn {
+    background: #c5c5c5;
+    font-size: 15px;
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px; /* 兼容Firefox */
+    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
 }
 
 .theBottomHalf {
