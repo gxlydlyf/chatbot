@@ -462,7 +462,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+chatgpt",
-      "url": "/index.html?type=%s"
+      "url": "/%s"
     }
   ],
   "browser_action": {
