@@ -470,6 +470,22 @@
     "default_title": "设置",
     "default_popup": "setting.html"
   },
+  "screenshots": [
+    {
+      "src": "screenshots/narrow.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "很棒的应用程序的主屏幕"
+    },
+    {
+      "src": "screenshots/wide.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "很棒的应用程序的主屏幕"
+    }
+  ],
   "start_url": "./index.html",
   "display": "standalone",
   "manifest_version": 2
