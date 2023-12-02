@@ -18,9 +18,7 @@ $(document).ready(function () {
             PWA_web_app_installBTN.click(function () {
                 if (window.deferredPrompt === undefined) {
                     if (window.appInstalled === true) {
-                        PWA_web_app_installBTN.click(function () {
-                            window.open("web+chatgpt://index")
-                        })
+                        window.open("web+chatgpt://index")
                     } else {
                         PWA_web_app_installBTN.children("span").text("失败");
                         setTimeout(function () {
