@@ -1,5 +1,7 @@
 {
-  "name": "ChatGPT FREE",
+  "name": "ChatGPT FREE 应用程序",
+  "description": "ChatGPT FREE 的PWA版本",
+  "version": "1.5",
   "short_name": "ChatGPT",
   "icons": [
     {
@@ -8,6 +10,18 @@
       "sizes": "512x512"
     }
   ],
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "http://*/*"
+  ],
+  "browser_action": {
+    "default_icon": "img/icons8-setting.png",
+    "default_title": "设置",
+    "default_popup": "setting.html"
+  },
   "start_url": "./index.html",
-  "display": "standalone"
+  "display": "standalone",
+  "manifest_version": 2
 }
