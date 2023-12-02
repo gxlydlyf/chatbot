@@ -10,7 +10,7 @@ $(document).ready(function () {
 
                 deferredPrompt = e;
             });
-            window.addEventListener('appinstalled', (e) => {
+            window.addEventListener('appinstalled', function (e){
                 appInstalled = true;
             });
             if (deferredPrompt === undefined) {
