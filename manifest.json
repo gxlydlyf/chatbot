@@ -494,5 +494,7 @@
   "display_override": [
     "window-controls-overlay"
   ],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "dir": "ltr",
+  "lang": "zh-CN"
 }
