@@ -3,32 +3,31 @@ $(document).ready(function () {
     try {
         if (window.navigator && ('serviceWorker' in window.navigator)) {
             // 浏览器支持 Service Worker
-            var deferredPrompt = undefined;
-            var appInstalled = false;
+            window.deferredPrompt = undefined;
+            window.appInstalled = false;
             window.addEventListener('beforeinstallprompt', function (e) {
                 e.preventDefault();
 
-                deferredPrompt = e;
+                window.deferredPrompt = e;
             });
-            window.addEventListener('appinstalled', function (e){
-                appInstalled = true;
+            window.addEventListener('appinstalled', function (e) {
+                window.appInstalled = true;
             });
-            if (deferredPrompt === undefined) {
-                if (appInstalled === true) {
-                    PWA_web_app_installBTN.click(function () {
-                        window.open("web+chatgpt://index")
-                    })
+
+            // 当用户点击安装提示按钮时，调用以下方法来安装应用
+            PWA_web_app_installBTN.click(function () {
+                if (window.deferredPrompt === undefined) {
+                    if (window.appInstalled === true) {
+                        PWA_web_app_installBTN.click(function () {
+                            window.open("web+chatgpt://index")
+                        })
+                    } else {
+                        PWA_web_app_installBTN.remove();
+                    }
                 } else {
-                    PWA_web_app_installBTN.remove();
-                }
+                    window.deferredPrompt.prompt();
 
-            } else {
-
-                // 当用户点击安装提示按钮时，调用以下方法来安装应用
-                PWA_web_app_installBTN.click(function () {
-                    deferredPrompt.prompt();
-
-                    deferredPrompt.userChoice.then(function (choiceResult) {
+                    window.deferredPrompt.userChoice.then(function (choiceResult) {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('用户接受 A2HS 提示');
                             PWA_web_app_installBTN.children("span").text("成功");
@@ -46,8 +45,9 @@ $(document).ready(function () {
                         // deferredPrompt = null;
                     });
 
-                })
-            }
+                }
+
+            })
 
         } else {
             // 浏览器不支持 Service Worker
