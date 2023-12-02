@@ -473,14 +473,14 @@
   "screenshots": [
     {
       "src": "screenshots/narrow.png",
-      "sizes": "375x667",
+      "sizes": "469x834",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "很棒的应用程序的主屏幕"
     },
     {
       "src": "screenshots/wide.png",
-      "sizes": "1280x800",
+      "sizes": "1600x1000",
       "type": "image/png",
       "form_factor": "wide",
       "label": "很棒的应用程序的主屏幕"
@@ -488,5 +488,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "manifest_version": 2
+  "manifest_version": 2,
+  "background_color": "white"
 }
