@@ -10,9 +10,6 @@ $(document).ready(function () {
         }
         return false;
     };
-    if (isPwa()) {
-        PWA_web_app_installBTN.remove();
-    }
 
     try {
         if (window.navigator && ('serviceWorker' in window.navigator)) {
@@ -30,6 +27,9 @@ $(document).ready(function () {
 
             // 当用户点击安装提示按钮时，调用以下方法来安装应用
             PWA_web_app_installBTN.click(function () {
+                if (isPwa()) {
+                    PWA_web_app_installBTN.remove();
+                }
                 if (window.deferredPrompt === undefined) {
                     if (window.appInstalled === true) {
                         window.open("web+chatgpt://index")
@@ -70,6 +70,10 @@ $(document).ready(function () {
         }
     } catch (e) {
         //不支持pwa应用
+        PWA_web_app_installBTN.remove();
+    }
+
+    if (isPwa()) {
         PWA_web_app_installBTN.remove();
     }
 
