@@ -1,5 +1,6 @@
 {
   "name": "ChatGPT FREE",
+  "short_name": "ChatGPT",
   "icons": [
     {
       "src": "./favicon.png",
