@@ -461,7 +461,7 @@
   ],
   "protocol_handlers": [
     {
-      "protocol": "chatgpt+index",
+      "protocol": "web+chatgpt?type=%s",
       "url": "/index.html"
     }
   ],
