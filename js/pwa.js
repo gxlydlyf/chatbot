@@ -3,7 +3,14 @@ $(document).ready(function () {
     try {
         if (window.navigator && ('serviceWorker' in window.navigator)) {
             // 浏览器支持 Service Worker
-            var deferredPrompt;
+            var deferredPrompt = {
+                prompt: function () {
+                    PWA_web_app_installBTN.children("span").text("失败");
+                    setTimeout(function () {
+                        PWA_web_app_installBTN.children("span").text("应用");
+                    }, 1000)
+                }
+            };
             window.addEventListener('beforeinstallprompt', function (e) {
                 e.preventDefault();
 
@@ -17,8 +24,16 @@ $(document).ready(function () {
                 deferredPrompt.userChoice.then(function (choiceResult) {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('用户接受 A2HS 提示');
+                        PWA_web_app_installBTN.children("span").text("成功");
+                        setTimeout(function () {
+                            PWA_web_app_installBTN.children("span").text("应用");
+                        }, 1000)
                     } else {
                         console.log('用户忽略了 A2HS 提示');
+                        PWA_web_app_installBTN.children("span").text("失败");
+                        setTimeout(function () {
+                            PWA_web_app_installBTN.children("span").text("应用");
+                        }, 1000)
                     }
 
                     deferredPrompt = null;
@@ -30,6 +45,7 @@ $(document).ready(function () {
             PWA_web_app_installBTN.remove();
         }
     } catch (e) {
+        //不支持pwa应用
         PWA_web_app_installBTN.remove();
     }
 
