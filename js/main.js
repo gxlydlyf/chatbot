@@ -362,9 +362,9 @@ window.TfcFuns = {
         var FbInTFC = $('#top_function_container .fu-btn');
         FbInTFC.css('display', 'inline-block');
         TFC.css('top', '0');
-        TFC.animate({
+        TFC.stop().animate({
             'top': '-60px'
-        }, 50);
+        }, 100);
         TfcShowBtn.data('status', 'hide');
         this.BtnBottom();
     },
@@ -376,9 +376,9 @@ window.TfcFuns = {
         TFC.css('top', '-60px');
         FbInTFC.css('display', 'inline-block');
 
-        TFC.animate({
+        TFC.stop().animate({
             'top': '0'
-        }, 50);
+        }, 100);
         TfcShowBtn.data('status', 'show');
         this.BtnTop();
     },
@@ -406,14 +406,16 @@ function Reset_function_box_position() {
     var ChatContent = $('#chat_content');
     var FunBar = $('#leftFunctionBar');
     if (documentSize.width() > 700) {
-        FunBar.show();
+        // FunBar.css("left", "0");
+        FunBar.stop().animate({"left": "0"}, 200, "easeInOut")//使用stop()防止延迟
         if (isCalcSupported()) {
             ChatContent.width('calc(100% - 300px)');
         } else {
             ChatContent.width((documentSize.width() - 300) + 'px');
         }
     } else {
-        FunBar.hide();
+        FunBar.stop().animate({"left": "-300px"}, 200, "easeInOut")
+        // FunBar.css("left", "-300px");
         ChatContent.width('100%');
     }
     if (ChatContent.width() > 500) {
@@ -423,7 +425,7 @@ function Reset_function_box_position() {
         TfcBtn.children().prependTo(OFC);
 
 
-        TFC.animate({
+        TFC.stop().animate({
             'top': '-80px'
         }, 100);
         TfcShowBtn.data('status', 'hide');
@@ -432,7 +434,7 @@ function Reset_function_box_position() {
             TFC.css("display", "none");
         }, 100)
 
-        OFC.animate({
+        OFC.stop().animate({
             'right': '0px'
         }, 100);
         ChatMsgs.css({
@@ -445,19 +447,19 @@ function Reset_function_box_position() {
         }, 100)
         OFC.children().prependTo(TfcBtn);
         if (TfcShowBtn.data('status') === 'show') {
-            TFC.animate({
+            TFC.stop().animate({
                 'top': '0'
-            }, 50);
+            }, 100);
             TfcShowBtn.data('status', 'show');
             TfcFuns.BtnTop();
         } else {
-            TFC.animate({
+            TFC.stop().animate({
                 'top': '-60px'
-            }, 50);
+            }, 100);
             TfcShowBtn.data('status', 'hide');
             TfcFuns.BtnBottom();
         }
-        OFC.animate({
+        OFC.stop().animate({
             'right': '-55px'
         }, 100);
         ChatMsgs.css({
@@ -751,6 +753,14 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
+    $('.theTopHalf .btn').hover(
+        function () {
+            $(this).addClass("hover");
+        },
+        function () {
+            $(this).removeClass("hover");
+        }
+    )
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var status = TfcShowBtn.data('status');
@@ -964,7 +974,7 @@ $(document).ready(function () {
         if (MoreBtnElm.data("state") !== "open") {
             MoreBtnElm.data("state", "open");
             MoreBtnElm.addClass('transform-rotate-180');
-            ClearBtnElement.animate({opacity: 1}, 200);
+            ClearBtnElement.stop().animate({opacity: 1}, 200);
             $("#userInput").prop("readonly", true);//不允许输入
             $('#textarea_parent').width(0);
             SendBtnElement.width(0);
@@ -974,7 +984,7 @@ $(document).ready(function () {
         } else {
             MoreBtnElm.data("state", "close");
             MoreBtnElm.removeClass('transform-rotate-180');
-            ClearBtnElement.animate({opacity: 0}, 200);
+            ClearBtnElement.stop().animate({opacity: 0}, 200);
             $("#userInput").prop("readonly", false);//不允许输入
             $('#textarea_parent').width('50%');
             SendBtnElement.width(50);

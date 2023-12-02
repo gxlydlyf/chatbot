@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon"/>
+
+    <!--PWA-->
+    <link rel="manifest" href="./manifest.json"/>
+    <!--PWA-->
     <meta http-equiv="X-UA-Compatible" content="IE=5">
     <link href="css/css.css" type="text/css" rel="stylesheet">
     <link href="fun/fun.css" type="text/css" rel="stylesheet">
@@ -16,11 +20,13 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/jquery2/jquery-1.8.2.js"></script>
     <script src="js/jquery2/jquery-ui.js"></script>
+    <link href="js/jquery2/jquery.ui.all.css" type="text/css" rel="stylesheet">
     <script>
         window.jQuery2 = window.$2 = jQuery.noConflict(true);
     </script>
     <script src="js/jquery.min.js"></script>
-    <link href="js/jquery2/jquery.ui.all.css" type="text/css" rel="stylesheet">
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.easing.compatibility.js"></script>
     <script src="js/debug.js"></script>
 
     <script src="js/json2.js"></script>
@@ -145,7 +151,7 @@
 </head>
 <body>
 <h1 style="text-align: center;display: none">AI ChatBot</h1>
-<div id="leftFunctionBar" class="border-1px">
+<div id="leftFunctionBar">
     <table>
         <tbody>
         <tr>
@@ -153,10 +159,12 @@
                 <div style="height: 100%;width: 100%">
                     <div style="padding-left: 30px;padding-right: 30px;vertical-align: top;margin-top: 10px">
                         <span style="vertical-align: middle;font-weight: bold">ChatGPT FREE</span>
-                        <img src="favicon.png" alt="" style="width: 50px;height: 50px;vertical-align: middle;margin-left: 50px">
+                        <img src="favicon.png" alt=""
+                             style="width: 50px;height: 50px;vertical-align: middle;margin-left: 50px">
                     </div>
                     <div style="text-align: center">
-                        <div class="btn"><img src="svg/setting-two.svg" alt="" style="width: 15px;height: 15px;vertical-align: middle"><span style="vertical-align: middle">设置</span></div>
+                        <span class="btn disable-selection"><img src="svg/setting-two.svg" alt=""
+                                                                 class="disable-selection"><span>设置</span></span>
                     </div>
 
                 </div>

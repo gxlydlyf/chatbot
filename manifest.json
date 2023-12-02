@@ -1,0 +1,12 @@
+{
+  "name": "ChatGPT FREE",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "minimal-ui"
+}

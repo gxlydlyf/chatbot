@@ -43,13 +43,14 @@ body #chat_content {
 #leftFunctionBar {
     height: 100%;
     width: 300px;
-    left: 0;
+    left: -300px;
     top: 0;
     border-color: #8c8c8c;
-    /*background: #0b97c4;*/
+    background: #f0fbff;
     position: absolute;
-    display: none;
     z-index: 10;
+    border-right: 2px;
+    /*transition: 0.2s ease-in-out;*/
 }
 
 #leftFunctionBar table {
@@ -67,13 +68,44 @@ body #chat_content {
 }
 
 .theTopHalf .btn {
-    background: #c5c5c5;
+    background: #f6f6f6;
     font-size: 15px;
     display: inline-block;
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
     -moz-border-radius: 10px; /* 兼容Firefox */
     -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    border: 1px solid #e5e7eb;
+
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
+}
+
+.theTopHalf .btn.hover {
+    background: #fafafa;
+
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#333333, direction=135, strength=3);
+}
+
+.theTopHalf .btn img {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle
+}
+
+.theTopHalf .btn span {
+    vertical-align: middle
 }
 
 .theBottomHalf {
@@ -115,7 +147,7 @@ body #chat_content {
 
 
 #textarea_parent.active {
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction=135, strength=3);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -424,7 +456,7 @@ body #chat_content {
 }
 
 #tfc_show_btn img {
-    transition: all 0.05s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 #top_function_container .fu-btn {
