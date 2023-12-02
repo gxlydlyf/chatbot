@@ -22,7 +22,10 @@ $(document).ready(function () {
                             window.open("web+chatgpt://index")
                         })
                     } else {
-                        PWA_web_app_installBTN.remove();
+                        PWA_web_app_installBTN.children("span").text("失败");
+                        setTimeout(function () {
+                            PWA_web_app_installBTN.children("span").text("应用");
+                        }, 1000)
                     }
                 } else {
                     window.deferredPrompt.prompt();
