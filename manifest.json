@@ -493,5 +493,6 @@
   "background_color": "white",
   "display_override": [
     "window-controls-overlay"
-  ]
+  ],
+  "prefer_related_applications": false
 }
