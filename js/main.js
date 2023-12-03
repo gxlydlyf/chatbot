@@ -483,8 +483,11 @@ function changeInterfaceSizeAndPosition() {
     var ChatContent = $('#chat_content');
     var ChatInput = $('#chat_input');
     var OFC = $('#outer_function_container');
-    ChatMsgs.css('height', (ChatContent.height() - ChatInput.height() - 2) + 'px');
-    OFC.css('height', (ChatContent.height() - ChatInput.height() - 2) + 'px');
+    var userInput = $('#userInput');
+    var newChatMsgsHeight = ChatContent.height() - ChatInput.height() - 2;
+    ChatMsgs.css('height', newChatMsgsHeight + 'px');
+    OFC.css('height', newChatMsgsHeight + 'px');
+    // userInput.click();
 }
 
 Reset_function_box_position();
@@ -523,6 +526,7 @@ var resizeTrigger = function () {
 windowResize(function () {
     Reset_function_box_position();
     changeInterfaceSizeAndPosition();
+    heightAdaptationOfUserInput(document.getElementById('userInput'));
 })
 
 
@@ -758,6 +762,23 @@ function ClipboardCopy(text, callback) {
     });
 }
 
+function heightAdaptationOfUserInput(userInput) {
+    var ChatContent = $('#chat_content');
+    userInput.style.height = '70px';
+    var thisParent = $(userInput).parent().parent().get(0);
+    var thisPParent = $(userInput).parent().parent().parent().get(0);
+    var newHeight = userInput.scrollHeight;
+    if (newHeight < 70) {
+        newHeight = 70;
+    }
+    if (newHeight > (ChatContent.height() - 55)) {
+        newHeight = ChatContent.height() - 55;
+    }
+    userInput.style.height = '100%';
+    thisParent.style.height = (newHeight + 5) + 'px';
+    thisPParent.style.height = (newHeight + 35) + 'px';
+}
+
 $(document).ready(function () {
     var userInput = $('#userInput');
     var textareaParent = $('#textarea_parent');
@@ -785,8 +806,9 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
-    $('#userInput').on("input", function () {
-
+    $('#userInput').on("input keyup change blur focus click", function () {
+        heightAdaptationOfUserInput(this);
+        changeInterfaceSizeAndPosition();
     })
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
@@ -812,6 +834,7 @@ $(document).ready(function () {
 
         }, 100);
         UserInput.val('');
+        UserInput.blur();
         var NewMessages = [];
         var MsgId;
         for (var i = 0; i < SaveMsgObj.messages.length; i++) {

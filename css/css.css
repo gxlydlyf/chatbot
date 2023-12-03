@@ -157,12 +157,13 @@ body #chat_content {
     background: none;
     height: 100%;
     width: calc(100% - 50px);
-    border-radius: 10px;
-    -moz-border-radius: 10px; /* 兼容Firefox */
-    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+    border-radius: 0;
+    -moz-border-radius: 0; /* 兼容Firefox */
+    -webkit-border-radius: 0; /* 兼容Chrome和Safari */
     font-weight: bold;
     font-size: 15px;
     display: inline-block;
+    padding: 0;
 }
 
 
@@ -216,7 +217,9 @@ body #chat_content {
     outline: none;
     border: 2px solid #e5e7eb;
     vertical-align: middle;
-    transition: 0.2s ease-in-out;
+    transition-property: border, box-shadow;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }
 
 #functionsOnTheInputBox {
@@ -461,7 +464,7 @@ body #chat_content {
     top: 0;
     right: -55px;
     position: absolute;
-    transition: 0.2s ease-in-out;
+    /*transition: 0.2s ease-in-out;*/
     background-color: white;
     box-sizing: border-box;
     border-color: #e5e7eb;
@@ -487,6 +490,7 @@ body #chat_content {
     width: 100%;
     left: 0;
     filter: alpha(opacity=50);
+    z-index: 10;
 }
 
 

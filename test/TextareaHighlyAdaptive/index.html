@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <script src="../../js/jquery.min.js"></script>
+</head>
+<body>
+<label for="myTextarea"></label><textarea id="myTextarea"></textarea>
+
+<script>
+    $(document).ready(function () {
+        var myTextarea = $('#myTextarea');
+        var initialHeight = 70;
+
+        myTextarea.on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+
+            // 判断是否内容为空
+            if (this.value.length === 0) {
+                this.style.height = initialHeight + 'px';
+            }
+            console.log((this.scrollHeight) + 'px')
+        });
+    });
+</script>
+</body>
+</html>
