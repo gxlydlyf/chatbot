@@ -483,8 +483,8 @@ function changeInterfaceSizeAndPosition() {
     var ChatContent = $('#chat_content');
     var ChatInput = $('#chat_input');
     var OFC = $('#outer_function_container');
-    ChatMsgs.css('height', (ChatContent.height() - ChatInput.height()) + 'px');
-    OFC.css('height', ChatMsgs.css('height'));
+    ChatMsgs.css('height', (ChatContent.height() - ChatInput.height() - 2) + 'px');
+    OFC.css('height', (ChatContent.height() - ChatInput.height() - 2) + 'px');
 }
 
 Reset_function_box_position();
@@ -785,6 +785,9 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
+    $('#userInput').on("input", function () {
+
+    })
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var status = TfcShowBtn.data('status');

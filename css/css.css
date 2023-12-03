@@ -143,6 +143,7 @@ body #chat_content {
     bottom: 0;
     background: #f7f8f9;
     border-top: 1px solid #9b9b9b;
+    z-index: 10;
 }
 
 #userInput {
@@ -468,6 +469,8 @@ body #chat_content {
     overflow-y: auto;
     overflow-x: hidden;
     opacity: 0.8;
+    border-bottom-color: #9b9b9b;
+    border-bottom: none;
 }
 
 #outer_function_container .fu-btn {
