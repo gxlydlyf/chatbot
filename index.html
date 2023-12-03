@@ -183,7 +183,7 @@
             <td class="theBottomHalf">
                 <div>
                     <div class="ConversationsSelectionBox" tabindex="0"
-                         onclick="if ($('#leftFunctionBar').css('left')==='0px'){$('#messageListSwitch').click()}">
+                         onclick="if (($('#leftFunctionBar').css('left')==='0px')&&(documentSize.width() < 700)){$('#messageListSwitch').click()}">
                         <span style="margin: 10px;display: inline-block">默认对话</span>
                     </div>
                 </div>

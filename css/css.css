@@ -167,9 +167,10 @@ body #chat_content {
     -ms-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
     -o-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#575757, direction=135, strength=3);
 }
 
-.ConversationsSelectionBox:hover {
+#leftFunctionBar table td.theBottomHalf .ConversationsSelectionBox.hover {
     background-color: #fafafa;
 
     -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
@@ -177,6 +178,7 @@ body #chat_content {
     -ms-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
     -o-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#6e6e6e, direction=135, strength=3);
 }
 
 #chat_input {
