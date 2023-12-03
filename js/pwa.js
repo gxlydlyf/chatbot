@@ -14,13 +14,8 @@ $(document).ready(function () {
     try {
         if (window.navigator && ('serviceWorker' in window.navigator)) {
             // 浏览器支持 Service Worker
-            window.deferredPrompt = undefined;
+            window.deferredPrompt = 1;
             window.appInstalled = false;
-            window.addEventListener('beforeinstallprompt', function (e) {
-                e.preventDefault();
-
-                window.deferredPrompt = e;
-            });
             window.addEventListener('appinstalled', function (e) {
                 window.appInstalled = true;
             });
@@ -40,25 +35,30 @@ $(document).ready(function () {
                         }, 1000)
                     }
                 } else {
-                    window.deferredPrompt.prompt();
+                    window.addEventListener('beforeinstallprompt', function (e) {
+                        e.preventDefault();
 
-                    window.deferredPrompt.userChoice.then(function (choiceResult) {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('用户接受 A2HS 提示');
-                            PWA_web_app_installBTN.children("span").text("成功");
-                            setTimeout(function () {
-                                PWA_web_app_installBTN.children("span").text("应用");
-                            }, 1000)
-                        } else {
-                            console.log('用户忽略了 A2HS 提示');
-                            PWA_web_app_installBTN.children("span").text("失败");
-                            setTimeout(function () {
-                                PWA_web_app_installBTN.children("span").text("应用");
-                            }, 1000)
-                        }
+                        e.prompt();
 
-                        // deferredPrompt = null;
+                        e.userChoice.then(function (choiceResult) {
+                            if (choiceResult.outcome === 'accepted') {
+                                console.log('用户接受 A2HS 提示');
+                                PWA_web_app_installBTN.children("span").text("成功");
+                                setTimeout(function () {
+                                    PWA_web_app_installBTN.children("span").text("应用");
+                                }, 1000)
+                            } else {
+                                console.log('用户忽略了 A2HS 提示');
+                                PWA_web_app_installBTN.children("span").text("失败");
+                                setTimeout(function () {
+                                    PWA_web_app_installBTN.children("span").text("应用");
+                                }, 1000)
+                            }
+
+                            // deferredPrompt = null;
+                        });
                     });
+
 
                 }
 
