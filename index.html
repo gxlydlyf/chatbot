@@ -162,15 +162,14 @@
         <tr>
             <td class="theTopHalf">
                 <div style="height: 100%;width: 100%">
-                    <div style="padding-left: 30px;padding-right: 30px;vertical-align: top;margin-top: 10px">
-                        <span style="vertical-align: middle;font-weight: bold;font-size: 20px">ChatGPT FREE</span>
-                        <img src="favicon.png" alt=""
-                             style="width: 50px;height: 50px;vertical-align: middle;margin-left: 40px">
+                    <div style="padding-left: 30px;padding-right: 30px;vertical-align: top;margin-top: 10px;position: relative;height: 50px">
+                        <span style="font-weight: bold;font-size: 20px;position: absolute;height: 60px;line-height: 60px;left: 20px">ChatGPT FREE&nbsp;</span>
+                        <img src="icon/windows11/Square150x150Logo.scale-400.transparent.png" alt="" id="websiteIcon">
                     </div>
                     <div style="font-size: 10px;padding: 20px 20px 20px 30px;">
                         免费ChatGPT，您可以免费的使用。
                     </div>
-                    <div style="text-align: center">
+                    <div style="text-align: center" class="buttonGroup">
                         <span class="btn disable-selection">
                             <img src="svg/icons8-setting.svg" alt="" class="disable-selection">
                             <span>设置</span>
@@ -207,14 +206,14 @@
 
     </div>
     <div id="chat_input">
+        <div id="functionsOnTheInputBox"></div>
         <div id="textarea_parent">
             <label>
                 <textarea id="userInput"></textarea>
             </label>
+            <img id="send-btn" src="svg/send-btn.svg" alt="" class="disable-selection fu-btn">
         </div>
 
-        <img id="send-btn" src="svg/send-btn.svg" onerror="this.src='img/send-btn.png'" alt=""
-             class="disable-selection fu-btn">
         <!--        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""-->
         <!--             class="disable-selection fu-btn">-->
 

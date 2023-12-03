@@ -405,6 +405,7 @@ function Reset_function_box_position() {
     var ChatMsgs = $('#chat_messages');
     var ChatContent = $('#chat_content');
     var FunBar = $('#leftFunctionBar');
+
     if (documentSize.width() > 700) {
         // FunBar.css("left", "0");
         FunBar.stop().animate({"left": "0"}, 200, "easeInOut")//使用stop()防止延迟
@@ -477,7 +478,17 @@ function Reset_function_box_position() {
 
 }
 
+function changeInterfaceSizeAndPosition() {
+    var ChatMsgs = $('#chat_messages');
+    var ChatContent = $('#chat_content');
+    var ChatInput = $('#chat_input');
+    var OFC = $('#outer_function_container');
+    ChatMsgs.css('height', (ChatContent.height() - ChatInput.height()) + 'px');
+    OFC.css('height', ChatMsgs.css('height'));
+}
+
 Reset_function_box_position();
+changeInterfaceSizeAndPosition();
 // $(window).resize(function () {
 //     Reset_function_box_position()
 // });
@@ -511,6 +522,7 @@ var resizeTrigger = function () {
 
 windowResize(function () {
     Reset_function_box_position();
+    changeInterfaceSizeAndPosition();
 })
 
 
@@ -680,14 +692,19 @@ if (!isCalcSupported()) {
     resizeStartFunction = function () {
         var ChatMsgs = $('#chat_messages');
         var ChatContent = $('#chat_content');
-        ChatMsgs.css('height', (ChatContent.height() - 70) + 'px');
+        var ChatInput = $('#chat_input');
+        var userInput = $('#userInput');
+        var inputParent = $('#textarea_parent');
 
         if (ChatMsgs.css("margin-right") !== '0px') {
             ChatMsgs.css('width', (ChatContent.width() - 60) + 'px');
         } else {
             ChatMsgs.css('width', '100%');
         }
-    }//手动跳转#chat_messages高度为 100%-70px
+        inputParent.css("width", (ChatInput.width() - 40) + 'px')
+        userInput.css("width", (inputParent.width() - 50) + 'px')
+
+    }//手动调整#chat_messages高度为 100%-70px
     resizeStartFunction();
     windowResize(function () {
         resizeStartFunction();
@@ -745,23 +762,29 @@ $(document).ready(function () {
     var userInput = $('#userInput');
     var textareaParent = $('#textarea_parent');
     userInput.focus(function () {
-        textareaParent.addClass('active');
+        textareaParent.addClass('childFocus');
     });
 
     userInput.blur(function () {
-        textareaParent.removeClass('active');
+        textareaParent.removeClass('childFocus');
     });
 });
 $(document).ready(function () {
-    $('.theTopHalf .btn').hover(
-        function () {
-            $(this).addClass("hover");
-        },
-        function () {
-            $(this).removeClass("hover");
-        }
-    )
-
+    $(document).on('mouseenter', '*', function () {
+        $(this).addClass('hover');
+    }).on('mouseleave', '*', function () {
+        $(this).removeClass('hover');
+    }).on('focus', '*', function () {
+        $(this).addClass('focus');
+    }).on('blur', '*', function () {
+        $(this).removeClass('focus');
+    }).on('mousedown', '*', function () {
+        $(this).addClass('active');
+    }).on('mouseup', '*', function () {
+        $(this).removeClass('active');
+    });
+});
+$(document).ready(function () {
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var status = TfcShowBtn.data('status');

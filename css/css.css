@@ -11,11 +11,11 @@ html {
     overflow: hidden;
 }
 
-body h3 a.jump_to_source span:hover {
+body h3 a.jump_to_source span.hover {
     color: #666666;
 }
 
-body h3 a.jump_to_source span:active {
+body h3 a.jump_to_source span.active {
     color: #777777;
 }
 
@@ -67,6 +67,20 @@ body #chat_content {
     /*background: red;*/
 }
 
+#websiteIcon {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    transition: 0.5s ease-in-out;
+    position: absolute;
+    right: 20px;
+}
+
+#websiteIcon.hover {
+    background: white;
+    border-radius: 10px;
+}
+
 .theTopHalf .btn {
     background: #f6f6f6;
     font-size: 15px;
@@ -78,6 +92,8 @@ body #chat_content {
     cursor: pointer;
     transition: 0.1s ease-in-out;
     border: 1px solid #e5e7eb;
+    margin-left: 2px;
+    margin-right: 2px;
 
     -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
@@ -87,7 +103,7 @@ body #chat_content {
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
 }
 
-.theTopHalf .btn.hover {
+.theTopHalf .buttonGroup .btn.hover {
     background: #fafafa;
 
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -113,20 +129,23 @@ body #chat_content {
 }
 
 #chat_input {
-    height: 55px;
+    height: 100px;
     line-height: 100%;
     margin-bottom: 0;
     position: absolute;
     margin-top: 5px;
     width: 100%;
-    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
     padding-top: 2px;
     white-space: nowrap;
     left: 0;
     bottom: 0;
+    background: #f7f8f9;
+    border-top: 1px solid #9b9b9b;
 }
 
-#chat_input textarea {
+#userInput {
     border: none;
     resize: none;
     outline: none;
@@ -136,17 +155,17 @@ body #chat_content {
     left: 0;
     background: none;
     height: 100%;
-    width: 100%;
+    width: calc(100% - 50px);
     border-radius: 10px;
     -moz-border-radius: 10px; /* 兼容Firefox */
     -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
     font-weight: bold;
-    font-size: 15pt;
+    font-size: 15px;
     display: inline-block;
 }
 
 
-#textarea_parent.active {
+#textarea_parent.childFocus {
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -157,8 +176,54 @@ body #chat_content {
     /*behavior: url(/js/ie-css3.htc);*/
 }
 
+#send-btn {
+    background-color: #22c55e;
+    display: inline-block;
+    /*vertical-align: middle;*/
+    bottom: 5px;
+    right: 5px;
+    position: absolute;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+
+    background-image: -webkit-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    transition: background-position 0.2s ease-in-out;
+    background-size: 200%;
+}
+
+#send-btn.hover {
+    background-position: 100% 0;
+    background-color: #28e76e;
+}
+
+#textarea_parent {
+    display: inline-block;
+    height: 70px;
+    width: calc(100% - 40px);
+    /*max-width: 400px;*/
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    -moz-border-radius: 10px; /* 兼容Firefox */
+    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    border: 2px solid #e5e7eb;
+    vertical-align: middle;
+    transition: 0.2s ease-in-out;
+}
+
+#functionsOnTheInputBox {
+    height: 25px;
+}
+
 #chat_messages {
-    height: calc(100% - 70px);
+    height: calc(100% - 100px);
     overflow: auto;
     width: calc(100% - 60px);
 }
@@ -181,12 +246,12 @@ body #chat_content {
     margin-left: 5px;
 }
 
-.msgFun span:hover {
+.msgFun span.hover {
     background-color: #e3e3e3;
 
 }
 
-.msgFun span:active {
+.msgFun span.active {
     background-color: #d7d7d7;
 
 }
@@ -349,6 +414,14 @@ body #chat_content {
     background-image: -moz-linear-gradient(to right top, #ff9090 30%, red 100%);
     background-image: -o-linear-gradient(to right top, #ff9090 30%, red 100%);
     background-image: linear-gradient(to right top, #ff9090 30%, red 100%);
+    background-size: 200%;
+
+}
+
+#clear-btn.hover {
+    background-color: #ff6e6e;
+    background-position: 100% 0;
+
 }
 
 .fu-btn {
@@ -366,35 +439,6 @@ body #chat_content {
     cursor: pointer;
     transition: 0.5s ease-in-out;
     vertical-align: middle;
-}
-
-#send-btn {
-    background-color: #22c55e;
-    display: inline-block;
-    vertical-align: middle;
-
-    background-image: -webkit-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-}
-
-#textarea_parent {
-    display: inline-block;
-    height: 50px;
-    width: 50%;
-    max-width: 400px;
-    box-sizing: border-box;
-    background-color: #fcfcfc;
-    border-radius: 10px;
-    -moz-border-radius: 10px; /* 兼容Firefox */
-    -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
-    position: relative;
-    overflow: hidden;
-    outline: none;
-    border: 2px solid #e5e7eb;
-    vertical-align: middle;
-    transition: 0.2s ease-in-out;
 }
 
 .robotBox, .userBox {
@@ -418,8 +462,6 @@ body #chat_content {
     position: absolute;
     transition: 0.2s ease-in-out;
     background-color: white;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     box-sizing: border-box;
     border-color: #e5e7eb;
     width: 55px;
@@ -471,3 +513,4 @@ body #chat_content {
     border-radius: 15px;
 
 }
+
