@@ -100,6 +100,7 @@
     <script src="js/setting-config.js" defer></script>
     <!--    <script src="js/save-messages.js" defer></script>-->
     <script src="js/proxy.js" defer></script>
+    <script src="js/multipleConversationManagement.js" defer></script>
     <script src="js/main.js" defer></script>
     <script>
     </script>
@@ -165,11 +166,11 @@
                         免费ChatGPT，您可以免费的使用。
                     </div>
                     <div style="text-align: center" class="buttonGroup">
-                        <span class="btn disable-selection">
+                        <span class="btn disable-selection" tabindex="0">
                             <img src="svg/icons8-setting.svg" alt="" class="disable-selection">
                             <span>设置</span>
                         </span>
-                        <span class="btn disable-selection" id="PWA_web_app_install">
+                        <span class="btn disable-selection" id="PWA_web_app_install" tabindex="0">
                             <img src="svg/application-one.svg" alt="" class="disable-selection">
                             <span>应用</span>
                         </span>
@@ -179,10 +180,30 @@
             </td>
         </tr>
         <tr>
-            <td class="theBottomHalf"></td>
+            <td class="theBottomHalf">
+                <div>
+                    <div class="ConversationsSelectionBox" tabindex="0"
+                         onclick="if ($('#leftFunctionBar').css('left')==='0px'){$('#messageListSwitch').click()}">
+                        <span style="margin: 10px;display: inline-block">默认对话</span>
+                    </div>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
+</div>
+<div id="currentChatInformation">
+    <table style="width: 100%;height: 100%">
+        <tr>
+            <td id="functionsInTheInformationBar">
+                <img src="svg/keyboard-return-rounded.svg" alt="" id="messageListSwitch" class="fu-btn" tabindex="0">
+            </td>
+            <td id="chatTitleInTheInformationBar">
+                <!--聊天-->
+            </td>
+        </tr>
+    </table>
+
 </div>
 <div id="chat_content" class="border-1px">
     <div id="chat_messages">
@@ -204,9 +225,9 @@
         <div id="functionsOnTheInputBox"></div>
         <div id="textarea_parent">
             <label for="userInput">
-                <textarea id="userInput" title="输入问题" placeholder="请问您需要问什么？"></textarea>
+                <textarea id="userInput" title="输入问题" placeholder="请问您需要什么帮助？" tabindex="1"></textarea>
             </label>
-            <img id="send-btn" src="svg/send-btn.svg" alt="" class="disable-selection fu-btn">
+            <img id="send-btn" src="svg/send-btn.svg" alt="" class="disable-selection fu-btn" tabindex="1">
         </div>
 
         <!--        <img id="more-btn" src="svg/outline-more.svg" onerror="this.src='img/outline-more.png'" alt=""-->
@@ -218,7 +239,8 @@
         <img onclick="SaveMsgObj.clearMessages();SaveMsgConstructor();" alt="" src="svg/delete.svg"
              id="clear-btn"
              style="vertical-align: middle"
-             class="disable-selection fu-btn">
+             class="disable-selection fu-btn"
+             tabindex="0">
     </div>
     <div id="top_function_container">
         <div id="tfc_buttons" class="no-scrollbar synchronized-vertical-scrolling">

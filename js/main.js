@@ -396,6 +396,13 @@ window.TfcFuns = {
     }
 }
 
+function setChatContentWidth(width) {
+    var ChatContent = $('#chat_content');
+    var ChatInfo = $('#currentChatInformation');
+    ChatContent.width(width);
+    ChatInfo.width(width);
+}
+
 function Reset_function_box_position() {
     var TFC = $('#top_function_container');
     var OFC = $('#outer_function_container');
@@ -405,19 +412,40 @@ function Reset_function_box_position() {
     var ChatMsgs = $('#chat_messages');
     var ChatContent = $('#chat_content');
     var FunBar = $('#leftFunctionBar');
+    var ChatInfo = $('#currentChatInformation');
+    var FunBarStatus;
 
+    if (FunBar.data("status") === undefined) {
+        FunBar.data("status", "auto");
+    }
     if (documentSize.width() > 700) {
-        // FunBar.css("left", "0");
-        FunBar.stop().animate({"left": "0"}, 200, "easeInOut")//使用stop()防止延迟
-        if (isCalcSupported()) {
-            ChatContent.width('calc(100% - 300px)');
+        FunBarStatus = FunBar.data("status");
+        if ((FunBarStatus === 'auto') || (FunBarStatus === 'show')) {
+            // FunBar.css("width", "300px");
+            FunBar.stop().animate({"left": "0", "width": "300px"}, 200, "easeInOut")//使用stop()防止延迟
+            if (isCalcSupported()) {
+                setChatContentWidth('calc(100% - 300px)');
+            } else {
+                setChatContentWidth((documentSize.width() - 300) + 'px');
+            }
+        } else if (FunBarStatus === 'hide') {
+            FunBar.stop().animate({"left": "-700px"}, 200, "easeInOut")
+            setChatContentWidth('100%');
         } else {
-            ChatContent.width((documentSize.width() - 300) + 'px');
+            FunBar.data("status", "auto");
         }
     } else {
-        FunBar.stop().animate({"left": "-300px"}, 200, "easeInOut")
-        // FunBar.css("left", "-300px");
-        ChatContent.width('100%');
+        FunBarStatus = FunBar.data("status");
+        if ((FunBarStatus === 'auto') || (FunBarStatus === 'hide')) {
+            FunBar.stop().animate({"left": "-700px"}, 200, "easeInOut")
+            setChatContentWidth('100%');
+        } else if (FunBarStatus === 'show') {
+            // FunBar.css("width", "100%");
+            FunBar.stop().animate({"left": "0", "width": "100%"}, 200, "easeInOut");
+            setChatContentWidth('100%');
+        } else {
+            FunBar.data("status", "auto");
+        }
     }
     if (ChatContent.width() > 500) {
         // 可用宽度大于500px时执行的命令
@@ -483,15 +511,16 @@ function changeInterfaceSizeAndPosition() {
     var ChatContent = $('#chat_content');
     var ChatInput = $('#chat_input');
     var OFC = $('#outer_function_container');
+    var ChatInfo = $('#currentChatInformation');
     var userInput = $('#userInput');
+    ChatContent.css('height', documentSize.height() - 40);
     var newChatMsgsHeight = ChatContent.height() - ChatInput.height() - 2;
     ChatMsgs.css('height', newChatMsgsHeight + 'px');
     OFC.css('height', newChatMsgsHeight + 'px');
-    // userInput.click();
+    heightAdaptationOfUserInput(userInput.get(0));
 }
 
-Reset_function_box_position();
-changeInterfaceSizeAndPosition();
+
 // $(window).resize(function () {
 //     Reset_function_box_position()
 // });
@@ -501,10 +530,20 @@ function windowResize(callback) {
         window.attachEvent("onresize", function () {
             callback.call();
         });
+        window.attachEvent("onresize", function () {
+            setTimeout(function () {
+                callback.call();
+            }, 200)
+        });
     } else {
         // Modern browsers
         window.addEventListener("resize", function () {
             callback.call();
+        });
+        window.addEventListener("resize", function () {
+            setTimeout(function () {
+                callback.call();
+            }, 200)
         });
     }
 
@@ -528,7 +567,12 @@ windowResize(function () {
     changeInterfaceSizeAndPosition();
     heightAdaptationOfUserInput(document.getElementById('userInput'));
 })
-
+Reset_function_box_position();
+changeInterfaceSizeAndPosition();
+setTimeout(function () {
+    Reset_function_box_position();
+    changeInterfaceSizeAndPosition();
+}, 500)
 
 function isViewportHeightSupported() {//是否支持 vh 高度
     var testElement = document.createElement("div");
@@ -806,8 +850,28 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
+    $('#messageListSwitch').click(function () {
+        var FunBar = $('#leftFunctionBar');
+        var FunBarStatus = FunBar.data('status');
+        if (FunBarStatus === 'auto') {
+            if (documentSize.width() < 700) {
+                FunBar.data('status', 'show');
+            } else {
+                FunBar.data('status', 'hide');
+            }
+        } else if (FunBarStatus === 'hide') {
+            FunBar.data('status', 'show');
+        } else if (FunBarStatus === 'show') {
+            FunBar.data('status', 'hide');
+        } else {
+            FunBar.data('status', 'auto');
+        }
+        Reset_function_box_position();
+        setChatContentWidth(function () {
+            Reset_function_box_position();
+        }, 200)
+    });
     $('#userInput').on("input keyup change blur focus click", function () {
-        heightAdaptationOfUserInput(this);
         changeInterfaceSizeAndPosition();
     })
     $('#tfc_show_btn').click(function () {

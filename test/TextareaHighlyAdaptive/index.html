@@ -14,7 +14,7 @@
         var myTextarea = $('#myTextarea');
         var initialHeight = 70;
 
-        myTextarea.on('input', function () {
+        myTextarea.on('input keyup change blur focus click', function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
 

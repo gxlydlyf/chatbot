@@ -19,6 +19,30 @@ body h3 a.jump_to_source span.active {
     color: #777777;
 }
 
+#currentChatInformation {
+    height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    transition: 0.2s ease-in-out;
+}
+
+#messageListSwitch {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#functionsInTheInformationBar {
+    text-align: left;
+    width: 100px;
+}
+
+
 body #chat_content {
     width: 100%;
     height: 100%;
@@ -32,7 +56,7 @@ body #chat_content {
     position: absolute;
     transition: 0.2s ease-in-out;
     right: 0;
-    top: 0;
+    bottom: 0;
 
     background-image: -webkit-linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
     background-image: -moz-linear-gradient(to right top, #ffffff 10%, #f5ffff 50%, #effeff 100%);
@@ -43,12 +67,12 @@ body #chat_content {
 #leftFunctionBar {
     height: 100%;
     width: 300px;
-    left: -300px;
+    left: -100%;
     top: 0;
     border-color: #8c8c8c;
     background: #f0fbff;
     position: absolute;
-    z-index: 10;
+    z-index: 15;
     border-right: 2px;
     /*transition: 0.2s ease-in-out;*/
 }
@@ -124,8 +148,35 @@ body #chat_content {
     vertical-align: middle
 }
 
-.theBottomHalf {
+#leftFunctionBar table td.theBottomHalf {
     height: 70%;
+    padding: 20px;
+}
+
+.ConversationsSelectionBox {
+    width: 100%;
+    height: 100px;
+    background-color: #f6f6f6;
+    border-radius: 15px;
+    border: 1px solid #c9c9c9;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    -webkit-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ConversationsSelectionBox:hover {
+    background-color: #fafafa;
+
+    -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 #chat_input {
