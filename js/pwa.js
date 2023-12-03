@@ -2,6 +2,9 @@ $(document).ready(function () {
     var PWA_web_app_installBTN = $('#PWA_web_app_install');
 
     window.isPwa = function () {
+        if (!window.matchMedia) {
+            return false;
+        }
         var displayModes = ["fullscreen", "standalone", "minimal-ui"];
         for (var i = 0; i < displayModes.length; i++) {
             if (window.matchMedia('(display-mode: ' + displayModes[i] + ')').matches) {
@@ -10,7 +13,6 @@ $(document).ready(function () {
         }
         return false;
     };
-
     try {
         if (window.navigator && ('serviceWorker' in window.navigator)) {
             // 浏览器支持 Service Worker

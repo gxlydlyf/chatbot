@@ -13,8 +13,8 @@
       "sizes": "256x256"
     },
     {
-      "src": "icon/ios/192.png",
-      "sizes": "192x192"
+      "src": "icon/ios/144.png",
+      "sizes": "144x144"
     },
     {
       "src": "icon/android/android-launchericon-512-512.png",
@@ -60,6 +60,7 @@
   "display": "standalone",
   "manifest_version": 2,
   "background_color": "white",
+  "theme_color": "#ffffff",
   "display_override": [
     "window-controls-overlay"
   ],
