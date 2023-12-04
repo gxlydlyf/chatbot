@@ -32,7 +32,7 @@ body h3 a.jump_to_source span.active {
     width: 30px;
     height: 30px;
     border: 1px solid #dedede;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-right: 10px;
     margin-left: 10px;
 }
