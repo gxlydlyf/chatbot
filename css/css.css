@@ -109,7 +109,7 @@ body #chat_content {
     background: #f6f6f6;
     font-size: 15px;
     display: inline-block;
-    padding: 5px 10px 5px 10px;
+    padding: 7px 10px 7px 10px;
     border-radius: 10px;
     -moz-border-radius: 10px; /* 兼容Firefox */
     -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
@@ -119,23 +119,10 @@ body #chat_content {
     margin-left: 2px;
     margin-right: 2px;
 
-    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    -ms-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    -o-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
 }
 
 .theTopHalf .buttonGroup .btn.hover {
     background: #fafafa;
-
-    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    -ms-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    -o-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#333333, direction=135, strength=3);
 }
 
 .theTopHalf .btn img {
@@ -161,24 +148,10 @@ body #chat_content {
     border: 1px solid #c9c9c9;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-
-    -webkit-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
-    -ms-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
-    -o-box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.2);
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#575757, direction=135, strength=3);
 }
 
 #leftFunctionBar table td.theBottomHalf .ConversationsSelectionBox.hover {
     background-color: #fafafa;
-
-    -webkit-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
-    -ms-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
-    -o-box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.3);
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#6e6e6e, direction=135, strength=3);
 }
 
 #chat_input {
@@ -195,7 +168,7 @@ body #chat_content {
     left: 0;
     bottom: 0;
     background: #f7f8f9;
-    border-top: 1px solid #9b9b9b;
+    border-top: 1px solid #e5e7eb;
     z-index: 10;
 }
 
@@ -242,10 +215,10 @@ body #chat_content {
     width: 40px;
     height: 40px;
 
-    background-image: -webkit-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
-    background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #11ce77 75%, #0dff66 100%);
+    background-image: -webkit-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
+    background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
+    background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
+    background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
     transition: background-position 0.2s ease-in-out;
     background-size: 200%;
 }

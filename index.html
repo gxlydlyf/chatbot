@@ -11,6 +11,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=5">
     <link href="css/css.css" type="text/css" rel="stylesheet">
+    <link href="css/functions.css" type="text/css" rel="stylesheet">
     <link href="fun/fun.css" type="text/css" rel="stylesheet">
     <style type="text/css">
         .robotBox, .userBox {
@@ -166,11 +167,11 @@
                         免费ChatGPT，您可以免费的使用。
                     </div>
                     <div style="text-align: center" class="buttonGroup">
-                        <span class="btn disable-selection" tabindex="0">
+                        <span class="btn disable-selection btn-box-shadow" tabindex="0">
                             <img src="svg/icons8-setting.svg" alt="" class="disable-selection">
                             <span>设置</span>
                         </span>
-                        <span class="btn disable-selection" id="PWA_web_app_install" tabindex="0">
+                        <span class="btn disable-selection btn-box-shadow" id="PWA_web_app_install" tabindex="0">
                             <img src="svg/application-one.svg" alt="" class="disable-selection">
                             <span>应用</span>
                         </span>
@@ -181,8 +182,8 @@
         </tr>
         <tr>
             <td class="theBottomHalf">
-                <div>
-                    <div class="ConversationsSelectionBox" tabindex="0"
+                <div style="height: 100%;width: 100%">
+                    <div class="ConversationsSelectionBox btn-box-shadow" tabindex="0"
                          onclick="var FunBar = $('#leftFunctionBar');if ((FunBar.css('left')==='0px')&&(documentSize.width() < 700)){$('#messageListSwitch').click();FunBar.data('status','auto')}">
                         <span style="margin: 10px;display: inline-block">默认对话</span>
                     </div>
