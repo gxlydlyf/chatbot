@@ -737,7 +737,7 @@ if (isCalcSupported()) {
 
 if (!isCalcSupported()) {
     console.log("不支持calc() css运算");
-    resizeStartFunction = function () {
+    window.resizeStartFunction = function () {
         var ChatMsgs = $('#chat_messages');
         var ChatContent = $('#chat_content');
         var ChatInput = $('#chat_input');
@@ -750,7 +750,8 @@ if (!isCalcSupported()) {
             ChatMsgs.css('width', '100%');
         }
         inputParent.css("width", (ChatInput.width() - 40) + 'px')
-        userInput.css("width", (inputParent.width() - 50) + 'px')
+        userInput.css("width", (inputParent.width() - 70) + 'px')
+        userInput.height((inputParent.height() - 20) + 'px')
 
     }//手动调整#chat_messages高度为 100%-70px
     resizeStartFunction();
@@ -758,6 +759,12 @@ if (!isCalcSupported()) {
         resizeStartFunction();
     });
 
+}
+
+function runResizeStartFunction() {
+    if (window.resizeStartFunction) {
+        resizeStartFunction();
+    }
 }
 
 $(document).ready(function () {
@@ -818,7 +825,8 @@ function heightAdaptationOfUserInput(userInput) {
     if (newHeight > (ChatContent.height() - 55)) {
         newHeight = ChatContent.height() - 55;
     }
-    userInput.style.height = '100%';
+    userInput.style.height = '';
+    runResizeStartFunction();
     thisParent.style.height = (newHeight + 5) + 'px';
     thisPParent.style.height = (newHeight + 35) + 'px';
 }
