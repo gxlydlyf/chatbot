@@ -7,8 +7,13 @@ body {
     overflow: hidden;
 }
 
-html {
+html, textarea {
     overflow: hidden;
+    font-family: Noto Sans SC, SF Pro SC, SF Pro Text, SF Pro Icons, PingFang SC, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.buttonGroup {
+    font-family: 'Microsoft YaHei', Arial, Helvetica, sans-serif;
 }
 
 body h3 a.jump_to_source span.hover {
@@ -552,6 +557,7 @@ body #chat_content {
     border: 1px solid #b2b2b2;
     background-color: #f8f8f8;
 }
+
 #functionsInTheInformationBar img {
     transition: 0.1s ease-in-out;
 }

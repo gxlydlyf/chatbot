@@ -489,7 +489,7 @@ function Reset_function_box_position() {
             TfcFuns.BtnBottom();
         }
         OFC.stop().animate({
-            'right': '-55px'
+            'right': '-60px'
         }, 100);
         ChatMsgs.css({
             'margin-right': '0px'
