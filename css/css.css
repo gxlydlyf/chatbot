@@ -35,6 +35,7 @@ body h3 a.jump_to_source span.active {
     border-radius: 5px;
     margin-right: 10px;
     margin-left: 10px;
+    background-color: white;
 }
 
 #functionsInTheInformationBar {
@@ -150,7 +151,7 @@ body #chat_content {
     transition: 0.2s ease-in-out;
 }
 
-#leftFunctionBar table td.theBottomHalf .ConversationsSelectionBox.hover {
+#leftFunctionBar table .theBottomHalf div .ConversationsSelectionBox.hover {
     background-color: #fafafa;
 }
 
@@ -168,7 +169,7 @@ body #chat_content {
     left: 0;
     bottom: 0;
     background: #f7f8f9;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #c9c9c9;
     z-index: 10;
 }
 
@@ -180,13 +181,13 @@ body #chat_content {
     vertical-align: middle;
     top: 0;
     left: 0;
-    background: none;
+    background: white;
     height: 100%;
     width: calc(100% - 50px);
     border-radius: 0;
     -moz-border-radius: 0; /* 兼容Firefox */
     -webkit-border-radius: 0; /* 兼容Chrome和Safari */
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 15px;
     display: inline-block;
     padding: 0;
@@ -195,12 +196,12 @@ body #chat_content {
 
 #textarea_parent.childFocus {
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
-    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    -o-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    border: 2px solid #9b9b9b;
+    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #9b9b9b;
     /*behavior: url(/js/ie-css3.htc);*/
 }
 
@@ -234,17 +235,17 @@ body #chat_content {
     width: calc(100% - 40px);
     /*max-width: 400px;*/
     box-sizing: border-box;
-    background-color: #fcfcfc;
+    background-color: white;
     border-radius: 10px;
     -moz-border-radius: 10px; /* 兼容Firefox */
     -webkit-border-radius: 10px; /* 兼容Chrome和Safari */
     position: relative;
     overflow: hidden;
     outline: none;
-    border: 2px solid #e5e7eb;
+    border: 1px solid #c9c9c9;
     vertical-align: middle;
     transition-property: border, box-shadow;
-    transition-duration: 0.2s;
+    transition-duration: 0.1s;
     transition-timing-function: ease-in-out;
 }
 
@@ -437,7 +438,7 @@ body #chat_content {
     width: 50px;
     height: 50px;
     background-color: #ff6060;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
     opacity: 1;
 
     background-image: -webkit-linear-gradient(to right top, #ff9090 30%, red 100%);
@@ -449,7 +450,7 @@ body #chat_content {
 }
 
 #clear-btn.hover {
-    background-color: #ff6e6e;
+    background-color: #ff8181;
     background-position: 100% 0;
 
 }
@@ -488,13 +489,13 @@ body #chat_content {
 #outer_function_container {
     height: 80%;
     top: 0;
-    right: -55px;
+    right: -60px;
     position: absolute;
     /*transition: 0.2s ease-in-out;*/
     background-color: white;
     box-sizing: border-box;
     border-color: #e5e7eb;
-    width: 55px;
+    width: 60px;
     overflow-y: auto;
     overflow-x: hidden;
     opacity: 0.8;
@@ -545,5 +546,13 @@ body #chat_content {
     -moz-border-radius: 15px;
     border-radius: 15px;
 
+}
+
+#functionsInTheInformationBar .hover {
+    border: 1px solid #b2b2b2;
+    background-color: #f8f8f8;
+}
+#functionsInTheInformationBar img {
+    transition: 0.1s ease-in-out;
 }
 

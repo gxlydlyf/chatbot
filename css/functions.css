@@ -7,7 +7,7 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#1a1a1a, direction=135, strength=3);
 }
 
-.btn-box-shadow.hover {
+#settingsButton.hover, #PWA_web_app_install.hover, .theBottomHalf div .btn-box-shadow.hover {
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);

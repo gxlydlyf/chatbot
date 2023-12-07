@@ -429,7 +429,7 @@ function Reset_function_box_position() {
                 setChatContentWidth((documentSize.width() - 300) + 'px');
             }
         } else if (FunBarStatus === 'hide') {
-            FunBar.stop().animate({"left": "-100%"}, 200, "easeInOut")
+            FunBar.stop().animate({"left": "-200%"}, 200, "easeInOut")
             setChatContentWidth('100%');
         } else {
             FunBar.data("status", "auto");
@@ -437,7 +437,7 @@ function Reset_function_box_position() {
     } else {
         FunBarStatus = FunBar.data("status");
         if ((FunBarStatus === 'auto') || (FunBarStatus === 'hide')) {
-            FunBar.stop().animate({"left": "-100%"}, 200, "easeInOut")
+            FunBar.stop().animate({"left": "-200%"}, 200, "easeInOut")
             setChatContentWidth('100%');
         } else if (FunBarStatus === 'show') {
             // FunBar.css("width", "100%");
@@ -867,8 +867,9 @@ $(document).ready(function () {
             FunBar.data('status', 'auto');
         }
         Reset_function_box_position();
-        setChatContentWidth(function () {
+        setTimeout(function () {
             Reset_function_box_position();
+            changeInterfaceSizeAndPosition();
         }, 200)
     });
     $('#userInput').on("input keyup change blur focus click", function () {
