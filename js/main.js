@@ -397,12 +397,17 @@ window.TfcFuns = {
 }
 
 function setChatContentWidth(width) {
+    // width = String(width);
     var ChatContent = $('#chat_content');
     var ChatInfo = $('#currentChatInformation');
-    // ChatContent.get(0).style.width = width;
-    // ChatInfo.get(0).style.width = width;
     ChatContent.stop().animate({width: width}, 200, 'easeInOut');
     ChatInfo.stop().animate({width: width}, 200, 'easeInOut');
+    if (width.containsString('calc')) {
+        ChatContent.get(0).style.width = width;
+        ChatInfo.get(0).style.width = width;
+    }
+
+
 }
 
 function Reset_function_box_position() {
@@ -414,7 +419,7 @@ function Reset_function_box_position() {
     var ChatMsgs = $('#chat_messages');
     var ChatContent = $('#chat_content');
     var FunBar = $('#leftFunctionBar');
-    var ChatInfo = $('#currentChatInformation');
+    // var ChatInfo = $('#currentChatInformation');
     var FunBarStatus;
 
     if (FunBar.data("status") === undefined) {
@@ -513,7 +518,7 @@ function changeInterfaceSizeAndPosition() {
     var ChatContent = $('#chat_content');
     var ChatInput = $('#chat_input');
     var OFC = $('#outer_function_container');
-    var ChatInfo = $('#currentChatInformation');
+    // var ChatInfo = $('#currentChatInformation');
     var userInput = $('#userInput');
     ChatContent.css('height', documentSize.height() - 40);
     var newChatMsgsHeight = ChatContent.height() - ChatInput.height() - 2;

@@ -163,6 +163,18 @@ if (window.jQuery) {
         return $._manyClick.remove(eventClass, JqueryElement);
 
     }
+    window.containsString = $.doesItContainAString = function (str, containsString) {
+        if (typeof String.prototype.indexOf !== 'undefined') {
+            // 使用indexOf方法检查字符串中是否包含 containsString
+            return str.indexOf(containsString) !== -1;
+        } else {
+            // 兼容IE5及更早版本
+            return str.search(containsString) !== -1;
+        }
+    }
+    String.prototype.containsString = function (containsString) {
+        return window.containsString(this, containsString);
+    };
 
 }
 
