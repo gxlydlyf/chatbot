@@ -602,12 +602,14 @@ function ModifyMessageBoxWidth(element) {
     var container = $(element);
 
     var content = container.find('.userBox, .robotBox');
-
+    /*
     var maxWidthPercent = 80; // 最大宽度百分比
     var containerWidth = $('#chat_messages').width();
     var maxWidth = Math.floor(containerWidth * (maxWidthPercent / 100)); // 计算最大宽度
 
     content.width(maxWidth); // 设置宽度为最大宽度，单位是px
+    */
+    content.css({zoom: 1, display: "inline"});
 
 }
 
