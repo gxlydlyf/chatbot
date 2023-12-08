@@ -437,7 +437,7 @@ function Reset_function_box_position() {
     } else {
         FunBarStatus = FunBar.data("status");
         if ((FunBarStatus === 'auto') || (FunBarStatus === 'hide')) {
-            FunBar.stop().animate({"left": "-200%"}, 200, "easeInOut")
+            FunBar.stop().animate({"left": "-150%"}, 200, "easeInOut")
             setChatContentWidth('100%');
         } else if (FunBarStatus === 'show') {
             // FunBar.css("width", "100%");
@@ -878,10 +878,12 @@ $(document).ready(function () {
         setTimeout(function () {
             Reset_function_box_position();
             changeInterfaceSizeAndPosition();
+            runResizeStartFunction();
         }, 200)
     });
     $('#userInput').on("input keyup change blur focus click", function () {
         changeInterfaceSizeAndPosition();
+        Reset_function_box_position();
     })
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');

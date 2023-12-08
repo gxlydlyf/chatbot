@@ -52,6 +52,7 @@ body h3 a.jump_to_source span.active {
 body #chat_content {
     width: 100%;
     height: 100%;
+    max-width: 100%;
     /*min-height: 200px;*/
     border-color: #e5e7eb;
     box-sizing: border-box;
