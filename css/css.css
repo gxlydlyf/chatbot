@@ -104,6 +104,7 @@ body #chat_content {
     height: 60px;
     vertical-align: middle;
     transition: 0.2s ease-in-out;
+    background: none;
     position: absolute;
     right: 20px;
 }
