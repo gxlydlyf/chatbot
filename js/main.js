@@ -517,9 +517,7 @@ function changeInterfaceSizeAndPosition() {
     var userInput = $('#userInput');
     ChatContent.css('height', documentSize.height() - 40);
     var newChatMsgsHeight = ChatContent.height() - ChatInput.height() - 2;
-    if (parseInt(ChatMsgs.height()) !== newChatMsgsHeight) {
-        ChatMsgs.height(newChatMsgsHeight + 'px');
-    }
+    ChatMsgs.height(newChatMsgsHeight + 'px');
     OFC.css('height', newChatMsgsHeight + 'px');
     heightAdaptationOfUserInput(userInput.get(0));
 }
