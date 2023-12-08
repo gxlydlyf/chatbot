@@ -399,8 +399,8 @@ window.TfcFuns = {
 function setChatContentWidth(width) {
     var ChatContent = $('#chat_content');
     var ChatInfo = $('#currentChatInformation');
-    ChatContent.width(width);
-    ChatInfo.width(width);
+    ChatContent.get(0).style.width = width;
+    ChatInfo.get(0).style.width = width;
 }
 
 function Reset_function_box_position() {

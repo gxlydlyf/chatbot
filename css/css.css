@@ -307,6 +307,7 @@ body #chat_content {
     padding-top: 10px;
     opacity: 0;
     filter: alpha(opacity=0);
+    zoom: 1;
 }
 
 .robotFun {
