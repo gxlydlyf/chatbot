@@ -156,7 +156,7 @@ body #chat_content {
     transition: 0.2s ease-in-out;
 }
 
-#leftFunctionBar table .theBottomHalf div .ConversationsSelectionBox.hover {
+#leftFunctionBar table .theBottomHalf #conversationGroup div.ConversationsSelectionBox.hover {
     background-color: #fafafa;
 }
 
@@ -343,13 +343,15 @@ body #chat_content {
 
 
 .robotBox {
-    background-color: #e1e1e1;
+    background-color: #d7f3ff;
+    /*background-color: #e1e1e1;*/
     /*margin: 30px auto auto auto;*/
 
 }
 
 .userBox {
-    background-color: #6399ff;
+    background-color: #baebbd;
+    /*background-color: #6399ff;*/
     /*margin: 30px auto auto auto;*/
 
 }
