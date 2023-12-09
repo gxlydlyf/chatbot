@@ -46,7 +46,7 @@ function SaveMsgConstructor() {
             } catch (e) {
                 console.log(e);
             }
-            var Element = $('<div class="' + ContainerClass + ' msgContainer"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + '"></div></div>');
+            var Element = $('<div class="' + ContainerClass + ' msgContainer"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + ' msgBox"></div></div>');
             Element.find('.' + BoxClass).data('id', data['id']);
             Element.find('.' + BoxClass).html(marked.marked(data['content']));
             return Element;
@@ -109,6 +109,27 @@ function SaveMsgConstructor() {
         },
 
 
+        findMessage: function (data, MsgId) {
+            this.checkMsg();
+            for (var i = 0; i < this.messages.length; i++) {
+                if (this.messages[i].id === MsgId) {
+                    this.messages[i].content = data;
+                    this.saveMsgs();
+                    var ChatMessagesParentElement = $('#chat_messages');
+                    ChatMessagesParentElement.find('div').each(function () {
+                        // 在这里对每个div元素进行操作
+                        if ($(this).data('id') === MsgId) {
+                            ifSTB = SaveMsgObj.ifScrollToBottom();
+                            $(this).html(marked.marked(data));
+                        }
+
+                    });
+
+
+                }
+
+            }
+        },
         editMessage: function (data, MsgId) {
             var ifSTB;
             for (var i = 0; i < this.messages.length; i++) {
@@ -280,7 +301,20 @@ function SaveMsgConstructor() {
 
         },
         editContenteditable: function () {
-            $("*").not("input, textarea, #textarea_parent, label").attr("contenteditable", "false");
+            // $(".msgBox").attr("contenteditable", "false");
+            var editMsgBox = $(".msgBox").filter(function () {
+                return $(this).attr('contenteditable') === 'true';
+            });
+            if (editMsgBox.length > 0) {
+                editMsgBox.filter(function () {
+                    $(this).attr("contenteditable", "false").html(marked.marked(SaveMsgObj.getMsgContent($(this).data('id'))));
+                });
+
+            }
+            // editMsgBox.attr("contenteditable", "false").html(marked.marked(this.getMsgContent(editMsgBox.data('id'))));
+            $('.msgFun span').filter(function () {
+                return $(this).text() === '保存';
+            }).text('编辑');
         },
         findFunBtn: function (jQueryElement, funName) {
             /*var stopSpan = robotBox.parent().children('.msgFun').find('span').filter(function () {
@@ -400,14 +434,18 @@ function setChatContentWidth(width) {
     // width = String(width);
     var ChatContent = $('#chat_content');
     var ChatInfo = $('#currentChatInformation');
+    var ChatContentTransition = ChatContent.css('transition');
+    var ChatInfoTransition = ChatInfo.css('transition');
     ChatContent.stop().animate({width: width}, 200, 'easeInOut');
     ChatInfo.stop().animate({width: width}, 200, 'easeInOut');
     if (width.containsString('calc')) {
         ChatContent.get(0).style.width = width;
         ChatInfo.get(0).style.width = width;
     }
-
-
+    setTimeout(function () {
+        ChatContent.css('transition', 'none').width(width).css('transition', ChatContentTransition);
+        ChatInfo.css('transition', 'none').width(width).css('transition', ChatInfoTransition);
+    }, 200);
 }
 
 function Reset_function_box_position() {
@@ -421,6 +459,29 @@ function Reset_function_box_position() {
     var FunBar = $('#leftFunctionBar');
     // var ChatInfo = $('#currentChatInformation');
     var FunBarStatus;
+    var FunBarSwitch = $('#messageListSwitch');
+    var FunBarSwitchHideImage = svgImagePath('svg/arrow-back-5e5e5e.svg');
+    var FunBarSwitchShowImage = svgImagePath('svg/read-more-5e5e5e.svg');
+    var changeFunBarSwitchSrc = function (FunBarStatus) {
+        var changeNew = function (newImg) {
+            FunBarSwitch.stop().animate({padding: '10px'}, 100, function () {
+                // 在动画结束后执行的操作
+                FunBarSwitch.attr('src', newImg);
+                FunBarSwitch.stop().animate({padding: '0px'}, 100);
+            });
+        }
+        if (FunBarStatus === 'show') {
+            if (FunBarSwitch.attr('src') !== FunBarSwitchHideImage) {
+                // FunBarSwitch.attr('src', FunBarSwitchHideImage);
+                changeNew(FunBarSwitchHideImage);
+            }
+        } else if (FunBarStatus === 'hide') {
+            if (FunBarSwitch.attr('src') !== FunBarSwitchShowImage) {
+                // FunBarSwitch.attr('src', FunBarSwitchShowImage);
+                changeNew(FunBarSwitchShowImage);
+            }
+        }
+    }
 
     if (FunBar.data("status") === undefined) {
         FunBar.data("status", "auto");
@@ -435,9 +496,11 @@ function Reset_function_box_position() {
             } else {
                 setChatContentWidth((documentSize.width() - 300) + 'px');
             }
+            changeFunBarSwitchSrc('show');
         } else if (FunBarStatus === 'hide') {
             FunBar.stop().animate({"left": "-200%"}, 200, "easeInOut")
             setChatContentWidth('100%');
+            changeFunBarSwitchSrc('hide');
         } else {
             FunBar.data("status", "auto");
         }
@@ -446,10 +509,12 @@ function Reset_function_box_position() {
         if ((FunBarStatus === 'auto') || (FunBarStatus === 'hide')) {
             FunBar.stop().animate({"left": "-150%"}, 200, "easeInOut")
             setChatContentWidth('100%');
+            changeFunBarSwitchSrc('hide');
         } else if (FunBarStatus === 'show') {
             // FunBar.css("width", "100%");
             FunBar.stop().animate({"left": "0", "width": "100%"}, 200, "easeInOut");
             setChatContentWidth('100%');
+            changeFunBarSwitchSrc('show');
         } else {
             FunBar.data("status", "auto");
         }
@@ -532,25 +597,29 @@ function changeInterfaceSizeAndPosition() {
 //     Reset_function_box_position()
 // });
 function windowResize(callback) {
+    var runCallback = function () {
+        callback.call();
+        setTimeout(function () {
+            callback.call();
+        }, 200);
+        /*
+        setTimeout(function () {
+            callback.call();
+        }, 500);
+        setTimeout(function () {
+            callback.call();
+        }, 1000);
+         */
+    }
     if (typeof window.addEventListener === "undefined" && typeof window.attachEvent !== "undefined") {
         // IE5 or older browser
         window.attachEvent("onresize", function () {
-            callback.call();
-        });
-        window.attachEvent("onresize", function () {
-            setTimeout(function () {
-                callback.call();
-            }, 200)
+            runCallback();
         });
     } else {
         // Modern browsers
         window.addEventListener("resize", function () {
-            callback.call();
-        });
-        window.addEventListener("resize", function () {
-            setTimeout(function () {
-                callback.call();
-            }, 200)
+            runCallback();
         });
     }
 
@@ -1157,8 +1226,8 @@ $(document).ready(function () {
         } else if (btnText === '停止') {
             msgBox.data("stopCode").call();
         } else if (btnText === '编辑') {
-            btn.text("保存");
             SaveMsgObj.editContenteditable();
+            btn.text("保存");
             var rawContent = SaveMsgObj.getMsgContent(msgId);
             msgBox.text(rawContent);
             msgBox.attr("contenteditable", "true");

@@ -2,7 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">    -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon"/>
 
     <!--PWA-->
@@ -103,6 +104,7 @@
     <!--    <script src="js/save-messages.js" defer></script>-->
     <script src="js/proxy.js" defer></script>
     <script src="js/multipleConversationManagement.js" defer></script>
+    <script src="js/svgImage.js" defer></script>
     <script src="js/main.js" defer></script>
     <script>
     </script>
@@ -198,7 +200,7 @@
     <table style="width: 100%;height: 100%">
         <tr>
             <td id="functionsInTheInformationBar">
-                <img src="svg/arrow-back.svg" alt="" id="messageListSwitch" class="fu-btn" tabindex="0">
+                <img src="svg/arrow-back-5e5e5e.svg" alt="" id="messageListSwitch" class="fu-btn" tabindex="0">
             </td>
             <td id="chatTitleInTheInformationBar">
                 <!--聊天-->
@@ -209,17 +211,17 @@
 </div>
 <div id="chat_content" class="border-1px">
     <div id="chat_messages">
-        <div class="robotBoxContainer msgContainer">
-            <div class="msgFun robotFun disable-selection no-scrollbar DisplayNone">
+        <div class="robotBoxContainer msgContainer DisplayNone">
+            <div class="msgFun robotFun disable-selection no-scrollbar">
                 <span>删除</span><span>复制</span><span>编辑</span><span>发送</span><!--<span>停止</span>-->
             </div>
-            <div class="robotBox"></div>
+            <div class="robotBox msgBox"></div>
         </div>
-        <div class="userBoxContainer msgContainer">
-            <div class="msgFun userFun disable-selection no-scrollbar DisplayNone">
+        <div class="userBoxContainer msgContainer DisplayNone">
+            <div class="msgFun userFun disable-selection no-scrollbar">
                 <span>删除</span><span>复制</span><span>编辑</span><span>发送</span>
             </div>
-            <div class="userBox"></div>
+            <div class="userBox msgBox"></div>
         </div>
 
     </div>
@@ -286,26 +288,5 @@ text-underline-offset: 4px;
     </button>
 </div>
 
-<script>
-    (function () {
-        var SVG_NS = 'http://www.w3.org/2000/svg';
-        var SVG_T_F = !!document.createElementNS && !!document.createElementNS(SVG_NS, 'svg').createSVGRect;
-        console.log('对SVG的兼容性：', SVG_T_F);
-        if (!SVG_T_F) {
-
-            for (var i = 0; i < document.images.length; i++) {
-                var image = document.images[i];
-                var newSrc = (image.src).replace('svg/', 'img/').replace('.svg', '.png')
-                // 在这里对每个图像进行操作
-                console.log("改变图像URL“" + image.src + "”变为“" + newSrc + "”", image);
-                document.images[i].src = newSrc;
-
-            }
-
-        }
-    })();
-
-
-</script>
 </body>
 </html>
