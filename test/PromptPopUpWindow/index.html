@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
+    <title>PromptPopUpWindow</title>
+    <script src="../../js/jquery.min.js"></script><!--需要使用jQuery-->
+    <script src="../../js/jqueryColor/jquery.color.min.js"></script>
+    <script src="../../js/compatible.js"></script><!--需要使用.call()-->
+    <script src="../../js/PromptPopUpWindow.js"></script>
+</head>
+<body>
+<button onclick="
+window.PromptPopUpWindow.basicWindow({
+    callback: function () {
+        console.log('基础窗口 被关闭');
+    }
+}).appendTo('body').data('open')();
+">打开基础
+</button>
+<button onclick="
+window.PromptPopUpWindow.basicWindow({//出现打不开状况
+    callback: function () {
+        console.log('无遮罩基础窗口 被关闭');
+    },
+    mask: false
+}).appendTo('body').data('open')();
+">打开 无遮罩基础
+</button>
+<button onclick="
+window.PromptPopUpWindow.messagePopUpWindow({
+    callback: function () {
+        console.log('消息弹窗 被关闭');
+    },
+    title:'消息弹窗',
+    content:'这是一个普通的消息弹窗'
+}).open();
+">打开消息弹窗
+</button>
+<button onclick="
+window.PromptPopUpWindow.messagePopUpWindow({
+    callback: function () {
+        console.log('无遮罩消息弹窗 被关闭');
+    },
+    title:'消息弹窗',
+    content:'这是一个无遮罩的消息弹窗',
+    mask:false
+}).open();
+">打开无遮罩消息弹窗
+</button>
+<div style="background-color: #0b97c4">我是背景</div>
+</body>
+</html>

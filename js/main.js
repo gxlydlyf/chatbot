@@ -443,8 +443,11 @@ function setChatContentWidth(width) {
         ChatInfo.get(0).style.width = width;
     }
     setTimeout(function () {
-        ChatContent.css('transition', 'none').width(width).css('transition', ChatContentTransition);
-        ChatInfo.css('transition', 'none').width(width).css('transition', ChatInfoTransition);
+        ChatContent.css('transition', 'none')[0].style.width = width;
+        ChatContent.css('transition', ChatContentTransition);
+
+        ChatInfo.css('transition', 'none')[0].style.width = width;
+        ChatInfo.css('transition', ChatInfoTransition);
     }, 200);
 }
 
@@ -815,21 +818,23 @@ if (isCalcSupported()) {
 
 if (!isCalcSupported()) {
     console.log("不支持calc() css运算");
-    window.resizeStartFunction = function () {
+
+    function resizeStartFunction() {
         var ChatMsgs = $('#chat_messages');
         var ChatContent = $('#chat_content');
         var ChatInput = $('#chat_input');
         var userInput = $('#userInput');
         var inputParent = $('#textarea_parent');
+        var ChatInputWidth = ChatInput.width();
 
         if (ChatMsgs.css("margin-right") !== '0px') {
-            ChatMsgs.css('width', (ChatContent.width() - 60) + 'px');
+            ChatMsgs.width((ChatContent.width() - 60) + 'px');
         } else {
-            ChatMsgs.css('width', '100%');
+            ChatMsgs.width('100%');
         }
-        inputParent.css("width", (ChatInput.width() - 40) + 'px')
-        userInput.css("width", (inputParent.width() - 70) + 'px')
-        userInput.height((inputParent.height() - 20) + 'px')
+        inputParent.width((ChatInputWidth - 40) + 'px');
+        userInput.width((inputParent.width() - 70) + 'px');
+        userInput.height((inputParent.height() - 20) + 'px');
 
     }//手动调整#chat_messages高度为 100%-70px
     resizeStartFunction();
@@ -845,14 +850,43 @@ function runResizeStartFunction() {
     }
 }
 
-$(document).ready(function () {
-    $(document).on('mouseenter', '.msgContainer', function () {
-        $(this).addClass('msgFunHover');
-    });
 
-    $(document).on('mouseleave', '.msgContainer', function () {
-        $(this).removeClass('msgFunHover');
-    });
+$(document).ready(function () {
+    $(document)
+        .on('mouseenter', '.msgContainer', function () {
+            $('.msgFun span').css({backgroundColor: ""});
+            // $(this).addClass('msgFunHover');
+            var msgFunElement = $(this).find('.msgFun');
+            msgFunElement.children('span').stop().animate({fontSize: '16px'}, 100);
+            $2(msgFunElement).fadeTo(100, 1);//重新获取元素执行动画，否则不明原因无法实现
+            console.log(this, msgFunElement)
+            if ($(this).find('.robotFun').length > 0) {
+                $(this).find('.robotFun').stop().animate({left: 0}, 100);
+            }
+            if ($(this).find('.userFun').length > 0) {
+                $(this).find('.userFun').stop().animate({right: 0}, 100);
+            }
+        })
+        .on('mouseleave', '.msgContainer', function () {
+            // $(this).removeClass('msgFunHover');
+            var msgFunElement = $(this).find('.msgFun');
+            msgFunElement.children('span').stop().animate({fontSize: '15px'}, 100);
+            $2(msgFunElement).fadeTo(100, 0);//重新获取元素执行动画，否则不明原因无法实现
+            if ($(this).find('.robotFun').length > 0) {
+                $(this).find('.robotFun').stop().animate({left: -5}, 100);
+            }
+            if ($(this).find('.userFun').length > 0) {
+                $(this).find('.userFun').stop().animate({right: -5}, 100);
+            }
+        });
+
+    $(document)
+        .on('mouseenter', '.msgFun span', function () {
+            $(this).stop().animate({backgroundColor: "#e3e3e3"}, 200, "easeInOut");
+        })
+        .on('mouseleave', '.msgFun span', function () {
+            $(this).stop().animate({backgroundColor: "rgba(255,255,255,0)"}, 200, "easeInOut");
+        });
 });
 
 function ClipboardCopy(text, callback) {
@@ -889,6 +923,12 @@ function ClipboardCopy(text, callback) {
             callback(true, message)
         }
     });
+}
+
+function runAllAdjustmentsFunctions() {
+    Reset_function_box_position();
+    changeInterfaceSizeAndPosition();
+    runResizeStartFunction();
 }
 
 function heightAdaptationOfUserInput(userInput) {
@@ -954,14 +994,11 @@ $(document).ready(function () {
         }
         Reset_function_box_position();
         setTimeout(function () {
-            Reset_function_box_position();
-            changeInterfaceSizeAndPosition();
-            runResizeStartFunction();
+            runAllAdjustmentsFunctions();
         }, 200)
     });
     $('#userInput').on("input keyup change blur focus click", function () {
-        changeInterfaceSizeAndPosition();
-        Reset_function_box_position();
+        runAllAdjustmentsFunctions();
     })
     $('#tfc_show_btn').click(function () {
         var TfcShowBtn = $('#tfc_show_btn');
@@ -987,7 +1024,7 @@ $(document).ready(function () {
 
         }, 100);
         UserInput.val('');
-        UserInput.blur();
+        runAllAdjustmentsFunctions();
         var NewMessages = [];
         var MsgId;
         for (var i = 0; i < SaveMsgObj.messages.length; i++) {
@@ -1076,7 +1113,6 @@ $(document).ready(function () {
             stopSpan.remove();
             SaveMsgObj.editMessage("请求错误：" + e["description"], MsgId);
             return;
-
         }
         for (var header in headers) {
             xhr.setRequestHeader(header, headers[header]);
@@ -1167,37 +1203,8 @@ $(document).ready(function () {
             });
         }
 
-
+        runAllAdjustmentsFunctions();
     });
-
-    $('#more-btn').click(function () {
-        var MoreBtnElm = $('#more-btn');
-        var SendBtnElement = $('#send-btn');
-        var ClearBtnElement = $('#clear-btn');
-        if (MoreBtnElm.data("state") !== "open") {
-            MoreBtnElm.data("state", "open");
-            MoreBtnElm.addClass('transform-rotate-180');
-            ClearBtnElement.stop().animate({opacity: 1}, 200);
-            $("#userInput").prop("readonly", true);//不允许输入
-            $('#textarea_parent').width(0);
-            SendBtnElement.width(0);
-            SendBtnElement.height(0);
-            ClearBtnElement.width(50);
-            ClearBtnElement.height(50);
-        } else {
-            MoreBtnElm.data("state", "close");
-            MoreBtnElm.removeClass('transform-rotate-180');
-            ClearBtnElement.stop().animate({opacity: 0}, 200);
-            $("#userInput").prop("readonly", false);//不允许输入
-            $('#textarea_parent').width('50%');
-            SendBtnElement.width(50);
-            SendBtnElement.height(50);
-            ClearBtnElement.width(0);
-            ClearBtnElement.height(0);
-
-        }
-    });
-
 
     $(document).on("click", ".msgFun span", function () {
         var btn = $(this);
@@ -1233,8 +1240,8 @@ $(document).ready(function () {
             msgBox.attr("contenteditable", "true");
             msgBox.focus();
         } else if (btnText === '保存') {
-            SaveMsgObj.editContenteditable();
             SaveMsgObj.editMessage(msgBox.text(), msgId);
+            SaveMsgObj.editContenteditable();
             btn.text("编辑");
         } else if (btnText === '发送') {
             var Preliminary_questions = SaveMsgObj.getMsgContent(msgId);

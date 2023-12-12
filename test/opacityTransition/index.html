@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>opacityTransition</title>
+    <script src="../../js/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <script>
+        function one() {
+            $('#one').animate({opacity: "toggle"}, 2000, function () {
+                one();
+            });//使用特殊的值达到兼容ie5的渐变，"hide"隐藏，"show"显示，这种方法在结束时会设置display显示或者隐藏
+        }
+
+        function two() {
+            $('#two').fadeTo(2000, 0, function () {
+                $(this).fadeTo(2000, 1);
+            });//完美版本
+        }
+
+        $(document).ready(function () {
+            one();
+            two()
+            setInterval(function () {
+                two();
+            }, 4000)
+
+        });
+    </script>
+</head>
+<body>
+<div style="width: 200px;height: 200px;background-color: #0b97c4" id="one"></div>
+<div style="width: 200px;height: 200px;background-color: red" id="two"></div>
+</body>
+</html>

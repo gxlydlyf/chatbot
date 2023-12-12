@@ -176,6 +176,19 @@ if (window.jQuery) {
         return window.containsString(this, containsString);
     };
 
+    window.isElement = $.isElement = function (element) {
+        if (typeof element === 'object') {
+            if (element instanceof jQuery) {
+                // 是 jQuery 元素
+                return true;
+            } else if (element.nodeType === 1) {
+                // 是 DOM 元素
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
 
