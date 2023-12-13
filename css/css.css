@@ -232,6 +232,11 @@ body #chat_content {
     background-image: -moz-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
     background-image: -o-linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
     background-image: linear-gradient(to right top, #7cdd92 10%, #04e838 50%, #13dd80 75%, #0dff66 100%);
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+            StartColorStr=#0dff66,
+            EndColorStr=#7cdd92,
+            GradientType=0
+    );
     transition: background-position 0.2s ease-in-out;
     background-size: 200%;
 }
@@ -277,7 +282,7 @@ body #chat_content {
     padding: 5px;
     background: none;
     border-radius: 5px;
-    transition: all .1s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .userFun span {
@@ -289,19 +294,18 @@ body #chat_content {
     margin-left: 5px;
 }
 
-/* 使用js实现
+/*
+使用js和css实现
+ */
 
-.msgFun span.hover {
+.msgFun span.msgFunButtonHover {
     background-color: #e3e3e3;
-
 }
 
 .msgFun span.active {
     background-color: #d7d7d7;
-
 }
 
- */
 
 .msgFun {
     width: 100%;
@@ -331,21 +335,23 @@ body #chat_content {
 /*    margin-right: 5px;*/
 /*}*/
 
-/* 使用js实现
+/* 使用js和css实现 */
 .msgFunHover .robotBoxContainer .robotFun {
     left: 0;
 }
+
 .msgFunHover .userBoxContainer .userFun {
     right: 0;
 }
+
 .msgFunHover .msgFun span {
     font-size: 16px;
 }
+
 .msgFunHover .msgFun {
     opacity: 1;
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
 }
- */
 
 
 .robotBox {
@@ -465,6 +471,11 @@ body #chat_content {
     background-image: -moz-linear-gradient(to right top, #ff9090 30%, red 100%);
     background-image: -o-linear-gradient(to right top, #ff9090 30%, red 100%);
     background-image: linear-gradient(to right top, #ff9090 30%, red 100%);
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+            StartColorStr=red,
+            EndColorStr=#ff9090,
+            GradientType=0
+    );
     background-size: 200%;
 
 }

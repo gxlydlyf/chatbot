@@ -798,23 +798,6 @@ if (isIE7OrLower()) {
 
 }
 
-function isCalcSupported() {
-    var el = document.createElement('div');
-    try {
-        el.style.width = 'calc(1px + 1px)';
-    } catch (e) {
-        return false;
-    }
-
-    return !!el.style.width;
-    /*
-if (isCalcSupported()) {
-    console.log('当前浏览器支持 calc 运算符');
-} else {
-    console.log('当前浏览器不支持 calc 运算符');
-}
-  */
-}
 
 if (!isCalcSupported()) {
     console.log("不支持calc() css运算");
@@ -834,7 +817,7 @@ if (!isCalcSupported()) {
         }
         inputParent.width((ChatInputWidth - 40) + 'px');
         userInput.width((inputParent.width() - 70) + 'px');
-        userInput.height((inputParent.height() - 20) + 'px');
+        userInput.height((inputParent.height() - 5) + 'px');
 
     }//手动调整#chat_messages高度为 100%-70px
     resizeStartFunction();
@@ -854,38 +837,51 @@ function runResizeStartFunction() {
 $(document).ready(function () {
     $(document)
         .on('mouseenter', '.msgContainer', function () {
-            $('.msgFun span').css({backgroundColor: ""});
-            // $(this).addClass('msgFunHover');
-            var msgFunElement = $(this).find('.msgFun');
-            msgFunElement.children('span').stop().animate({fontSize: '16px'}, 100);
-            $2(msgFunElement).fadeTo(100, 1);//重新获取元素执行动画，否则不明原因无法实现
-            console.log(this, msgFunElement)
-            if ($(this).find('.robotFun').length > 0) {
-                $(this).find('.robotFun').stop().animate({left: 0}, 100);
-            }
-            if ($(this).find('.userFun').length > 0) {
-                $(this).find('.userFun').stop().animate({right: 0}, 100);
+            if (isTransitionSupported()) {
+                $(this).addClass('msgFunHover');
+            } else {
+                $('.msgFun span').css({backgroundColor: ""});
+                var msgFunElement = $(this).find('.msgFun');
+                msgFunElement.children('span').stop().animate({fontSize: '16px'}, 100);
+                $2(msgFunElement).fadeTo(100, 1);//重新获取元素执行动画，否则不明原因无法实现
+                if ($(this).find('.robotFun').length > 0) {
+                    $(this).find('.robotFun').stop().animate({left: 0}, 100);
+                }
+                if ($(this).find('.userFun').length > 0) {
+                    $(this).find('.userFun').stop().animate({right: 0}, 100);
+                }
             }
         })
         .on('mouseleave', '.msgContainer', function () {
-            // $(this).removeClass('msgFunHover');
-            var msgFunElement = $(this).find('.msgFun');
-            msgFunElement.children('span').stop().animate({fontSize: '15px'}, 100);
-            $2(msgFunElement).fadeTo(100, 0);//重新获取元素执行动画，否则不明原因无法实现
-            if ($(this).find('.robotFun').length > 0) {
-                $(this).find('.robotFun').stop().animate({left: -5}, 100);
-            }
-            if ($(this).find('.userFun').length > 0) {
-                $(this).find('.userFun').stop().animate({right: -5}, 100);
+            if (isTransitionSupported()) {
+                $(this).removeClass('msgFunHover');
+            } else {
+                var msgFunElement = $(this).find('.msgFun');
+                msgFunElement.children('span').stop().animate({fontSize: '15px'}, 100);
+                $2(msgFunElement).fadeTo(100, 0);//重新获取元素执行动画，否则不明原因无法实现
+                if ($(this).find('.robotFun').length > 0) {
+                    $(this).find('.robotFun').stop().animate({left: -5}, 100);
+                }
+                if ($(this).find('.userFun').length > 0) {
+                    $(this).find('.userFun').stop().animate({right: -5}, 100);
+                }
             }
         });
 
     $(document)
         .on('mouseenter', '.msgFun span', function () {
-            $(this).stop().animate({backgroundColor: "#e3e3e3"}, 200, "easeInOut");
+            if (isTransitionSupported()) {
+                $(this).addClass('msgFunButtonHover');
+            } else {
+                $(this).stop().animate({backgroundColor: "#e3e3e3"}, 200, "easeInOut");
+            }
         })
         .on('mouseleave', '.msgFun span', function () {
-            $(this).stop().animate({backgroundColor: "rgba(255,255,255,0)"}, 200, "easeInOut");
+            if (isTransitionSupported()) {
+                $(this).removeClass('msgFunButtonHover');
+            } else {
+                $(this).stop().animate({backgroundColor: "rgba(255,255,255,0)"}, 200, "easeInOut");
+            }
         });
 });
 
@@ -933,12 +929,12 @@ function runAllAdjustmentsFunctions() {
 
 function heightAdaptationOfUserInput(userInput) {
     var ChatContent = $('#chat_content');
-    userInput.style.height = '70px';
+    userInput.style.height = '45px';
     var thisParent = $(userInput).parent().parent().get(0);
     var thisPParent = $(userInput).parent().parent().parent().get(0);
     var newHeight = userInput.scrollHeight;
-    if (newHeight < 70) {
-        newHeight = 70;
+    if (newHeight < 45) {
+        newHeight = 45;
     }
     if (newHeight > (ChatContent.height() - 55)) {
         newHeight = ChatContent.height() - 55;
