@@ -52,6 +52,7 @@
     scrollbar-width: none; /* 隐藏滚动条 */
     -ms-overflow-style: none; /* 隐藏滚动条（适用于IE和Edge） */
     scrollbar-color: transparent; /* 隐藏滚动条（适用于Firefox） */
+    overflow: -moz-scrollbars-none; /* 旧版本的 Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {

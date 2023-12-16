@@ -424,7 +424,7 @@ window.PromptPopUpWindow = {
             "   -moz-box-shadow: 1px 1px 5px #CACACA;" +
             "   box-shadow: 1px 1px 5px #CACACA;" +
             "   cursor: pointer;" +
-            "   margin: 0 5px 0 5px;" +
+            "   margin: 5px;" +
             "   background-color: #EBEBEB;" +
             "}" +
             ".PromptPopUpWindowButtonConfirm {" +
@@ -586,13 +586,19 @@ window.PromptPopUpWindow = {
         cancelBtnElement.click(function () {
             OperationObject.close(false);
         });
+        if (('confirmTitle' in config) && (typeof config.confirmTitle === 'string')) {
+            confirmBtnElement.attr('title', config.confirmTitle);
+        }
+        if (('cancelTitle' in config) && (typeof config.cancelTitle === 'string')) {
+            cancelBtnElement.attr('title', config.cancelTitle);
+        }
         var userButtons = $('');
         if (('buttons' in config) && isButtonsArrayValidFormat(config.buttons)) {
             userButtons = (function () {
-                var buttons = $('<div style="display: inline-block"></div>');
+                var buttons = $('<div style="display: inline"></div>');
                 for (var i = 0; i < config.buttons.length; i++) {
                     (function (curBtn) {
-                        var newButton = $('<div class="PromptPopUpWindowButton"></div>')
+                        var newButton = $('<span class="PromptPopUpWindowButton"></span>')
                         if (typeof curBtn.html === 'string') {
                             newButton.html(curBtn.html);
                         } else {
@@ -618,8 +624,11 @@ window.PromptPopUpWindow = {
                                     });
                             }
                         }
-                        if (('class' in curBtn) && ((typeof curBtn.class === 'string') || (typeof curBtn.class === 'function'))) {
-                            newButton.addClass(curBtn.class);
+                        if (('class' in curBtn) && ((typeof curBtn['class'] === 'string') || (typeof curBtn['class'] === 'function'))) {//直接使用 curBtn.class ie低版本会报错
+                            newButton.addClass(curBtn['class']);
+                        }
+                        if (('title' in curBtn) && (typeof curBtn.title === 'string')) {
+                            newButton.attr('title', curBtn.title);
                         }
                         newButton.click(function () {
                             curBtn.click.call(OperationObject.element, OperationObject);

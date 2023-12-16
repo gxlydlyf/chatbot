@@ -244,6 +244,11 @@ body #chat_content {
 #send-btn.hover {
     background-position: 100% 0;
     background-color: #28e76e;
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+            StartColorStr=#7cdd92,
+            EndColorStr=#0dff66,
+            GradientType=0
+    );
 }
 
 #textarea_parent {
@@ -482,6 +487,11 @@ body #chat_content {
 #clear-btn.hover {
     background-color: #ff8181;
     background-position: 100% 0;
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+            StartColorStr=#ff9090,
+            EndColorStr=red,
+            GradientType=0
+    );
 
 }
 

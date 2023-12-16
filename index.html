@@ -152,6 +152,19 @@
         }
     </style>
     <![endif]-->
+
+    <script src="js/visibility/visibility.core.js"></script><!-- from: https://github.com/ai/visibilityjs -->
+    <script src="js/visibility/visibility.fallback.js"></script>
+    <script>
+        window.defaultTitle = $(document).attr('title');
+        Visibility.change(function (e, state) {
+            if (state === 'hidden') {
+                $(document).attr('title', '点击聊天 - ' + window.defaultTitle);
+            } else {
+                $(document).attr('title', window.defaultTitle);
+            }
+        });
+    </script>
     <style>
         .DisplayNone {
             display: none;

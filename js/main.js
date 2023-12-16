@@ -1022,15 +1022,18 @@ $(document).ready(function () {
                             SaveMsgObj.editContenteditable();
                         }
                     },
-                    cancelBtn: '定位编辑',
-                    confirmBtn: '保存更改',
+                    confirmBtn: '保存',
+                    confirmTitle: '保存编辑',
+                    cancelBtn: '编辑',
+                    cancelTitle: '定位并编辑消息',
                     buttons: [
                         {
-                            html: '放弃更改',
+                            html: '继续',
+                            title: '放弃更改',
                             click: function (OperationObject) {
                                 OperationObject.close('放弃更改');
                             },
-                            class: 'PromptPopUpWindowButtonCancel'
+                            'class': 'PromptPopUpWindowButtonCancel'
                         }
                     ]
                 });

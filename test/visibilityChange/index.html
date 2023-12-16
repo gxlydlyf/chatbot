@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <title>visibilityChange</title>
+    <script src="../../js/visibility/visibility.core.js"></script>
+    <script src="../../js/visibility/visibility.fallback.js"></script>
+    <script src="../../js/visibility/visibility.js"></script>
+</head>
+<body>
+<script>
+    Visibility.change(function (e, state) {
+        document.title = state;
+    });
+</script>
+</body>
+</html>
