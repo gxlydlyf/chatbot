@@ -20,7 +20,9 @@ self.addEventListener('install', function (event) {
                 'js/marked/linkify/index.umd.js',
                 'js/showdown/dist/showdown.js',
                 'js/marked/marked.load.js',
-                'js/js.cookie.min.js'
+                'js/js.cookie.min.js',
+                'js/jquery.scrollintoview.min.js',
+                'js/jqueryColor/jquery.color.js'
                 // 添加其他需要缓存的文件
             ]);
         })
