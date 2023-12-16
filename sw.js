@@ -22,7 +22,9 @@ self.addEventListener('install', function (event) {
                 'js/marked/marked.load.js',
                 'js/js.cookie.min.js',
                 'js/jquery.scrollintoview.min.js',
-                'js/jqueryColor/jquery.color.js'
+                'js/jqueryColor/jquery.color.js',
+                "js/visibility/visibility.core.js",
+                "js/visibility/visibility.fallback.js"
                 // 添加其他需要缓存的文件
             ]);
         })
