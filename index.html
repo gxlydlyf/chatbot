@@ -157,11 +157,23 @@
     <script src="js/visibility/visibility.fallback.js"></script>
     <script>
         window.defaultTitle = $(document).attr('title');
-        Visibility.change(function (e, state) {
-            if (state === 'hidden') {
-                $(document).attr('title', '点击聊天 - ' + window.defaultTitle);
+        window.changePageTitle = function (title, waitingTime) {
+            if (title) {
+                $(document).attr('title', title + ' - ' + window.defaultTitle);
             } else {
                 $(document).attr('title', window.defaultTitle);
+            }
+            if (typeof waitingTime === 'number') {
+                setTimeout(function () {
+                    window.changePageTitle();
+                }, waitingTime);
+            }
+        }
+        Visibility.change(function (e, state) {
+            if (state === 'hidden') {
+                changePageTitle('点击聊天');
+            } else {
+                changePageTitle('欢迎回来', 1000);
             }
         });
     </script>
