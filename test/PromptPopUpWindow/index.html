@@ -9,12 +9,24 @@
     <script src="../../js/jqueryColor/jquery.color.min.js"></script>
     <script src="../../js/compatible.js"></script><!--需要使用.call()-->
     <script src="../../js/PromptPopUpWindow.js"></script>
+    <script>
+        function consoleLog() {
+            if (window.console && ('log' in window.console)) {
+                var args = [];
+                for (var i = 0; i < arguments.length; i++) {
+                    var arg = arguments[i];
+                    args.push(arg);
+                }
+                Function.prototype.apply.call(console.log, console, args);
+            }
+        }
+    </script>
 </head>
 <body>
 <button onclick="
 window.PromptPopUpWindow.basicWindow({
     callback: function () {
-        console.log('基础窗口 被关闭');
+        consoleLog('基础窗口 被关闭');
     }
 }).appendTo('body').data('open')();
 ">打开基础
@@ -22,7 +34,7 @@ window.PromptPopUpWindow.basicWindow({
 <button onclick="
 window.PromptPopUpWindow.basicWindow({//出现打不开状况
     callback: function () {
-        console.log('无遮罩基础窗口 被关闭');
+        consoleLog('无遮罩基础窗口 被关闭');
     },
     mask: false
 }).appendTo('body').data('open')();
@@ -31,7 +43,7 @@ window.PromptPopUpWindow.basicWindow({//出现打不开状况
 <button onclick="
 window.PromptPopUpWindow.messagePopUpWindow({
     callback: function () {
-        console.log('消息弹窗 被关闭');
+        consoleLog('消息弹窗 被关闭');
     },
     title:'消息弹窗',
     content:'这是一个普通的消息弹窗'
@@ -41,13 +53,62 @@ window.PromptPopUpWindow.messagePopUpWindow({
 <button onclick="
 window.PromptPopUpWindow.messagePopUpWindow({
     callback: function () {
-        console.log('无遮罩消息弹窗 被关闭');
+        consoleLog('无遮罩消息弹窗 被关闭');
     },
     title:'消息弹窗',
     content:'这是一个无遮罩的消息弹窗',
     mask:false
 }).open();
 ">打开无遮罩消息弹窗
+</button>
+<button onclick="
+window.PromptPopUpWindow.confirmPopUpWindow({
+    callback: function (confirm) {
+        consoleLog('确认弹窗 被关闭');
+        if (confirm){
+            consoleLog('确认弹窗选择了：确认');
+        }else {
+            consoleLog('确认弹窗选择了：取消');
+        }
+    },
+    title:'确认弹窗',
+    content:$('<p>这是一个 确认弹窗</p>')
+}).open();
+">打开确认弹窗
+</button>
+<button onclick="
+window.PromptPopUpWindow.confirmPopUpWindow({
+    callback: function (confirm) {
+        consoleLog('确认弹窗 被关闭');
+        if (confirm === true){
+            consoleLog('确认弹窗选择了：确认');
+        }else if (confirm === false){
+            consoleLog('确认弹窗选择了：取消');
+        }else {
+            consoleLog('确认弹窗选择了：',confirm);
+        }
+    },
+    title:'确认弹窗',
+    content:$('<p>这是一个 确认弹窗（自定义新按钮）</p>'),
+    buttons:[
+        {
+            html:'你好',
+            click:function(OperationObject) {
+                OperationObject.close('你好');
+            },
+            hover:[
+                function() {
+                    $(this).stop().animate({backgroundColor: '#d2d2d2',color:'#DAA520'}, 100);
+                },
+                function() {
+                    $(this).stop().animate({backgroundColor: '#ebebeb',color:'#000000'}, 100);
+                }
+            ]
+            // class:'PromptPopUpWindowButtonCancel'
+        }
+    ]
+}).open();
+">打开确认弹窗（自定义新按钮）
 </button>
 <div style="background-color: #0b97c4">我是背景</div>
 </body>

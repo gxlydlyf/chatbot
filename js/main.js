@@ -945,6 +945,7 @@ function heightAdaptationOfUserInput(userInput) {
     thisPParent.style.height = (newHeight + 35) + 'px';
 }
 
+
 $(document).ready(function () {
     var userInput = $('#userInput');
     var textareaParent = $('#textarea_parent');
@@ -957,18 +958,85 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
-    $(document).on('mouseenter', '*', function () {
-        $(this).addClass('hover');
-    }).on('mouseleave', '*', function () {
-        $(this).removeClass('hover');
-    }).on('focus', '*', function () {
-        $(this).addClass('focus');
-    }).on('blur', '*', function () {
-        $(this).removeClass('focus');
-    }).on('mousedown', '*', function () {
-        $(this).addClass('active');
-    }).on('mouseup', '*', function () {
-        $(this).removeClass('active');
+    $(document)
+        .on('mouseenter', '*', function () {
+            $(this).addClass('hover');
+        })
+        .on('mouseleave', '*', function () {
+            $(this).removeClass('hover');
+        })
+        .on('focus', '*', function () {
+            $(this).addClass('focus');
+        })
+        .on('blur', '*', function () {
+            $(this).removeClass('focus');
+        })
+        .on('mousedown', '*', function () {
+            $(this).addClass('active');
+        })
+        .on('mouseup', '*', function () {
+            $(this).removeClass('active');
+        });
+
+    $(document)
+        .on('focus', '.msgBox', function () {
+            $(this).addClass('msgBoxFocus');
+        })
+        .on('blur', '.msgBox', function () {
+            $(this).removeClass('msgBoxFocus');
+
+        });
+    $(document).on('click', function (event) {
+        if (($(event.target).closest('.msgFun span').text() === '保存') || ($(event.target).closest('.PromptPopUpWindowContainer').length > 0)) {
+
+        } else {
+            var editMsgBox = $(".msgBox").filter(function () {
+                return $(this).attr('contenteditable') === 'true';
+            });
+            if (editMsgBox.hasClass('msgBoxFocus')) {
+                return;
+            }
+            if (editMsgBox.length > 0) {
+                var windowOperation = PromptPopUpWindow.confirmPopUpWindow({
+                    title: '',
+                    content: $("<p style='padding: 0;margin: 0'>您还有未保存的编辑，继续将取消更改，确定要继续吗？</p>"),
+                    callback: function (confirm) {
+                        if (confirm === true) {
+                            SaveMsgObj.editMessage(editMsgBox.text(), editMsgBox.data('id'));
+                            SaveMsgObj.editContenteditable();
+                            editMsgBox.parent().children('.msgFun').children('span:contains("保存")').text('编辑');
+                        } else if (confirm === false) {
+                            editMsgBox.parent().scrollintoview({
+                                    duration: 500,
+                                    direction: 'vertical',
+                                    complete: function () {
+                                        editMsgBox.addClass('msgBoxFocus');
+                                        editMsgBox.parent().addClass('msgFunHover');
+                                    }
+                                }
+                            );
+
+                            editMsgBox.focus();
+                        } else {
+                            //放弃更改
+                            SaveMsgObj.editContenteditable();
+                        }
+                    },
+                    cancelBtn: '定位编辑',
+                    confirmBtn: '保存更改',
+                    buttons: [
+                        {
+                            html: '放弃更改',
+                            click: function (OperationObject) {
+                                OperationObject.close('放弃更改');
+                            },
+                            class: 'PromptPopUpWindowButtonCancel'
+                        }
+                    ]
+                });
+            }
+        }
+
     });
 });
 $(document).ready(function () {

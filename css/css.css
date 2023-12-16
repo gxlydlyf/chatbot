@@ -368,9 +368,9 @@ body #chat_content {
 
 }
 
-.msgBox.focus {
-    /*border: 1px solid #acacac;*/
-    /*outline: none;*/
+.msgBox.msgBoxFocus {
+    border: 1px solid #acacac;
+    outline: none;
 }
 
 .msgContainer {
@@ -378,7 +378,6 @@ body #chat_content {
     padding-top: 20px;
     padding-bottom: 20px;
     overflow-x: hidden;
-
 }
 
 .robotBox, .userBox {

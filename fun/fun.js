@@ -21,11 +21,12 @@ if (window.jQuery) {
     };
 
     window.jQuery.isObject = function (variable) {//判断是否为对象
-        // if (window.jQuery) window.jQuery.isObject = function (variable) {
-        //     return variable !== null && variable !== undefined && typeof variable === 'object' && !Array.isArray(variable);
-        // };
         return variable !== null && variable !== undefined && typeof variable === 'object' && Object.prototype.toString.call(variable) !== '[object Array]';
     };
+    // window.jQuery.isArray = function (variable) {//判断是否为数组
+    //     return Object.prototype.toString.call([]) === '[object Array]';
+    // };
+    window.isArray = jQuery.isArray;
 
     window.jQuery.mergeObjects = function (obj1, obj2) {//合并两个对象
         // 检测浏览器是否支持Object.assign方法

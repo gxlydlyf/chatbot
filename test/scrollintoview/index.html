@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <title>jquery.scrollintoview.js</title>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/jquery.scrollintoview.js"></script>
+    <script src="../../js/jquery.easing.min.js"></script>
+    <script src="../../js/jquery.easing.compatibility.js"></script>
+    <script src="../../js/jqueryColor/jquery.color.min.js"></script>
+    <script src="../../js/compatible.js"></script>
+    <style>
+        .word {
+            background-color: aqua;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <label>
+        <input id="scrollWord">
+    </label>
+    <button
+            onclick="
+var ThisWord = $('#word'+$('#scrollWord').val().toLocaleUpperCase());
+ThisWord.scrollintoview({
+    duration: 500,
+    direction: 'vertical',
+    complete: function() {
+        // highlight the element so user's focus gets where it needs to be
+        ThisWord.animate({backgroundColor: 'red'},500,'easeInOut',function() {
+          ThisWord.animate({backgroundColor: 'aqua'},500,'easeInOut');
+        });
+        console.log(ThisWord);
+    }
+});
+">跳转
+    </button>
+</div>
+<script>
+    $(document).ready(function () {
+        var scrollList = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('');
+        for (var i = 0; i < scrollList.length; i++) {
+            $('<div class="word"></div>').html(scrollList[i]).attr('id', 'word' + scrollList[i]).appendTo('body');
+        }
+
+    })
+</script>
+</body>
+</html>
