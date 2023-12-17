@@ -7,7 +7,7 @@ body {
     overflow: hidden;
 }
 
-html, textarea {
+html, textarea, pre, code {
     overflow: hidden;
     font-family: Noto Sans SC, SF Pro SC, SF Pro Text, SF Pro Icons, PingFang SC, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
@@ -127,8 +127,7 @@ body #chat_content {
     cursor: pointer;
     transition: 0.1s ease-in-out;
     border: 1px solid #e5e7eb;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 2px;
 
 }
 

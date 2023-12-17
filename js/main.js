@@ -46,7 +46,7 @@ function SaveMsgConstructor() {
             } catch (e) {
                 console.log(e);
             }
-            var Element = $('<div class="' + ContainerClass + ' msgContainer"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + ' msgBox"></div></div>');
+            var Element = $('<div class="' + ContainerClass + ' msgContainer"><div class="msgFun ' + FunClass + ' disable-selection no-scrollbar synchronized-vertical-scrolling"><span>删除</span>' + copyBtn + '<span>编辑</span><span>发送</span></div><div class="' + BoxClass + ' msgBox"></div></div>');
             Element.find('.' + BoxClass).data('id', data['id']);
             Element.find('.' + BoxClass).html(marked.marked(data['content']));
             return Element;
@@ -394,27 +394,32 @@ window.TfcFuns = {
         var TfcShowBtn = $('#tfc_show_btn');
         var TFC = $('#top_function_container');
         var FbInTFC = $('#top_function_container .fu-btn');
-        FbInTFC.css('display', 'inline-block');
-        TFC.css('top', '0');
-        TFC.stop().animate({
-            'top': '-60px'
-        }, 100);
-        TfcShowBtn.data('status', 'hide');
-        this.BtnBottom();
+
+        if (TfcShowBtn.data('status') !== 'hide') {
+            FbInTFC.css('display', 'inline-block');
+            TFC.css('top', '0');
+            TFC.stop().animate({
+                'top': '-60px'
+            }, 100);
+            TfcShowBtn.data('status', 'hide');
+            this.BtnBottom();
+        }
     },
     Show: function () {
         var TfcShowBtn = $('#tfc_show_btn');
         var TFC = $('#top_function_container');
         var FbInTFC = $('#top_function_container .fu-btn');
 
-        TFC.css('top', '-60px');
-        FbInTFC.css('display', 'inline-block');
+        if (TfcShowBtn.data('status') !== 'show') {
+            TFC.css('top', '-60px');
+            FbInTFC.css('display', 'inline-block');
 
-        TFC.stop().animate({
-            'top': '0'
-        }, 100);
-        TfcShowBtn.data('status', 'show');
-        this.BtnTop();
+            TFC.stop().animate({
+                'top': '0'
+            }, 100);
+            TfcShowBtn.data('status', 'show');
+            this.BtnTop();
+        }
     },
     BtnBottom: function () {//向下
         var TfcShowBtn = $('#tfc_show_btn');
@@ -552,10 +557,15 @@ function Reset_function_box_position() {
         });
     } else {
         // console.log('可用宽度小于500px');
-        setTimeout(function () {
-            TFC.css("display", "block");
-        }, 100)
         OFC.children().prependTo(TfcBtn);
+        if (TFC.css("display") === 'none') {
+            setTimeout(function () {
+                TFC.css("display", "block");
+            }, 100)
+            TFC.css({
+                'top': '-80px'
+            });
+        }
         if (TfcShowBtn.data('status') === 'show') {
             TFC.stop().animate({
                 'top': '0'
@@ -587,7 +597,35 @@ function Reset_function_box_position() {
 
 }
 
-$('#chat_messages').mousewheel()
+$(document).ready(function () {
+    $('#chat_messages').on("scroll", function () {
+        if (currentScrollDirection(this) === -1) {
+            if (!$('#top_function_container').hasClass('hover')) {
+                TfcFuns.Hide();
+            }
+        }
+    });
+    $(document)
+        .on('focus', '#top_function_container #tfc_buttons .fu-btn', function () {
+            TfcFuns.Show();
+        })
+        .on('blur', '#top_function_container #tfc_buttons .fu-btn', function () {
+            TfcFuns.Hide();
+        });
+});
+
+function currentScrollDirection(element) {
+    var lastScrollTop = $(element).data("currentScrollDirectionLastScrollTop") | 0;
+    var st = $(element).scrollTop();
+    $(element).data("currentScrollDirectionLastScrollTop", st);
+    if (st > lastScrollTop) {
+        // 下滚动
+        return -1;
+    } else {
+        // 上滚动
+        return 1;
+    }
+}
 
 function changeInterfaceSizeAndPosition() {
     var ChatMsgs = $('#chat_messages');
@@ -953,7 +991,6 @@ function heightAdaptationOfUserInput(userInput) {
     thisPParent.style.height = (newHeight + 35) + 'px';
 }
 
-
 $(document).ready(function () {
     var userInput = $('#userInput');
     var textareaParent = $('#textarea_parent');
@@ -1005,9 +1042,24 @@ $(document).ready(function () {
                 return;
             }
             if (editMsgBox.length > 0) {
+                var content = $("<div><p style='padding: 0;margin: 0'>您还有未保存的编辑，继续将取消更改，确定要继续吗？</p><span style='color: #999999;font-weight: bold;cursor:pointer;'>查看修改对比</span></div>");
+                // var contentAfterModification = $('<pre style="border-radius: 10px;background-color: black;color: white;margin: 5px;padding: 10px"><span style="display: block;font-size: 10px;"></span><code></code></pre>');
+                // var modifyPreviousContent = contentAfterModification.clone();
+                // contentAfterModification.children('code').text(editMsgBox.text());
+                // contentAfterModification.children('span').text('修改后');
+                // modifyPreviousContent.children('code').text(SaveMsgObj.getMsgContent(editMsgBox.data('id')));
+                // modifyPreviousContent.children('span').text('修改前');
+                // content.find('span').click(function () {
+                //     PromptPopUpWindow.messagePopUpWindow({
+                //         title: '查看对比',
+                //         content: $('<div></div>').append(contentAfterModification, modifyPreviousContent)
+                //
+                //     }).open();
+                // });
+                content.find('span').remove();
                 var windowOperation = PromptPopUpWindow.confirmPopUpWindow({
                     title: '',
-                    content: $("<p style='padding: 0;margin: 0'>您还有未保存的编辑，继续将取消更改，确定要继续吗？</p>"),
+                    content: content,
                     callback: function (confirm) {
                         if (confirm === true) {
                             SaveMsgObj.editMessage(editMsgBox.text(), editMsgBox.data('id'));
@@ -1074,6 +1126,7 @@ $(document).ready(function () {
         }, 200)
     });
     $('#userInput').on("input keyup change blur focus click", function () {
+        TfcFuns.Hide();
         runAllAdjustmentsFunctions();
     })
     $('#tfc_show_btn').click(function () {
@@ -1357,10 +1410,6 @@ $(document).ready(function () {
     });
 
 });
-
-function polyfillCallback() {
-    console.log('Polyfill', 'Start')
-}
 
 function SendBtnClick() {
     $(document).ready(function () {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../../js/jQuery/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.x = 0;
+        $(document).ready(function () {
+            $("div").scroll(function () {
+                $("span").text(window.x += 1);
+            });
+        });
+    </script>
+    <title></title>
+</head>
+<body>
+<p>请试着滚动 DIV 中的文本：</p>
+<div style="width:200px;height:100px;overflow:scroll;">
+    <div style="height: 10000px"></div>
+</div>
+<p>滚动了 <span>0</span> 次。</p>
+</body>
+</html>

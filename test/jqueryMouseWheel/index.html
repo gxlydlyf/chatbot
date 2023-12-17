@@ -5,31 +5,51 @@
     <title>jqueryMouseWheel</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
     <meta http-equiv="X-UA-Compatible" content="IE=5">
-    <script src="../../js/jQuery/jquery/jquery.min.js"></script>
-    <script src="../../js/jQuery/jqueryMouseWheel/jquery.mousewheel.min.js"></script>
-    <script>
+    <script type="text/javascript" src="../../js/jQuery/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jQuery/jqueryMouseWheel/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript">
+        x = 0
         $(document).ready(function () {
-            $('body').on('mousewheel', function (event) {
-                var status = $('#status');
-                if (console) {
-                    console.log(event);
-                }
-                if (event.deltaY === -1) {
-                    status.text('向下滚动');
-                }
-                if (event.deltaY === +1) {
-                    status.text('向上滚动');
-                }
-                if (event.deltaY === -0) {
-                    status.text('没有滚动');
-                }
-                if (status.css('position') === 'absolute') {
-                    status.css("top", event.pageY);
-                }
-            })
+            $(document)
+                .on('mousewheel', function (event) {
+                    var status = $('#status');
+                    if (console) {
+                        // console.log(event);
+                    }
+                    if (event.deltaY === -1) {
+                        status.text('向下滚动');
+                    }
+                    if (event.deltaY === +1) {
+                        status.text('向上滚动');
+                    }
+                    if (event.deltaY === -0) {
+                        status.text('没有滚动');
+                    }
+                    if (status.css('position') === 'absolute') {
+                        status.css("top", event.pageY);
+                    }
+                })
+                .on('scroll', function () {
+                    var lastScrollTop = $(this).data("lastScrollTop") | 0;
+                    var st = $(this).scrollTop();
+                    if (st > lastScrollTop) {
+                        // 下滚动
+                        console.log('向下滚动');
+                    } else {
+                        // 上滚动
+                        console.log('向上滚动');
+                    }
+                    $(this).data("lastScrollTop", st);
+                });
         });
     </script>
     <style>
+        body {
+            overflow: auto;
+            margin: 0;
+            padding: 0;
+        }
+
         #status {
             position: fixed;
             _position: absolute;

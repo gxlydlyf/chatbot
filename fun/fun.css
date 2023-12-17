@@ -60,7 +60,7 @@
 }
 
 .synchronized-vertical-scrolling {
-
+    touch-action: none;
 }
 
 .opacity-0 {

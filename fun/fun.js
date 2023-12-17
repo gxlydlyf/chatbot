@@ -207,30 +207,43 @@ $(document).ready(function () {
 
  */
 
-function ready(callback) {
-    if (document.readyState === 'complete') {
-        callback();
-    } else {
-        document.onreadystatechange = function () {
-            if (document.readyState === 'complete') {
-                callback();
-            }
-        };
-    }
-}
+$(document).ready(function () {
+    // var elements = document.getElementsByTagName('div');
+    // for (var i = 0; i < elements.length; i++) {
+    //     if (elements[i].className.indexOf('synchronized-vertical-scrolling') > -1) {
+    //         elements[i].onmousewheel = function (event) {
+    //             event = event || window.event;
+    //             event.returnValue = false;
+    //             // console.log(event);
+    //             var deltaY = event.wheelDelta;
+    //             var scrollLeft = this.scrollLeft;
+    //             this.scrollLeft = scrollLeft + deltaY;
+    //         };
+    //     }
+    // }
+    $('body').attr('id', 'body');
 
-ready(function () {
-    var elements = document.getElementsByTagName('div');
-    for (var i = 0; i < elements.length; i++) {
-        if (elements[i].className.indexOf('synchronized-vertical-scrolling') > -1) {
-            elements[i].onmousewheel = function (event) {
-                event = event || window.event;
-                event.returnValue = false;
-                // console.log(event);
-                var deltaY = event.wheelDelta;
-                var scrollLeft = this.scrollLeft;
-                this.scrollLeft = scrollLeft + deltaY;
-            };
-        }
+    function hasScrollbar(element) {
+        // 使用scrollWidth和clientWidth来判断是否有水平滚动条
+        var hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+
+        // 使用scrollHeight和clientHeight来判断是否有垂直滚动条
+        var hasVerticalScrollbar = element.scrollHeight > element.clientHeight;
+
+        // 如果元素内部同时有水平和垂直滚动条，则可以判断为有滚动条
+        return hasHorizontalScrollbar || hasVerticalScrollbar;
     }
+
+    $('*').not(document).not('body').not('head').not('html').on('mousewheel', '.synchronized-vertical-scrolling', {passive: false}, function (event) {
+        if (hasScrollbar(this)) {
+            event.preventDefault();
+        }
+
+        var scrollLeft = $(this).scrollLeft();
+        $(this).scrollLeft(scrollLeft + -event.deltaY * 10);
+    });
+    $(document).on('mousewheel', '.synchronized-vertical-scrolling', {passive: false}, function (event) {
+        var scrollLeft = $(this).scrollLeft();
+        $(this).scrollLeft(scrollLeft + -event.deltaY * 10);
+    });
 });
