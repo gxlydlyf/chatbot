@@ -493,6 +493,7 @@ function Reset_function_box_position() {
         FunBarStatus = FunBar.data("status");
         if ((FunBarStatus === 'auto') || (FunBarStatus === 'show')) {
             // FunBar.css("width", "300px");
+            FunBar.show();
             FunBar.stop().animate({"left": "0", "width": "300px"}, 200, "easeInOut")//使用stop()防止延迟
             if (isCalcSupported()) {
                 setChatContentWidth('calc(100% - 300px)');
@@ -501,7 +502,9 @@ function Reset_function_box_position() {
             }
             changeFunBarSwitchSrc('show');
         } else if (FunBarStatus === 'hide') {
-            FunBar.stop().animate({"left": "-200%"}, 200, "easeInOut")
+            FunBar.stop().animate({"left": -FunBar.width()}, 200, "easeInOut", function () {
+                FunBar.hide();
+            });
             setChatContentWidth('100%');
             changeFunBarSwitchSrc('hide');
         } else {
@@ -510,11 +513,14 @@ function Reset_function_box_position() {
     } else {
         FunBarStatus = FunBar.data("status");
         if ((FunBarStatus === 'auto') || (FunBarStatus === 'hide')) {
-            FunBar.stop().animate({"left": "-150%"}, 200, "easeInOut")
+            FunBar.stop().animate({"left": -FunBar.width()}, 200, "easeInOut", function () {
+                FunBar.hide();
+            });
             setChatContentWidth('100%');
             changeFunBarSwitchSrc('hide');
         } else if (FunBarStatus === 'show') {
             // FunBar.css("width", "100%");
+            FunBar.show();
             FunBar.stop().animate({"left": "0", "width": "100%"}, 200, "easeInOut");
             setChatContentWidth('100%');
             changeFunBarSwitchSrc('show');
@@ -1037,6 +1043,7 @@ $(document).ready(function () {
                         }
                     ]
                 });
+                windowOperation.open();
             }
         }
 
@@ -1300,12 +1307,19 @@ $(document).ready(function () {
         } else if (btnText === '停止') {
             msgBox.data("stopCode").call();
         } else if (btnText === '编辑') {
-            SaveMsgObj.editContenteditable();
-            btn.text("保存");
-            var rawContent = SaveMsgObj.getMsgContent(msgId);
-            msgBox.text(rawContent);
-            msgBox.attr("contenteditable", "true");
-            msgBox.focus();
+            var editMsgBox = $(".msgBox").filter(function () {
+                return $(this).attr('contenteditable') === 'true';
+            });
+            if (editMsgBox.length > 0) {
+
+            } else {
+                SaveMsgObj.editContenteditable();
+                btn.text("保存");
+                var rawContent = SaveMsgObj.getMsgContent(msgId);
+                msgBox.text(rawContent);
+                msgBox.attr("contenteditable", "true");
+                msgBox.focus();
+            }
         } else if (btnText === '保存') {
             SaveMsgObj.editMessage(msgBox.text(), msgId);
             SaveMsgObj.editContenteditable();

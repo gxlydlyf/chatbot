@@ -281,10 +281,11 @@ window.PromptPopUpWindow = {
         windowElement
             .data('open', function () {
                 windowElement.hide();
-                windowElement.stop().fadeIn(100);
+                windowElement.stop().fadeIn(200);
             })
             .data('hide', function (callback) {
-                windowElement.stop().fadeOut(100, function () {
+                windowElement.show();
+                windowElement.stop().fadeOut(200, function () {
                     if (typeof callback === 'function') {
                         callback.call(this);
                     }
@@ -298,6 +299,7 @@ window.PromptPopUpWindow = {
                     windowElement.remove()
                 });
             });
+        windowElement.hide();
         return windowElement;
         // $('body').append(windowElement);
     },
