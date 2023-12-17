@@ -9,11 +9,11 @@
 /* globals jQuery, define, module, require */
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
-		define(['jquery'], function ($) {
+		define(['js/jQuery/jquery/jquery'], function ($) {
 			return factory($);
 		});
 	} else if (typeof module === "object" && typeof module.exports === "object") {
-		module.exports = factory(require('jquery'));
+		module.exports = factory(require('js/jQuery/jquery/jquery'));
 	} else {
 		factory(jQuery);
 	}

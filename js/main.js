@@ -587,6 +587,8 @@ function Reset_function_box_position() {
 
 }
 
+$('#chat_messages').mousewheel()
+
 function changeInterfaceSizeAndPosition() {
     var ChatMsgs = $('#chat_messages');
     var ChatContent = $('#chat_content');
