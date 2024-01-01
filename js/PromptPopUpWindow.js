@@ -173,9 +173,6 @@ window.PromptPopUpWindow = {
             display: "inline-block"
         };
          */
-        if (!isObject(config)) {
-            config = {};
-        }
 
         var maskElement = (function () {
             var maskElement = $('<div class="PromptPopUpWindowMask"></div>');
@@ -488,7 +485,15 @@ window.PromptPopUpWindow = {
             confirmBtn: this.buttons.confirm
         };
         configuration = this.mergeObjects(this.basicMinWindowConfig(), configuration)
-        config = isObject(config) ? config : {};
+
+        if (typeof config === 'string') {
+            config = {'content': config};
+        } else {
+            config = isObject(config) ? config : {};
+        }
+        if (!isObject(config)) {
+            config = {};
+        }
         configuration = this.verifyUserConfiguration(config, configuration);
 
         var buttonGroup = $('<div class="PromptPopUpWindowButtonGroup"></div>');
