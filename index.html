@@ -2,6 +2,11 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <noscript>
+        <div style="position: fixed;_position: absolute;height: 100%;width: 100%;background-color: white;z-index: 114514;">
+            <h1 style="text-align: center">此页面需要JavaScript的支持，请在浏览器设置页面允许使用Javascript。</h1>
+        </div>
+    </noscript>
     <!--    <meta name="viewport" content="width=device-width, initial-scale=1">    -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"/>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon"/>
@@ -191,9 +196,9 @@
         <tbody>
         <tr>
             <td class="theTopHalf">
-                <div style="height: 100%;width: 100%">
-                    <div style="padding-left: 30px;padding-right: 30px;vertical-align: top;margin-top: 10px;position: relative;height: 50px">
-                        <span style="font-weight: bold;font-size: 20px;position: absolute;height: 60px;line-height: 60px;left: 20px;white-space: nowrap;">ChatGPT FREE&nbsp;</span>
+                <div style="height: 100%;width: 100%;">
+                    <div style="padding-left: 30px;padding-right: 30px;vertical-align: top;margin-top: 10px;height: 60px;text-align: center;overflow: hidden">
+                        <span style="font-weight: bold;font-size: 20px;vertical-align: middle;line-height: 60px">ChatGPT FREE&nbsp;</span>
                         <img src="icon/windows11/Square150x150Logo.scale-400.transparent.png" alt="" id="websiteIcon"
                              class="disable-selection">
                     </div>
@@ -216,7 +221,7 @@
         </tr>
         <tr>
             <td class="theBottomHalf">
-                <div style="height: 100%;width: 100%" id="conversationGroup">
+                <div style="height: 100%;width: 100%;overflow-y: auto;overflow-x: hidden;" id="conversationGroup">
                     <div class="ConversationsSelectionBox btn-box-shadow" tabindex="0"
                          onclick="var FunBar = $('#leftFunctionBar');if ((FunBar.css('left')==='0px')&&(documentSize.width() < 700)){$('#messageListSwitch').click();FunBar.data('status','auto')}">
                         <span style="margin: 10px;display: inline-block">默认对话</span>

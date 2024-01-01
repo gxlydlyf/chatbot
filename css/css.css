@@ -97,7 +97,7 @@ body #chat_content {
 }
 
 .theTopHalf {
-    height: 30%;
+    height: auto;
     /*background: red;*/
 }
 
@@ -107,8 +107,6 @@ body #chat_content {
     vertical-align: middle;
     transition: 0.2s ease-in-out;
     background: none;
-    position: absolute;
-    right: 20px;
 }
 
 #websiteIcon.hover {
@@ -146,18 +144,19 @@ body #chat_content {
 }
 
 #leftFunctionBar table td.theBottomHalf {
-    height: 70%;
+    height: 100%;
     padding: 20px;
 }
 
 .ConversationsSelectionBox {
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: #f6f6f6;
     border-radius: 15px;
     border: 1px solid #c9c9c9;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    margin: 10px auto 10px auto;
 }
 
 #leftFunctionBar table .theBottomHalf #conversationGroup div.ConversationsSelectionBox.hover {

@@ -598,13 +598,25 @@ function Reset_function_box_position() {
 }
 
 $(document).ready(function () {
-    $('#chat_messages').on("scroll", function () {
-        if (currentScrollDirection(this) === -1) {
-            if (!$('#top_function_container').hasClass('hover')) {
-                TfcFuns.Hide();
+    $('#chat_messages')
+        .on("scroll", function () {
+            if (currentScrollDirection(this) === -1) {
+                if (!$('#top_function_container').hasClass('hover')) {
+                    TfcFuns.Hide();
+                }
             }
-        }
-    });
+        })
+        .on('mousewheel', function (event) {
+            if (event.deltaY === -1) {
+                if (!$('#top_function_container').hasClass('hover')) {
+                    TfcFuns.Hide();
+                }
+            }
+
+            if (event.deltaY === 1) {
+                $('#top_function_container').removeClass('hover')
+            }
+        });
     $(document)
         .on('focus', '#top_function_container #tfc_buttons .fu-btn', function () {
             TfcFuns.Show();

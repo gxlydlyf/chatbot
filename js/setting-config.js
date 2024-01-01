@@ -44,8 +44,8 @@ function SettingConfigConstructor() {
             $.LS.setItem("setting-config", JSON.stringify(SC));
         },
         Save: function (setting) {
-            if (!setting){
-                setting=this.SC;
+            if (!setting) {
+                setting = this.SC;
             }
             $.LS.setItem("setting-config", JSON.stringify(setting));
         },
@@ -66,14 +66,14 @@ function SettingConfigConstructor() {
             if (key === 'BaseUrl') {
                 if (value) {
                     if (this.BaseUrlList(value) !== null) {
-                        SC.BaseUrl=value;
+                        SC.BaseUrl = value;
                         this.Save();
                         return true;
-                    }else {
+                    } else {
                         return false;
                     }
 
-                }else {
+                } else {
                     return false;
                 }
             }
@@ -84,12 +84,13 @@ function SettingConfigConstructor() {
             }
             var BUL = [
                 {
-                    'domain': 'postapi.lbbai.cc',//postapi.lbbai.cc
+                    'domain': 'lpi.glf.one',//postapi.lbbai.cc
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
                         'Origin': 'https://8162403981.ai701.live',
-                        'Referer': 'https://8162403981.ai701.live/'
+                        'Referer': 'https://8162403981.ai701.live/',
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
                     },
                     'id': 1
                 },
