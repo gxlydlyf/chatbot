@@ -5,7 +5,7 @@
       <webServer id="70daf2d4-8904-46ab-abbf-131f53214ead" name="chatbot" url="http://ftpupload.net">
         <fileTransfer host="ftpupload.net" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

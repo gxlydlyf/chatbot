@@ -84,26 +84,17 @@ function SettingConfigConstructor() {
             }
             var BUL = [
                 {
-                    'domain': 'lpi.glf.one',//postapi.lbbai.cc
+                    'domain': 'openai.lbbai.cc/v1/chat/completions',//postapi.lbbai.cc
                     'encryption': false,
                     'description': '这是默认的 源地址 ，是免费的。',
                     'headers': {
                         'Origin': 'https://26994461491.gpt150.xyz',
-                        'Referer': 'https://26994461491.gpt150.xyz',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
+                        'Referer': 'https://26994461491.gpt150.xyz/',
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+                        'Content-Type': 'application/json',
+                        'Host': 'openai.lbbai.cc'
                     },
                     'id': 1
-                },
-                {
-                    'domain': 'openai.lbbai.cc',
-                    'encryption': false,
-                    'description': '这是默认的 源地址 ，是免费的。',
-                    'headers': {
-                        'Origin': 'https://26994461491.gpt150.xyz',
-                        'Referer': 'https://26994461491.gpt150.xyz',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'
-                    },
-                    'id': 5
                 },
                 {
                     'domain': 'tud5ihkrrr.freet.top/api/openai/v1/chat/completions',//postapi.lbbai.cc
