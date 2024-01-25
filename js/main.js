@@ -1189,6 +1189,9 @@ $(document).ready(function () {
         if ('headers' in PostUrl) {
             $.mergeObjects(headers, PostUrl.headers);
         }
+        if ("models" in PostUrl){
+            incomingParameters.model = PostUrl["models"][0]
+        }
         MsgId = SaveMsgObj.newBotMessage();
         var robotBox = SaveMsgObj.getMsgBox(MsgId);
         robotBox.parent().children('.robotFun').append('<span>停止</span>');
@@ -1196,6 +1199,10 @@ $(document).ready(function () {
             ModifyMessageBoxWidth();//手动设置自适应文本宽度(大概适应)
         }
         var protocol = (window.location.protocol.indexOf('https') === 0) ? 'https://' : 'http://';
+        if (/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(window.location.host)) {
+            // 当前域名是localhost或127.0.0.1（忽略端口号）
+            protocol = 'https://';
+        }
         PostUrl.domain = protocol + PostUrl.domain;
         SaveMsgObj.log("请求接口：" + PostUrl.domain);
         var msgFunButtons = robotBox.parent().children('.msgFun').find('span');

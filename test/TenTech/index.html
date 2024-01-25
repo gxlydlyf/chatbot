@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // WARNING: For POST requests, body is set to null by browsers.
+    var data = JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [{"role": "user", "content": "如何吃屎!"}],
+            temperature: 0.9,
+            max_tokens: 4096,
+            top_p: 1.0,
+            frequency_penalty: 0,
+            presence_penalty: 0.6,
+        stream: true
+    });
+    // data = "{\r\n  \"model\": \"gpt-3.5-turbo\",\r\n  \"messages\": [\r\n    {\"role\": \"user\", \"content\": \"你能做什么!\"}\r\n  ],\r\n  \"stream\": true\r\n}\r\n";
+
+    var xhr = new XMLHttpRequest();
+    // xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("POST", "https://ai.tentech.top/v1/chat/completions");
+    xhr.setRequestHeader("Authorization", "Bearer sk-7eLfqi1P7HpkQswwrRqULae0Ocbjru8plvZGtiM");
+    // xhr.setRequestHeader("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhr.send(data);
+</script>
+</body>
+</html>
