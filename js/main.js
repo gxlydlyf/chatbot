@@ -1183,11 +1183,11 @@ $(document).ready(function () {
             stream: true
         };
         // SaveMsgObj.log(NewMessages);
-        var PostUrl = JSON.parse(JSON.stringify(SettingConfigObj.get("BaseUrl")));
+        var PostUrl = SettingConfigObj.get("BaseUrl");
         var headers = {};
         headers["Content-Type"] = "application/json";
         if ('headers' in PostUrl) {
-            $.mergeObjects(headers, PostUrl.headers);
+            headers = $.mergeObjects(headers, PostUrl.headers);
         }
         if ("models" in PostUrl) {
             incomingParameters.model = PostUrl["models"][0]

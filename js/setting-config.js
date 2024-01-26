@@ -115,15 +115,18 @@ function SettingConfigConstructor() {
                 'id': 4
             },
             {
-                'domain': 'ai.tentech.top/v1/chat/completions',
+                'domain': 'api.chatanywhere.com.cn/v1/chat/completions',
                 'encryption': false,
                 'description': '这是ai.tentech.top(https://github.com/tentechtop/Free-chatGPT-api)的接口地址。',
                 'headers': {
-                    'Authorization': 'Bearer sk-7eLfqi1P7HpkQswwrRqULae0Ocbjru8plvZGtiM',
-                    'Content-Type': 'application/json;charset=UTF-8'
+                    'Authorization': 'Bearer sk-7eLfqi1RRheP7HpkQswwrRqqUQLae0OScbjru8plvZGsGtiM',
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Origin": "https://ai.tentech.top",
+                    "Referer": "https://ai.tentech.top/",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
                 },
                 'models': [
-                    "gpt-3.5-turbo"
+                    "gpt-3.5-turbo-1106"
                 ],
                 'id': 5
             }
@@ -133,7 +136,7 @@ function SettingConfigConstructor() {
             if (typeof id === 'undefined') {
                 id = false;
             }
-            var BUL = this.base_url
+            var BUL = JSON.parse(JSON.stringify(this.base_url))//防止直接操作 this.base_url
             if (id === false) {
                 return BUL;
             }
