@@ -93,12 +93,11 @@ function SettingConfigConstructor() {
                 'id': 1
             },
             {
-                'domain': 'tud5ihkrrr.freet.top/api/openai/v1/chat/completions',//postapi.lbbai.cc
+                'domain': 'api.xyhelper.cn/v1/chat/completions',
                 'encryption': false,
-                'description': '这是默认的 源地址2 ，是免费的。',
+                'description': '这是 https://ss.sbai.free.hr/ 的接口。',
                 'headers': {
-                    'Origin': 'https://8162403981.ai701.live',
-                    'Referer': 'https://8162403981.ai701.live/'
+                    'Authorization': 'Bearer sk-api-xyhelper-cn-free-token-for-everyone-xyhelper'
                 },
                 'id': 2
             },
@@ -129,6 +128,12 @@ function SettingConfigConstructor() {
                     "gpt-3.5-turbo-1106"
                 ],
                 'id': 5
+            },
+            {
+                'domain': 'chat.weijiajin.com/api/openai/v1/chat/completions',
+                'encryption': false,
+                'description': '这是 https://chat.weijiajin.com/ 的接口。',
+                'id': 6
             }
         ]
         ,
