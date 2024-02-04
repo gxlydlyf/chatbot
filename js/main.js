@@ -328,7 +328,7 @@ function SaveMsgConstructor() {
             });
 
         },
-        log: function (param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) {
+        log: function () {
             try {
                 var args = [];
                 for (var i = 0; i < arguments.length; i++) {

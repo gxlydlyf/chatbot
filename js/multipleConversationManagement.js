@@ -117,11 +117,27 @@ window.multipleConversationManagementConstructor = function () {
             return conversation;
         },
         addConversation: function (name) {
-            this.conversations.push({})
+            this.conversations.push(this.ConversationalFormat('', '', '', name))
+        },
+        removeConversation: function (id) {
+            var conversation = $.grep(this.conversations, function (item) {
+                return item['id'] === id;
+            });
+            if (conversation >= 1) {
+                delete conversation[0]
+                return true
+            } else {
+                return false;
+            }
+        },
+        MsgOperate: function () {
+            return $.grep(this.conversations, function (item) {
+                return item['type'] === 'current';
+            });
         },
         ConversationalFormat: function (type, id, messages, name) {
             var EqualToUN = function (variable) {
-                return variable === undefined || variable === null
+                return variable === undefined || variable === null || variable === ''
             }
             if (EqualToUN(type)) {
                 type = "normal"
@@ -141,6 +157,41 @@ window.multipleConversationManagementConstructor = function () {
                 "messages": messages,
                 "name": name
             }
+        },
+        checkMessages: function (messages) {
+            if ((messages === null) || (messages === undefined)) {
+                messages = []
+            }
+            $.each(messages, function (index, item) {
+                if (!((item.role === 'system') || (item.role === 'user') || (item.role === 'assistant'))) {
+                    messages[index].role = 'user'
+                    messages[index].content = ''
+                } else {
+                    if (typeof item.content !== 'string') {
+                        messages[index].content = ''
+                    }
+                }
+            });
+            return messages
+        },
+        log: function () {
+            try {
+                var args = [];
+                for (var i = 0; i < arguments.length; i++) {
+                    var arg = arguments[i];
+                    args.push((arg === undefined || arg === null) ? '' : arg);
+                }
+                args.unshift('[Messages]');
+                // console.log(args);
+                Function.prototype.apply.call(console.log, console, args);
+            } catch (e) {
+                console.warn(e);
+            }
         }
     }
+    $.each(multipleConversationManagement.conversations, function (index, item) {
+        $.each(item.messages, function (index, item) {
+            item.type = 'normal';
+        });
+    });
 }
