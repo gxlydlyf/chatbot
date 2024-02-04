@@ -80,7 +80,7 @@ function SettingConfigConstructor() {
         },
         base_url: [
             {
-                'domain': 'aa1.glf.one/v1/chat/completions',//postapi.lbbai.cc
+                'domain': 'api-collect.idcdun.com/v1/chat/completions',//postapi.lbbai.cc
                 'encryption': false,
                 'description': '这是默认的 源地址 ，是免费的。',
                 'headers': {
