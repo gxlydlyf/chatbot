@@ -238,12 +238,10 @@ function SaveMsgConstructor() {
                             if ('delta' in choice) {
                                 var delta = choice.delta;
                                 var role, deltaContent;
-                                if ('role' in delta) {
+                                if ('role' in delta && delta['role']) {
                                     role = delta.role;
-                                    if (!(role === 'system' || role === "user" || role === "assistant")) {
-                                        role = "assistant"
-                                    }
-                                } else if ('content' in delta) {
+                                }
+                                if ('content' in delta && delta['content']) {
                                     deltaContent = delta.content;
                                     i += 1;
                                     if (i < 40) {
