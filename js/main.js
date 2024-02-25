@@ -231,7 +231,7 @@ function SaveMsgConstructor() {
                         break;
                     }
                     var lineJson = JSON.parse(lineStr.substring(5));
-                    console.log(lineJson);
+                    // console.log(lineJson);
                     if ('choices' in lineJson) {
                         if (lineJson.choices.length > 0) {
                             var choice = lineJson.choices[0];
