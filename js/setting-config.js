@@ -90,6 +90,9 @@ function SettingConfigConstructor() {
                     'Content-Type': 'application/json',
                     // 'Host': 'openai.lbbai.cc'
                 },
+                'models': [
+                    "gpt-4"
+                ],
                 'id': 1
             },
             {
