@@ -153,6 +153,9 @@ function SettingConfigConstructor() {
                 'domain': 'nextfree.b3n.fun/api/openai/v1/chat/completions',
                 'encryption': false,
                 'description': '这是 https://nextfree.b3n.fun/ 的接口。',
+                'models': [
+                    "gpt-3.5-turbo"
+                ],
                 'id': 9
             }
         ]
