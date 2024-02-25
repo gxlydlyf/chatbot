@@ -84,15 +84,8 @@ function SettingConfigConstructor() {
                 'encryption': false,
                 'description': '这是默认的 源地址 ，是免费的。',
                 'headers': {
-                    // 'Origin': 'https://26994461491.gpt150.xyz',
-                    // 'Referer': 'https://26994461491.gpt150.xyz/',
-                    // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
                     'Content-Type': 'application/json'
-                    // 'Host': 'openai.lbbai.cc'
                 },
-                'models': [
-                    "gpt-4"
-                ],
                 'id': 1
             },
             {
@@ -137,6 +130,30 @@ function SettingConfigConstructor() {
                 'encryption': false,
                 'description': '这是 https://chat.weijiajin.com/ 的接口。',
                 'id': 6
+            },
+            {
+                'domain': 'api-collect.idcdun.com/v1/chat/completions',
+                'encryption': false,
+                'description': '这是默认的 源地址 ，是免费的。',
+                'headers': {
+                    'Content-Type': 'application/json'
+                },
+                'models': [
+                    "gpt-4"
+                ],
+                'id': 7
+            },
+            {
+                'domain': 'parnix-api.houtar.eu.org/noauth/v1/chat/completions',
+                'encryption': false,
+                'description': '这是 https://parnix-api.houtar.eu.org/ 的接口。',
+                'id': 8
+            },
+            {
+                'domain': 'nextfree.b3n.fun/api/openai/v1/chat/completions',
+                'encryption': false,
+                'description': '这是 https://nextfree.b3n.fun/ 的接口。',
+                'id': 9
             }
         ]
         ,
