@@ -87,7 +87,7 @@ function SettingConfigConstructor() {
                     // 'Origin': 'https://26994461491.gpt150.xyz',
                     // 'Referer': 'https://26994461491.gpt150.xyz/',
                     // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                     // 'Host': 'openai.lbbai.cc'
                 },
                 'models': [
