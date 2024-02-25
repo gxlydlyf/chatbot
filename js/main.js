@@ -231,6 +231,7 @@ function SaveMsgConstructor() {
                         break;
                     }
                     var lineJson = JSON.parse(lineStr.substring(5));
+                    console.log(lineJson);
                     if ('choices' in lineJson) {
                         if (lineJson.choices.length > 0) {
                             var choice = lineJson.choices[0];
@@ -239,6 +240,9 @@ function SaveMsgConstructor() {
                                 var role, deltaContent;
                                 if ('role' in delta) {
                                     role = delta.role;
+                                    if (!(role === 'system' || role === "user" || role === "assistant")) {
+                                        role = "assistant"
+                                    }
                                 } else if ('content' in delta) {
                                     deltaContent = delta.content;
                                     i += 1;
