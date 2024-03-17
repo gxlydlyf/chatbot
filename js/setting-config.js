@@ -157,6 +157,12 @@ function SettingConfigConstructor() {
                     "gpt-3.5-turbo"
                 ],
                 'id': 9
+            },
+            {
+                'domain': 'chat.gking.me/gpt3.5/v1/chat/completions',
+                'encryption': false,
+                'description': '这是 https://chat.gking.me/ 的接口。',
+                'id': 10
             }
         ]
         ,
