@@ -134,7 +134,7 @@ function SettingConfigConstructor() {
             {
                 'domain': 'api-collect.idcdun.com/v1/chat/completions',
                 'encryption': false,
-                'description': '这是默认的 源地址 ，是免费的。',
+                'description': '这是默认的 GPT4源地址 ，是免费的。',
                 'headers': {
                     'Content-Type': 'application/json'
                 },
@@ -159,9 +159,15 @@ function SettingConfigConstructor() {
                 'id': 9
             },
             {
-                'domain': 'chat.gking.me/gpt3.5/v1/chat/completions',
+                'domain': 'api-collect.idcdun.com/v1/chat/completions',
                 'encryption': false,
-                'description': '这是 https://chat.gking.me/ 的接口。',
+                'description': '这是默认的 Gemini源地址 ，是免费的。',
+                'headers': {
+                    'Content-Type': 'application/json'
+                },
+                'models': [
+                    "gemini"
+                ],
                 'id': 10
             }
         ]
