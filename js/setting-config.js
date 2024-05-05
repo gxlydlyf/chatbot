@@ -82,7 +82,7 @@ function SettingConfigConstructor() {
             {
                 'domain': 'api-collect.idcdun.com/v1/chat/completions',
                 'encryption': false,
-                'description': '这是默认的 源地址 ，是免费的。',
+                'description': '这是默认的 gpt-3.5-turbo-16k ，是免费的。',
                 'headers': {
                     'Content-Type': 'application/json'
                 },
@@ -169,6 +169,18 @@ function SettingConfigConstructor() {
                     "gemini"
                 ],
                 'id': 10
+            },
+            {
+                'domain': 'api-collect.idcdun.com/v1/chat/completions',
+                'encryption': false,
+                'description': '这是默认的 gpt-3.5-turbo ，是免费的。',
+                'headers': {
+                    'Content-Type': 'application/json'
+                },
+                'models': [
+                    "gpt-3.5-turbo"
+                ],
+                'id': 11
             }
         ]
         ,
