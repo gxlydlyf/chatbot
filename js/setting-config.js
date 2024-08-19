@@ -80,7 +80,7 @@ function SettingConfigConstructor() {
         },
         base_url: [
             {
-                'domain': 'api-collect.idcdun.com/v1/chat/completions',
+                'domain': 'temp.api.9lf.top/v1/chat/completions',// api-collect.idcdun.com
                 'encryption': false,
                 'description': '这是默认的 gpt-3.5-turbo-16k ，是免费的。',
                 'headers': {
