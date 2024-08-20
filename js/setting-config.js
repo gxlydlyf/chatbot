@@ -82,11 +82,14 @@ function SettingConfigConstructor() {
             {
                 'domain': 'temp.api.9lf.top/v1/chat/completions',// api-collect.idcdun.com
                 'encryption': false,
-                'description': '这是默认的 gpt-3.5-turbo-16k ，是免费的。',
+                'description': '这是默认的 gpt-4o-mini ，是免费的。',
                 'headers': {
                     'Content-Type': 'application/json'
                 },
-                'id': 1
+                'id': 1,
+                'models': [
+                    "gpt-4o-mini"
+                ]
             },
             {
                 'domain': 'api.xyhelper.cn/v1/chat/completions',
