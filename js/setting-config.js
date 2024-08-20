@@ -80,7 +80,7 @@ function SettingConfigConstructor() {
         },
         base_url: [
             {
-                'domain': 'temp.api.9lf.top/v1/chat/completions',// api-collect.idcdun.com
+                'domain': 'api.9lf.top/v1/chat/completions',// api-collect.idcdun.com
                 'encryption': false,
                 'description': '这是默认的 gpt-4o-mini ，是免费的。',
                 'headers': {
